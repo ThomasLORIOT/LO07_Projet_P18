@@ -38,8 +38,6 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `mydb`.`Parents` (
   `idParents` INT NOT NULL AUTO_INCREMENT,
   `Ville` VARCHAR(45) NOT NULL,
-  `Informations` VARCHAR(200) NOT NULL,
-  `Parentscol` VARCHAR(45) NOT NULL,
   `Informations Générales` VARCHAR(200) NULL,
   PRIMARY KEY (`idParents`))
 ENGINE = InnoDB;
