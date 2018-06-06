@@ -41,18 +41,14 @@ class Utilisateur {
     }
 
     function setMDP($MDP) {
-        $this->MDP = $MDP;
-    }
-    
-    function set_password($value) {
-        $this->MDP = password_hash($value, PASSWORD_DEFAULT);
+        $this->MDP = password_hash($MDP, PASSWORD_DEFAULT);
     }
     
     
     function __construct($nom,$email,$MDP){
         $this->nom = $nom;
         $this->email = $email;
-        set_password($MDP);
+        setMDP($MDP);
     }
     
     function __tostring() {

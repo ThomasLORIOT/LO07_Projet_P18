@@ -93,7 +93,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Utilisateur` (
   `idUtilisateur` INT NOT NULL AUTO_INCREMENT,
   `Nom` VARCHAR(45) NOT NULL,
   `Email` VARCHAR(45) NOT NULL,
-  `MDP` VARCHAR(45) NOT NULL,
+  `MDP` VARCHAR(255) NOT NULL,
   `Nounous_idNounous` INT NULL,
   `Parents_idParents` INT NULL,
   PRIMARY KEY (`idUtilisateur`),
