@@ -12,6 +12,7 @@
  * @author Thomas
  */
 require_once '../Functions/Functions_SQL.php';
+require_once 'debug.php';
 
 class Utilisateur {
 
@@ -63,10 +64,11 @@ class Utilisateur {
     }
 
     function addDB() {
-        if (!requete("SELECT  FROM `utilisateur` WHERE Nom = '" . $this->getNom() . "' AND Email = '" . $this->getEmail() . "'")) {
-            requete("INSERT INTO utilisateur (Nom, Email, MDP) VALUES ('" . $this->getNom() . "', '" . $this->getEmail() . "', '" . $this->getMDP() . "')");
-            $this->idUtilisateur = requete("SELECT idUtilisateur FROM `utilisateur` WHERE Nom = '" . $this->getNom() . "' AND Email = '" . $this->getEmail() . "'");
-        }
+        //if (requete("SELECT * FROM `utilisateur` WHERE Email = '" . $this->getEmail() . "'")) {
+            
+        requete("INSERT INTO utilisateur (Nom, Email, MDP) VALUES ('" . $this->getNom() . "', '" . $this->getEmail() . "', '" . $this->getMDP() . "')  SELECT '".$this->getEmail()."' WHERE NOT EXIST (SELECT '".$this->getEmail()."' FROM utilisateur WHERE Email = '".$this->getEmail()."');");
+        $this->idUtilisateur = requete("SELECT idUtilisateur FROM `utilisateur` WHERE Nom = '" . $this->getNom() . "' AND Email = '" . $this->getEmail() . "'");
+        //}
     }
 
     function updateDB() {
@@ -75,10 +77,11 @@ class Utilisateur {
 
 }
 
-$test = new Utilisateur("fra", "fr@bg.fr", "lol");
+$test = new Utilisateur("tris", "rf@bg.fr", "lol");
 $test->addDB();
-echo($test->getIdUtilisateur());
-
-
+//echo($test->getIdUtilisateur());
+echo($test);
+//  echo($test->getIdUtilisateur());
+echo(debug($test->getIdUtilisateur()));
 
 
