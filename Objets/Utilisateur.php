@@ -64,11 +64,20 @@ class Utilisateur {
     }
 
     function addDB() {
-        //if (requete("SELECT * FROM `utilisateur` WHERE Email = '" . $this->getEmail() . "'")) {
-            
-        requete("INSERT INTO utilisateur (Nom, Email, MDP) VALUES ('" . $this->getNom() . "', '" . $this->getEmail() . "', '" . $this->getMDP() . "')  SELECT '".$this->getEmail()."' WHERE NOT EXIST (SELECT '".$this->getEmail()."' FROM utilisateur WHERE Email = '".$this->getEmail()."');");
-        $this->idUtilisateur = requete("SELECT idUtilisateur FROM `utilisateur` WHERE Nom = '" . $this->getNom() . "' AND Email = '" . $this->getEmail() . "'");
-        //}
+        $myDB= connectDB();
+        $result=$myDB->query("SELECT * FROM utilisateur WHERE Email='$this->email'");
+        if($result->num_rows==0){
+            $requete="INSERT INTO utilisateur(nom,email,mdp) VALUES ('$this->nom','$this->email')";
+            //echo($requete);
+            if($myDB->query($requete)==TRUE){
+                echo("Insertion réussie");
+            }else{
+               printf("Error: " ,$result->error);
+            }
+        }else{
+            echo("Utilisateur existant");
+        }
+        mysqli_close($myDB);
     }
 
     function updateDB() {
@@ -77,11 +86,21 @@ class Utilisateur {
 
 }
 
-$test = new Utilisateur("tris", "rf@bg.fr", "lol");
+$test = new Utilisateur("test", "rqsdqsdf@bg.fr", "lol");
 $test->addDB();
+
+$test1 = new Utilisateur("test", "rerfct@bg.fr", "lol");
+$test1->addDB();
 //echo($test->getIdUtilisateur());
-echo($test);
+//echo($test);
 //  echo($test->getIdUtilisateur());
-echo(debug($test->getIdUtilisateur()));
+//echo(debug($test->getIdUtilisateur()));
 
 
+//$requete="SELECT * FROM utilisateur WHERE Email='test@test.test'";
+//$result=$myDB->query($requete);
+//echo($result->num_rows);
+
+$myDB= connectDB();
+$result=$myDB->query("SELECT * FROM utilisateur");
+echo($result->num_rows);
