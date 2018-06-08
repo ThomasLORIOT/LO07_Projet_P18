@@ -9,13 +9,23 @@ define('BD_NAME', 'nounou');
 function connectDB() {
     $myDB = mysqli_connect(HOST, USER, PASSEWORD, BD_NAME) or
             die('Impossible de se connecter à la MySql : ' + mysqli_connect_error());
+    mysqli_set_charset($myDB, "utf8");
     return $myDB;
 }
 
 function requete($requete) {
     $myDB = connectDB();
-    mysqli_query($myDB, $requete);
+    $res = mysqli_query($myDB, $requete);
+    echo("requete : $requete<br>");
+
+    if ($res) {
+        echo('requête bien effectuée<br>');
+    } else {
+        echo("erreur : <br>");
+        echo(mysqli_error($myDB));
+    }
     mysqli_close($myDB);
+    return $res;
 }
 
 /* 
