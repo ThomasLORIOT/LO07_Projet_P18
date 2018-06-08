@@ -12,8 +12,8 @@ and open the template in the editor.
     </head>
     <body>
         <h1>Bienvenue sur Nounou</h1>
-        <a href='view/connexion_form'>Se connecter</a> <br>
-        <a href='view/inscription_form'>S'inscrire</a>
+        <a href='view/connexion_form.php'>Se connecter</a> <br>
+        <a href='view/inscription_form.php'>S'inscrire</a>
         <?php
         // put your code here
         ?>
