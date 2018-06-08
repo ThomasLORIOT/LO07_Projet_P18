@@ -7,8 +7,9 @@ and open the template in the editor.
 <html>
     <head>
         <meta charset="UTF-8">
-        <title></title>
-        <link rel="stylesheet" href="../include/css/bootstrap.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>Welcome</title>
+        <link rel="stylesheet" href="../include/css/bootstrap.min.css">
     </head>
     <body>
         <div class="row">
