@@ -62,20 +62,23 @@ class Utilisateur {
     function __tostring() {
         return "Utilisateur($this->nom, $this->email, $this->MDP)<br>\n";
     }
-
+    
+    //ajout d'un utilisateur dans la base
     function addDB() {
+        //connexion à la base
         $myDB= connectDB();
+        //est-ce que le mail existe dejà
         $result=$myDB->query("SELECT * FROM utilisateur WHERE Email='$this->email'");
-        if($result->num_rows==0){
-            $requete="INSERT INTO utilisateur(nom,email,mdp) VALUES ('$this->nom','$this->email')";
+        if($result->num_rows==0){ //si non 
+            $requete="INSERT INTO utilisateur(nom,email,MDP) VALUES ('$this->nom','$this->email','$this->MDP')";
             //echo($requete);
             if($myDB->query($requete)==TRUE){
-                echo("Insertion réussie");
+                echo("Insertion réussie<br>");
             }else{
-               printf("Error: " ,$result->error);
+                printf("Error: %s <br> " ,$myDB->error);
             }
-        }else{
-            echo("Utilisateur existant");
+        }else{ // si oui 
+            echo("Ajout de l'utilisateur impossible : mail existant<br>");
         }
         mysqli_close($myDB);
     }
@@ -102,5 +105,6 @@ $test1->addDB();
 //echo($result->num_rows);
 
 $myDB= connectDB();
-$result=$myDB->query("SELECT * FROM utilisateur");
-echo($result->num_rows);
+$requete="SELECT * FROM utilisateur";
+$result=$myDB->query($requete);
+echo("Nombre de ligne pour la requete : <br> $requete = : $result->num_rows");
