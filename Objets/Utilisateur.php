@@ -89,7 +89,7 @@ class Utilisateur {
 
 }
 
-$test = new Utilisateur("test", "rqsdqsdf@bg.fr", "lol");
+$test = new Utilisateur("test", "vlad@bg.fr", "lol");
 $test->addDB();
 
 $test1 = new Utilisateur("test", "rerfct@bg.fr", "lol");
