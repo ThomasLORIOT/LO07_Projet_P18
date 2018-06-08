@@ -8,8 +8,12 @@ and open the template in the editor.
     <head>
         <meta charset="UTF-8">
         <title></title>
+        <link rel="stylesheet" href="../include/css/bootstrap.css">
     </head>
     <body>
+        <h1>Bienvenue sur Nounou</h1>
+        <a href='view/connexion_form'>Se connecter</a> <br>
+        <a href='view/inscription_form'>S'inscrire</a>
         <?php
         // put your code here
         ?>
