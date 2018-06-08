@@ -129,14 +129,12 @@ class Garde {
     private function calculPrix() {
         if (!$this->Régulier) {
             $prix = (7 * $this->nbrHeure) + (4 * $this->nbrHeure * ($this->nbr_enfants - 1));
-            $this->setPrix($prix);
         } else if ($this->Langue) {
             $prix = (15 * $this->nbrHeure * $this->nbr_enfants);
-            $this->setPrix($prix);
-        } else if ($this->Régulier) {
+        } else if ($this->Régulier && !$this->Langue) {
             $prix = (10 * $this->nbrHeure) + (5 * $this->nbrHeure * ($this->nbr_enfants - 1));
-            $this->setPrix($prix);
         }
+        $this->setPrix($prix);
     }
 
 }

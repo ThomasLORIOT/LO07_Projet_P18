@@ -58,10 +58,13 @@ class Enfants {
         $this->Parents_IdParents = $Parents_IdParents;
     }
 
-    function __construct($Prénom, $DateDeNaissance, $Restrictions) {
+    function __construct($Prénom, $DateDeNaissance, $Restrictions) {//ne relie pas automatiquement enfant à parent
         $this->Prénom = $Prénom;
         $this->DateDeNaissance = $DateDeNaissance;
         $this->RestrictionsAlimentaires = $Restrictions;
     }
     
+    function __toString() {
+        return "Enfant($this->Prénom;$this->DateDeNaissance;$this->RestrictionsAlimentaires)";
+    }
 }

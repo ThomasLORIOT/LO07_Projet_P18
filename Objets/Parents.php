@@ -16,6 +16,7 @@ class Parents {
     private $idParents;
     private $Ville;
     private $InformationsGénérales;
+    
 
     function getIdParents() {
         return $this->idParents;
@@ -45,5 +46,8 @@ class Parents {
         $this->Ville = $Ville;
         $this->InformationsGénérales = $InformationsGénérales;
     }
-
+    
+    function __toString() {
+        return "Parent($this->Ville;$this->InformationsGénérales)";
+    }
 }

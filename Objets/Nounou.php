@@ -85,4 +85,8 @@ class Nounou {
         $this->Présentation = $Présentation;
         $this->Expérience = $Expérience;
     }
+    
+    function __toString() {
+        return "Nounou($this->Prénom;$this->Portable;$this->Age;$this->Présentation;$this->Expérience)";
+    }
 }

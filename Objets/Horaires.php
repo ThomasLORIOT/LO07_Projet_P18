@@ -54,4 +54,8 @@ class Horaires {
         $this->HeureDébut = $HeureD;
         $this->HeureFin = $HeureF;
     }
+    
+    function __toString() {
+        return "Horaire($this->Date;$this->HeureDébut;$this->HeureFin)";
+    }
 }
