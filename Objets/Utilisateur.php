@@ -115,14 +115,18 @@ class Utilisateur {
     }
 
     function updateDB() {
-        requete("UPDATE utilisateur SET Nom='" . $this->getNom() . "', Email='" . $this->getEmail() . "', MDP='" . $this->getMDP() . "')");
+        requete("UPDATE utilisateur SET Nom='$this->nom', Email='$this->email', MDP='$this->MDP' WHERE idUtilisateur = '$this->idUtilisateur'");
     }
 
 }
 
-$test = new Utilisateur("yolo", "yolo@rer.fr", "lsqsqdqs");
+
+$test = new Utilisateur("vlad@bg.fr", "lol");
 echo($test);
-$test2 = new Utilisateur("vlad@bg.fr", "lol");
-echo($test2);
+$test->setEmail("new@email.fr");
+$test->setMDP("newMDP");
+$test->setNom("lkfdjv");
+echo($test);
+$test->updateDB();
 
 
