@@ -119,14 +119,3 @@ class Utilisateur {
     }
 
 }
-
-
-$test = new Utilisateur("vlad@bg.fr", "lol");
-echo($test);
-$test->setEmail("new@email.fr");
-$test->setMDP("newMDP");
-$test->setNom("lkfdjv");
-echo($test);
-$test->updateDB();
-
-
