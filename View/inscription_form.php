@@ -7,7 +7,7 @@
         <link rel="stylesheet" href="../include/bootstrap/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> <!--load jquery avant js -->
         <script src="../include/bootstrap/js/bootstrap.min.js"></script>        
-        <script type="text/javascript" src="../functions/Functions_JS.js"></script>
+        <script type="text/javascript" src="../Functions/Functions_JS.js"></script>
         <?php 
             include '../functions/Functions_Formulaires.php';
             include '../functions/Functions.php';
