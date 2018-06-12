@@ -60,22 +60,33 @@ function verifMail(champ){
 }
 
 function verifAge(champ){
+   var valeur=true;
    var age = parseInt(champ.value);
    if(isNaN(age) || age < 5 || age > 111){
       surligne(champ, true);
-      return false;
+      valeur = false;
    }
    else{
       surligne(champ, false);
-      return true;
    }
+   return valeur;
 }
 
-function verifForm(f){
+function verifFormInscription(f){
    var nomOk = verif(f.nom);
    var mailOk = verifMail(f.email);
    var mdpOk = verif(f.mdp);
    if(nomOk && mailOk && mdpOk)
+      return true;
+   else {
+      alert("Veuillez remplir correctement tous les champs");
+      return false;
+   }
+}
+function verifFormConnexion(f){
+   var mailOk = verifMail(f.email);
+   var mdpOk = verif(f.mdp);
+   if( mailOk && mdpOk)
       return true;
    else {
       alert("Veuillez remplir correctement tous les champs");

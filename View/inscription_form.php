@@ -21,7 +21,7 @@
         <?php
             $message="Un utilisateur possède déjà ce mail";
             message5Secondes($message,'mailDoublon');        
-            debutForm($method,$action, 'onsubmit="return verifForm(this)"'); 
+            debutForm($method,$action, 'onsubmit="return verifFormInscription(this)"'); 
             formInput('Nom ', 'text', 'nom','onblur="verif(this)"');
             formInput('Mail ','text','email','onblur="verifMail(this)"');
             formInput('Mot de passe ','password','mdp','onblur="verif(this)"');

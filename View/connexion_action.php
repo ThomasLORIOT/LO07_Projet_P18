@@ -12,22 +12,23 @@ print_r($_POST);
 
 //création de l'utilisateur
 $newUser = new Utilisateur($_POST['email'],$_POST['mdp']);
-$verif=$newUser->addDB();
+$verif=$newUser->recupDB();
 
-//si l'utilisateur est bien créer, direction page connexion
-if($verif['ajoutOk']){
-    header('Location: connexion_form.php?coOK=1');
+//récupération de l'utilisateur avec email et mdp
+if($verif['connexion']){
+    session_start();
+    $_SESSION['user']=$newUser;
+    header('Location: home.php');
     exit();
 }
-//Si utilisateur non créer
+//Si email ou mdp incrorrecte 
 else{
-    // si mail existant, le dire
-    if($verif['mailPB']){
-        header('Location: inscription_form.php?mailDoublon=1');
+    if($verif['wrongID']){
+        header('Location: connexion_form.php?wrongID=1');
         exit();
     }
     else{// si autre, retour acceuil avec mot problème connexion
-        header('Location: welcome.php?pbBD=1');
+        header('Location: connexion_form.php?pb=1');
         exit();       
     }
 }

@@ -1,7 +1,7 @@
 
 <html>
     <head>
-        <title>TODO supply a title</title>
+        <title>Connexion</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="../include/bootstrap/css/bootstrap.min.css">
@@ -19,9 +19,16 @@
         <h1> Connexion </h1>    
         
         <?php
+            //message a afficher en fonction de certain cas
             $message="Inscription avec succés, vous pouvez maintenant vous connecter";
             message5Secondes($message,'coOK');
-            debutForm($method,$action, 'onsubmit="return verifForm(this)"');
+            $identifiant="Les identifiants sont éronnés";
+            message5Secondes($identifiant,'wrongID');
+            $message2="Un problème est survenue ! <br> Si cela persiste merci de contacter notre admin";
+            message5Secondes($message2,'pb');
+            
+            //formulaire
+            debutForm($method,$action, 'onsubmit="return verifFormConnexion(this)"');
             formInput('Mail ','text','email','onblur="verifMail(this)"');
             formInput('Mot de passe ','password','mdp','onblur="verif(this)"');
             formAddSubmitReset();
