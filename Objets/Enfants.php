@@ -91,7 +91,7 @@ class Enfants {
             $row = mysqli_fetch_assoc($result);
             $this->idEnfants = $idEnfant;
             $this->Prénom = $row['Prénom'];
-            $this->DateDeNaissance = $row['Date De Naissance'];
+            $this->DateDeNaissance = $row['Date de Naissance'];
             $this->RestrictionsAlimentaires = $row['Restrictions Alimentaires'];
             $this->Parents_IdParents = $row['Parents_idParents'];
         }
