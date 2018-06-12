@@ -23,15 +23,16 @@ function formSelect($nom, $tab) {
     }
     
 //$nom est le label et le nom de la variable, $type est le type d'input souhaité.
-function formInput($nom, $type){
-    echo("<label for='$nom'>$nom : </label>");
-    echo("<input type='$type' name='$nom' id='$nom'/><br/>\n");
+
+function formInput($label, $type, $key, $text=''){
+    echo("<label for='$label'>$label</label>");
+    echo("<input id='$key' type='$type' name='$key' $text/><br/>\n");
 }
 
 //rajoute direcement les bouton submit et reset
 function formAddSubmitReset(){
-    echo("<input type='submit' value='Submit'/>\n");
-    echo("<input type='reset' value='Reset'/>\n");
+    echo("<input id='valider' type='submit' value='Valider'/>\n");
+    echo("<input id='effacer' type='reset' value='Effacer'/>\n");
 }
 
 //1 radio boutton

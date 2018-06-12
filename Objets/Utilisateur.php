@@ -1,16 +1,4 @@
 <?php
-
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- * Description of Utilisateur
- *
- * @author Thomas
- */
 require_once '../Functions/Functions_SQL.php';
 require_once 'debug.php';
 
@@ -24,31 +12,24 @@ class Utilisateur {
     function getIdUtilisateur() {
         return $this->idUtilisateur;
     }
-
     function setIdUtilisateur($idUtilisateur) {
         $this->idUtilisateur = $idUtilisateur;
     }
-
     function getNom() {
         return $this->nom;
     }
-
     function getEmail() {
         return $this->email;
     }
-
     function getMDP() {
         return $this->MDP;
     }
-
     function setNom($nom) {
         $this->nom = $nom;
     }
-
     function setEmail($email) {
         $this->email = $email;
     }
-
     function setMDP($MDP) {
         $this->MDP = password_hash($MDP, PASSWORD_DEFAULT);
     }
@@ -64,27 +45,14 @@ class Utilisateur {
                 break;
         }
     }
-
-    function __construct1($email, $MDP) {
-        $myDB = connectDB();
-        $result = $myDB->query("SELECT * FROM utilisateur WHERE Email = '$email'");
-        if ($result->num_rows == 0) {
-             echo "<script>console.log('connait pas ce mail');</script>";
-        }
-        $row = mysqli_fetch_row($result);
-        $hash = $row[2];
-
-        if (password_verify($MDP, $hash)) {
-            $this->idUtilisateur = $row[0];
-            $this->nom = $row[1];
-            $this->email = $row[3];
-            $this->MDP = $row[2];
-        } else {
-            echo "<script>console.log('mauvais mot de passe');</script>";
-        }
+    //construction lors d'une connexion
+    private function __construct1($email, $MDP) {
+        $this->email=$email;
+        $this->MDP=$MDP;
     }
-
-    function __construct2($nom, $email, $MDP) {
+    
+    //construction lors d'une inscription
+    private function __construct2($nom, $email, $MDP) {
         $this->nom = $nom;
         $this->email = $email;
         $this->setMDP($MDP);
@@ -93,25 +61,49 @@ class Utilisateur {
     function __tostring() {
         return "Utilisateur($this->idUtilisateur, $this->nom, $this->email, $this->MDP)<br>\n";
     }
+    
+    function recupDB(){
+        $verif=array('connexion'=>FALSE,'wrongID'=>FALSE);
+        $myDB = connectDB();
+        $result = $myDB->query("SELECT * FROM utilisateur WHERE Email = '$this->email'");
+        if ($result->num_rows ==1) {
+            $row = mysqli_fetch_row($result);
+            $hash = $row[2];
+            //verification du mot de passe
+            if (password_verify($this->MDP, $hash)) {
+                $this->idUtilisateur = $row[0];
+                $this->nom = $row[1];
+                $this->email = $row[3];
+                $this->MDP = $row[2];
+                $verif['connexion']=TRUE;
+            }else{
+                $verif['wrongID']=TRUE;
+            }
+        }else{
+            $verif['wrongID']=TRUE;
+        }
+        return $verif;
+    }
 
     //ajout d'un utilisateur dans la base
-    function addDB() {
+    function addDB() {//renvoi un tableau de vérité
+        $verif=array('ajoutOk'=>FALSE,'mailPB'=>FALSE);
         //connexion à la base
         $myDB = connectDB();
-        //est-ce que le mail existe dejà
+        //est-ce que le mail est nouveau ?
         $result = $myDB->query("SELECT * FROM utilisateur WHERE Email='$this->email'");
-        if ($result->num_rows == 0) { //si non 
+        if ($result->num_rows == 0) { 
+            //le mail est nouveau : On INSERT le mail
             $requete = "INSERT INTO utilisateur(nom,email,MDP) VALUES ('$this->nom','$this->email','$this->MDP')";
-            //echo($requete);
             if ($myDB->query($requete) == TRUE) {
-                echo("Insertion réussie<br>"); //popup qui dira inscription reussi
-            } else {
-                printf("Error: %s <br> ", $myDB->error);
-            }
-        } else { // si oui 
-            echo("Ajout de l'utilisateur impossible : mail existant<br>");
+                //mail INSERT reussi
+                $verif['ajoutOk']=TRUE;
+            } 
+        }else{
+            $verif['mailPB']=TRUE;
         }
         mysqli_close($myDB);
+        return $verif;
     }
 
     function updateDB() {
@@ -119,3 +111,22 @@ class Utilisateur {
     }
 
 }
+
+//$test = new Utilisateur("yolo", "yolqzdo@rer.fr", "lsqsqdqs");
+//$verif=$test->addDB();
+//print_r($verif);
+//echo("<br>");
+
+
+
+
+//$test2 = new Utilisateur("vladimir.trois@utt.fr", "lolilou");
+//print_r($test2);
+//echo("<br>");
+//
+//$verif = $test2->recupDB();
+//print_r($verif);
+
+
+
+
