@@ -9,8 +9,8 @@
         <script src="../include/bootstrap/js/bootstrap.min.js"></script>        
         <script type="text/javascript" src="../Functions/Functions_JS.js"></script>
         <?php 
-            include '../functions/Functions_Formulaires.php';
-            include '../functions/Functions.php';
+            include '../Functions/Functions_Formulaires.php';
+            include '../Functions/Functions.php';
             $method = "post";
             $action="inscription_action.php";
         ?>
