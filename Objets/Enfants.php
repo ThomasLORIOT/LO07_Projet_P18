@@ -11,6 +11,9 @@
  *
  * @author Thomas
  */
+
+require_once '../Functions/Functions_SQL.php';
+
 class Enfants {
     private $idEnfants;
     private $Prénom;
@@ -57,14 +60,53 @@ class Enfants {
     function setParents_IdParents($Parents_IdParents) {
         $this->Parents_IdParents = $Parents_IdParents;
     }
-
-    function __construct($Prénom, $DateDeNaissance, $Restrictions) {//ne relie pas automatiquement enfant à parent
+    
+    function __construct() {
+        $argv = func_get_args();
+        switch (func_num_args()) {
+            case 4:
+                self::__construct1($argv[0], $argv[1], $argv[2], $argv[3]);
+                break;
+            case 1:
+                self::__construct2($argv[0]);
+                break;
+        }
+    }
+    
+    //pour pouvoir bien insérer la date dans DB, il faut ecrire comme un nombre Année/Mois/jour tout attaché pas de slash : 19970324
+    function __construct1($Prénom, $DateDeNaissance, $Restrictions, $idParents) {
         $this->Prénom = $Prénom;
         $this->DateDeNaissance = $DateDeNaissance;
         $this->RestrictionsAlimentaires = $Restrictions;
+        $this->Parents_IdParents = $idParents;
+    }
+    
+    function __construct2($idEnfant){
+        $myDB = connectDB();
+        $result = $myDB->query("SELECT * FROM enfants WHERE idEnfants = '$idEnfant'");
+        if ($result->num_rows == 0) {
+            echo "<script>console.log('connait pas cet enfant');</script>";
+        } else {
+            $row = mysqli_fetch_row($result);
+            $this->idEnfants = $idEnfant;
+            $this->Prénom = $row[1];
+            $this->DateDeNaissance = $row[2];
+            $this->RestrictionsAlimentaires = $row[3];
+            $this->Parents_IdParents = $row[4];
+        }
     }
     
     function __toString() {
-        return "Enfant($this->Prénom;$this->DateDeNaissance;$this->RestrictionsAlimentaires)";
+        return "Enfant($this->idEnfants;$this->Prénom;$this->DateDeNaissance;$this->RestrictionsAlimentaires;$this->Parents_IdParents)";
+    }
+    
+    function addDB(){
+        $requete = "INSERT INTO enfants(Prénom, `Date De Naissance`, `Restrictions Alimentaires`, Parents_idParents) VALUES ('$this->Prénom', '$this->DateDeNaissance', '$this->RestrictionsAlimentaires', $this->Parents_IdParents)";
+        requete($requete);
+    }
+    
+    function updateDB(){
+        $requete = "UPDATE enfants SET Prénom='$this->Prénom', `Date De Naissance`='$this->DateDeNaissance', `Restrictions Alimentaires`='$this->RestrictionsAlimentaires' WHERE idEnfants = $this->idEnfants";
+        requete($requete);
     }
 }

@@ -16,17 +16,19 @@ function connectDB() {
 function requete($requete) {
     $myDB = connectDB();
     $res = mysqli_query($myDB, $requete);
-    echo("requete : $requete<br>");
+    echo "<script>console.log('requete : $requete');</script><br>\n";
 
     if ($res) {
-        echo('requête bien effectuée<br>');
+        echo "<script>console.log('requête bien effectuée');</script><br>\n";
     } else {
-        echo("erreur : <br>");
-        echo(mysqli_error($myDB));
+        $erreur = mysqli_error($myDB);
+        echo "<script>console.log('erreur : $erreur');</script><br>\n";
+        
     }
     mysqli_close($myDB);
     return $res;
 }
+
 
 /* 
  * To change this license header, choose License Headers in Project Properties.
