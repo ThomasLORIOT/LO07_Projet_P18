@@ -1,4 +1,4 @@
 <?php
-  header('Location: view/welcome.php');
+    header('Location: view/welcome.php');
   exit();
 ?>

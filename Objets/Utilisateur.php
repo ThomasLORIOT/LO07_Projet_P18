@@ -64,8 +64,8 @@ class Utilisateur {
                 break;
         }
     }
-
-    function __construct1($email, $MDP) {
+    //construction lors d'une connexion
+    private function __construct1($email, $MDP) {
         $myDB = connectDB();
         $result = $myDB->query("SELECT * FROM utilisateur WHERE Email = '$email'");
         if ($result->num_rows == 0) {
@@ -83,8 +83,9 @@ class Utilisateur {
             echo "<script>console.log('mauvais mot de passe');</script>";
         }
     }
-
-    function __construct2($nom, $email, $MDP) {
+    
+    //construction lors d'une inscription
+    private function __construct2($nom, $email, $MDP) {
         $this->nom = $nom;
         $this->email = $email;
         $this->setMDP($MDP);
@@ -95,34 +96,38 @@ class Utilisateur {
     }
 
     //ajout d'un utilisateur dans la base
-    function addDB() {
+    function addDB() {//renvoi un tableau de vérité
+        $verif=array('ajoutOk'=>FALSE,'mailPB'=>FALSE);
         //connexion à la base
         $myDB = connectDB();
-        //est-ce que le mail existe dejà
+        //est-ce que le mail est nouveau ?
         $result = $myDB->query("SELECT * FROM utilisateur WHERE Email='$this->email'");
-        if ($result->num_rows == 0) { //si non 
+        if ($result->num_rows == 0) { 
+            //le mail est nouveau : On INSERT le mail
             $requete = "INSERT INTO utilisateur(nom,email,MDP) VALUES ('$this->nom','$this->email','$this->MDP')";
-            //echo($requete);
             if ($myDB->query($requete) == TRUE) {
-                echo("Insertion réussie<br>"); //popup qui dira inscription reussi
-            } else {
-                printf("Error: %s <br> ", $myDB->error);
-            }
-        } else { // si oui 
-            echo("Ajout de l'utilisateur impossible : mail existant<br>");
+                //mail INSERT reussi
+                $verif['ajoutOk']=FALSE;
+            } 
+        }else{
+            $verif['mailPB']=TRUE;
         }
         mysqli_close($myDB);
+        return $verif;
     }
 
     function updateDB() {
         requete("UPDATE utilisateur SET Nom='" . $this->getNom() . "', Email='" . $this->getEmail() . "', MDP='" . $this->getMDP() . "')");
     }
-
 }
 
-$test = new Utilisateur("yolo", "yolo@rer.fr", "lsqsqdqs");
-echo($test);
-$test2 = new Utilisateur("vlad@bg.fr", "lol");
-echo($test2);
+//$test = new Utilisateur("yolo", "yolqdzqzdo@rer.fr", "lsqsqdqs");
+//$verif=$test->addDB();
+//print_r($verif);
+//echo("<br>");
+//$test2 = new Utilisateur("ahhah","vlad@bg.fr", "lol");
+//$verif2=$test2->addDB();
+//print_r($verif2);
 
 
+?>

@@ -10,7 +10,12 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1">  <!--shrink-to-fit=no -->
         <title>Welcome</title>
         <link rel="stylesheet" href="../include/bootstrap/css/bootstrap.min.css">
-        <script>"../include/bootstrap/css/bootstrap.min.js"</script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> <!--load jquery avant js -->
+        <script src="../include/bootstrap/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="../functions/Functions_JS.js"></script>
+        <?php 
+           include '../functions/Functions.php'; 
+        ?>
     </head>
     <body>
         <div class="container">
@@ -19,6 +24,10 @@ and open the template in the editor.
                 <div class="col-sm-4">
                 </div>
                 <div class="col-sm-4">
+                    <?php 
+                        $message="Un problème est survenue ! <br> Si cela persiste merci de contacter notre admin";
+                        message5Secondes($message,'pb');
+                    ?>
                     <button type="button" class="btn" onclick="location.href='connexion_form.php'">Se connecter</button>
                     <button type="button" class="btn" onclick="location.href='inscription_form.php'">S'inscrire</button>
                 </div>
