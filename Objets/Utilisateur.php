@@ -67,14 +67,14 @@ class Utilisateur {
         $myDB = connectDB();
         $result = $myDB->query("SELECT * FROM utilisateur WHERE Email = '$this->email'");
         if ($result->num_rows ==1) {
-            $row = mysqli_fetch_row($result);
-            $hash = $row[2];
+            $row = mysqli_fetch_assoc($result);
+            $hash = $row['MDP'];
             //verification du mot de passe
             if (password_verify($this->MDP, $hash)) {
-                $this->idUtilisateur = $row[0];
-                $this->nom = $row[1];
-                $this->email = $row[3];
-                $this->MDP = $row[2];
+                $this->idUtilisateur = $row['idUtilisateur'];
+                $this->nom = $row['Nom'];
+                $this->email = $row['Email'];
+                $this->MDP = $row['MDP'];
                 $verif['connexion']=TRUE;
             }else{
                 $verif['wrongID']=TRUE;
@@ -117,16 +117,11 @@ class Utilisateur {
 //print_r($verif);
 //echo("<br>");
 
-
-
-
-//$test2 = new Utilisateur("vladimir.trois@utt.fr", "lolilou");
+//$test2 = new Utilisateur("vladimir.trois@gmail.com", "lou");
 //print_r($test2);
 //echo("<br>");
 //
 //$verif = $test2->recupDB();
 //print_r($verif);
 
-
-
-
+?>
