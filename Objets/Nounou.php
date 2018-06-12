@@ -108,14 +108,14 @@ class Nounou {
         if ($result->num_rows == 0) {
             echo "<script>console.log('connait pas cette nounou');</script>";
         } else {
-            $row = mysqli_fetch_row($result);
+            $row = mysqli_fetch_assoc($result);
             $this->idNounous = $idNounous;
-            $this->Prénom = $row[1];
-            $this->Portable = $row[2];
-            $this->Age = $row[3];
-            $this->Présentation = $row[4];
-            $this->Expérience = $row[5];
-            $this->Visible = $row[6];
+            $this->Prénom = $row['Prénom'];
+            $this->Portable = $row['Portable'];
+            $this->Age = $row['Age'];
+            $this->Présentation = $row['Présentation'];
+            $this->Expérience = $row['Expérience'];
+            $this->Visible = $row['Visible'];
         }
     }
 

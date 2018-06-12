@@ -8,6 +8,8 @@ class Utilisateur {
     private $nom;
     private $email;
     private $MDP;
+    private $Nounous_idNounous;
+    private $Parents_idParents;
 
     function getIdUtilisateur() {
         return $this->idUtilisateur;
@@ -59,7 +61,7 @@ class Utilisateur {
     }
 
     function __tostring() {
-        return "Utilisateur($this->idUtilisateur, $this->nom, $this->email, $this->MDP)<br>\n";
+        return "Utilisateur($this->idUtilisateur, $this->nom, $this->email, $this->MDP, $this->Nounous_idNounous, $this->Parents_idParents)<br>\n";
     }
     
     function recupDB(){
@@ -75,6 +77,8 @@ class Utilisateur {
                 $this->nom = $row['Nom'];
                 $this->email = $row['Email'];
                 $this->MDP = $row['MDP'];
+                $this->Parents_idParents = $row['Parents_idParents'];
+                $this->Nounous_idNounous = $row['Nounous_idNounous'];
                 $verif['connexion']=TRUE;
             }else{
                 $verif['wrongID']=TRUE;
@@ -111,7 +115,6 @@ class Utilisateur {
     }
 
 }
-
 //$test = new Utilisateur("yolo", "yolqzdo@rer.fr", "lsqsqdqs");
 //$verif=$test->addDB();
 //print_r($verif);

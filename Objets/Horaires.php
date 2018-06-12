@@ -78,11 +78,11 @@ class Horaires {
         if ($result->num_rows == 0) {
             echo "<script>console.log('connait pas cet horaire');</script>";
         } else {
-            $row = mysqli_fetch_row($result);
+            $row = mysqli_fetch_assoc($result);
             $this->idHoraires = $idHoraire;
-            $this->Date = $row[1];
-            $this->HeureDébut = $row[2];
-            $this->HeureFin = $row[3];
+            $this->Date = $row['Date'];
+            $this->HeureDébut = $row['Heure Début'];
+            $this->HeureFin = $row['Heure Fin'];
         }
     }
         
@@ -100,4 +100,3 @@ class Horaires {
         requete($requete);
     }
 }
-

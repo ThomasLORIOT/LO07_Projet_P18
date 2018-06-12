@@ -13,6 +13,7 @@
  */
 
 require_once '../Functions/Functions_SQL.php';
+require_once 'debug.php';
 
 class Enfants {
     private $idEnfants;
@@ -87,12 +88,12 @@ class Enfants {
         if ($result->num_rows == 0) {
             echo "<script>console.log('connait pas cet enfant');</script>";
         } else {
-            $row = mysqli_fetch_row($result);
+            $row = mysqli_fetch_assoc($result);
             $this->idEnfants = $idEnfant;
-            $this->Prénom = $row[1];
-            $this->DateDeNaissance = $row[2];
-            $this->RestrictionsAlimentaires = $row[3];
-            $this->Parents_IdParents = $row[4];
+            $this->Prénom = $row['Prénom'];
+            $this->DateDeNaissance = $row['Date De Naissance'];
+            $this->RestrictionsAlimentaires = $row['Restrictions Alimentaires'];
+            $this->Parents_IdParents = $row['Parents_idParents'];
         }
     }
     
@@ -110,3 +111,7 @@ class Enfants {
         requete($requete);
     }
 }
+
+
+$test = new Enfants(2);
+echo($test);

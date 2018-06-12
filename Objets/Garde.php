@@ -61,6 +61,9 @@ class Garde {
     }
 
     function getNbr_enfants() {
+        if ($this->nbr_enfants == null){
+            $this->setNbr_enfants();
+        }
         return $this->nbr_enfants;
     }
 
@@ -151,23 +154,23 @@ class Garde {
         if ($result->num_rows == 0) {
             echo "<script>console.log('connait pas cette garde');</script>";
         } else {
-            $row = mysqli_fetch_row($result);
+            $row = mysqli_fetch_assoc($result);
             $this->setConstruct($row); //magouille pour pouvoir dépasser les 20 lignes autorisées pour un constructeur
         }
     }    
     
     //magouille pour pouvoir dépasser les 20 lignes autorisées pour un constructeur
     private function setConstruct($row){
-        $this->Nounous_idNounous = $row[0];
-        $this->Horaires_idHoraires = $row[1];
-        $this->Régulier = $row[2];
-        $this->DateDébut = $row[3];
-        $this->DateFin = $row[4];
-        $this->Langue = $row[5];
-        $this->nbr_enfants = $row[6];
-        $this->Prix = $row[7];
-        $this->Note = $row[8];
-        $this->Appréciation = $row[9];
+        $this->Nounous_idNounous = $row['Nounous_idNounous'];
+        $this->Horaires_idHoraires = $row['Horaires_idHoraires'];
+        $this->Régulier = $row['Régulier'];
+        $this->DateDébut = $row['Date Début'];
+        $this->DateFin = $row['Date Fin'];
+        $this->Langue = $row['Langue'];
+        $this->nbr_enfants = $row['nbr_enfant'];
+        $this->Prix = $row['Prix'];
+        $this->Note = $row['Note'];
+        $this->Appréciation = $row['Appreciation'];
     }
 
     private function calculPrix() {
@@ -199,6 +202,6 @@ class Garde {
     }
     
     function __toString() {
-        return "Garde($this->Nounous_idNounous;$this->Horaires_idHoraires;$this->Régulier;$this->DateDébut;$this->DateFin;$this->Langue;$this->Appréciation)";
+        return "Garde(idNounou = $this->Nounous_idNounous ; idHoriare = $this->Horaires_idHoraires ; Régulier = $this->Régulier ; Date Début = $this->DateDébut; Date Fin = $this->DateFin ; Langue = $this->Langue ; Nombre d'enfants : $this->nbr_enfants ; Prix = $this->Prix ; Note = $this->Note ; Appréciation = $this->Appréciation)";
     }
 }

@@ -66,10 +66,10 @@ class Parents {
         if ($result->num_rows == 0) {
             echo "<script>console.log('connait pas ce parents');</script>";
         } else {
-            $row = mysqli_fetch_row($result);
+            $row = mysqli_fetch_assoc($result);
             $this->idParents = $idParents;
-            $this->Ville = $row[1];
-            $this->InformationsGénérales = $row[2];
+            $this->Ville = $row['Ville'];
+            $this->InformationsGénérales = $row['Informations Générales'];
         }
     }
 
@@ -89,3 +89,4 @@ class Parents {
     }
 
 }
+
