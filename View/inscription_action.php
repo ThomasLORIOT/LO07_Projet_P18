@@ -27,7 +27,7 @@ else{
         exit();
     }
     else{// si autre, retour acceuil avec mot problème connexion
-        header('Location: welcome.php?pbBD=1');
+        header('Location: welcome.php?pb=1');
         exit();       
     }
 }
