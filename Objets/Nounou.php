@@ -92,7 +92,7 @@ class Nounou {
                 break;
         }
     }
-
+    //écrire les portable comme ça "'0611223344'" sinon il supprime le premier 0
     function __construct1($Prénom, $Portable, $Age, $Présentation, $Expérience) {
         $this->setAge($Age);
         $this->Prénom = $Prénom;
@@ -111,7 +111,8 @@ class Nounou {
             $row = mysqli_fetch_assoc($result);
             $this->idNounous = $idNounous;
             $this->Prénom = $row['Prénom'];
-            $this->Portable = $row['Portable'];
+            $temp = $row['Portable'];
+            $this->Portable = "'$temp'";
             $this->Age = $row['Age'];
             $this->Présentation = $row['Présentation'];
             $this->Expérience = $row['Expérience'];
@@ -128,9 +129,20 @@ class Nounou {
         requete($requete);
     }
     
+    //de base toujours invisible à l'insertion
     function updateDB() {
         $requete = "UPDATE nounous SET Prénom='$this->Prénom', Portable=$this->Portable, Age=$this->Age, Présentation='$this->Présentation', Expérience='$this->Expérience', Visible=$this->Visible WHERE idNounous = '$this->idNounous'";
         requete($requete);
     }
+    
+    function getGardeAVenir(){
+        $requete = "SELECT Horaires_idHoraires FROM garde WHERE `Date Fin` > CURRENT_DATE() ORDER BY `Date Début`";
+        $myDB = connectDB();
+        $result = $myDB->query($requete);
+        $row = mysqli_fetch_row($result);
+        $ListeGarde = Array();
+        foreach ($row as $value) {
+            $ListeGarde[] = new Garde($this->idNounous, $value);
+        }
+    }
 }
-

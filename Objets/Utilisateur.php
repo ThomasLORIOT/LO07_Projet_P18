@@ -1,6 +1,5 @@
 <?php
 require_once '../Functions/Functions_SQL.php';
-require_once 'debug.php';
 
 class Utilisateur {
 
@@ -8,8 +7,8 @@ class Utilisateur {
     private $nom;
     private $email;
     private $MDP;
-    private $Nounous_idNounous;
-    private $Parents_idParents;
+    private $idNounous;
+    private $idParents;
 
     function getIdUtilisateur() {
         return $this->idUtilisateur;
@@ -61,7 +60,7 @@ class Utilisateur {
     }
 
     function __tostring() {
-        return "Utilisateur($this->idUtilisateur, $this->nom, $this->email, $this->MDP, $this->Nounous_idNounous, $this->Parents_idParents)<br>\n";
+        return "Utilisateur($this->idUtilisateur, $this->nom, $this->email, $this->MDP, $this->idNounous, $this->idParents)<br>\n";
     }
     
     function recupDB(){
@@ -77,8 +76,8 @@ class Utilisateur {
                 $this->nom = $row['Nom'];
                 $this->email = $row['Email'];
                 $this->MDP = $row['MDP'];
-                $this->Parents_idParents = $row['Parents_idParents'];
-                $this->Nounous_idNounous = $row['Nounous_idNounous'];
+                $this->Parents_idParents = $row['idParents'];
+                $this->Nounous_idNounous = $row['idNounous'];
                 $verif['connexion']=TRUE;
             }else{
                 $verif['wrongID']=TRUE;
@@ -98,8 +97,8 @@ class Utilisateur {
         $result = $myDB->query("SELECT * FROM utilisateur WHERE Email='$this->email'");
         if ($result->num_rows == 0) { 
             //le mail est nouveau : On INSERT le mail
-            $requete = "INSERT INTO utilisateur(nom,email,MDP) VALUES ('$this->nom','$this->email','$this->MDP')";
-            if ($myDB->query($requete) == TRUE) {
+            $requete = "INSERT INTO utilisateur(Nom,Email,MDP) VALUES ('$this->nom','$this->email','$this->MDP')";
+            if (requete($requete) == TRUE) {
                 //mail INSERT reussi
                 $verif['ajoutOk']=TRUE;
             } 
@@ -115,16 +114,3 @@ class Utilisateur {
     }
 
 }
-//$test = new Utilisateur("yolo", "yolqzdo@rer.fr", "lsqsqdqs");
-//$verif=$test->addDB();
-//print_r($verif);
-//echo("<br>");
-
-//$test2 = new Utilisateur("vladimir.trois@gmail.com", "lou");
-//print_r($test2);
-//echo("<br>");
-//
-//$verif = $test2->recupDB();
-//print_r($verif);
-
-?>

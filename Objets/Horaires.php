@@ -100,3 +100,6 @@ class Horaires {
         requete($requete);
     }
 }
+
+$test = new Horaires(20180915, 140000, 180000);
+$test->addDB();
