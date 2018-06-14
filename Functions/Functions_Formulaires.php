@@ -35,6 +35,11 @@ function formAddSubmitReset(){
     echo("<input id='effacer' type='reset' value='Effacer'/>\n");
 }
 
+function textArea($label,$textDefault,$rows,$cols,$text){
+    echo("<label for=$label>$label</label><br/>\n");
+    echo("<textarea name=$label id=$label  rows=$rows cols=$cols onclick='this.focus();this.select()' $text>$textDefault</textarea><br/>\n");
+}
+
 //1 radio boutton
 function Radio($group, $value){
 	echo"  <input type = 'radio' name = '$group' value = '$value' checked='checked' />";

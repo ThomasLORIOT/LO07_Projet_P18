@@ -1,27 +1,3 @@
-function JS3(){
-    //alert ("bonjour a tous les LO07");
-    document.write("JS3");
-}
-function lien1_onmouseover(){
-    alert ("Ne clique pas !!!!!!!!!!!!!!!!!!!!");
-}
-function lien1_onmouseup(){
-    alert("INTERDICTION !!!!!!!!!!!!");
-}
-function nom_focus(){
-    alert("STOOOOOP ");
-}
-function prenom_onchange(input){
-    input.value = input.value.toUpperCase();    
-}
-function age_onchange(input){
-    age=input.value;
-    if (age <= 0 || 140 <= age ) {
-        input.value="";
-        alert("Pas le bonne age");
-    }  
-        
-}
 function jsValidation(){
     $('#validation').show();
     $('#valider').hide();
@@ -46,7 +22,6 @@ function verif(champ){
       return true;
    }
 }
-
 function verifMail(champ){
    var regex = /^[a-zA-Z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$/;
    if(!regex.test(champ.value))   {
@@ -58,7 +33,6 @@ function verifMail(champ){
       return true;
    }
 }
-
 function verifAge(champ){
    var valeur=true;
    var age = parseInt(champ.value);
@@ -71,6 +45,32 @@ function verifAge(champ){
    }
    return valeur;
 }
+function verifTelephone(champ){
+   var valeur=true;
+   var tel = parseInt(champ.value);
+   if(isNaN(tel)){
+      surligne(champ, true);
+      valeur = false;
+   }
+   else{
+      surligne(champ, false);
+   }
+   return valeur;
+}
+function verifTextArea(champ){
+   if(champ.value.length < 30){
+      surligne(champ, true);
+      return false;
+   }
+   else{
+      surligne(champ, false);
+      return true;
+   }
+}
+
+
+
+
 
 function verifFormInscription(f){
    var nomOk = verif(f.nom);
@@ -87,6 +87,19 @@ function verifFormConnexion(f){
    var mailOk = verifMail(f.email);
    var mdpOk = verif(f.mdp);
    if( mailOk && mdpOk)
+      return true;
+   else {
+      alert("Veuillez remplir correctement tous les champs");
+      return false;
+   }
+}
+function verifFormNounou(f){
+   var prenomOk = verif(f.prenom);
+   var ageOk = verifMail(f.age);
+   var telOK = verifTel(f.telephone);
+   var preOk = verifTexteArea(f.presentation);
+   var expOk = verifTexteArea (f.experience);
+   if( prenomOk && ageOk && telOk && preOk && expOk)
       return true;
    else {
       alert("Veuillez remplir correctement tous les champs");

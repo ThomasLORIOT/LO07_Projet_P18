@@ -11,7 +11,7 @@
             include '../Functions/Functions_Formulaires.php'; 
             include '../Functions/Functions.php'; 
             $method = "post";
-            $action="connexion_action.php";
+            $action="";
         ?>
     </head>
     <body>
@@ -28,8 +28,11 @@
             
             //formulaire
             debutForm($method,$action, 'onsubmit="return verifFormNounou(this)"');
-            formInput('Mail ','text','email','onblur="verifMail(this)"');
-            formInput('Mot de passe ','password','mdp','onblur="verif(this)"');
+            formInput('Prénom ','text','prenom','onblur="verif(this)"');
+            formInput('Portable','text','portable','onblur="verifPortable(this)"');
+            formInput('Age','text','age','onblur="verifAge(this)"');
+            textArea('Présentation','Veuillez vous présenter en quelques lignes','10','50','onblur="verifTextArea(this)" ');
+            textArea('Expèrience','Avez-vous des expèriences en tant que Nounou ?','10','50','onblur="verifTextArea(this)"');
             formAddSubmitReset();
             finForm();
         ?> 
