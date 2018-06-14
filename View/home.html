@@ -1,7 +1,8 @@
 <?php
     session_start();
-    $user = $_SESSION['user'];
-    print_r($user);
+    include '../Objets/Utilisateur.php';
+    $user=$_SESSION['idUtilisateur'];
+    echo($_SESSION['idUtilisateur']);
 ?>
 
 <!DOCTYPE html>
@@ -22,9 +23,9 @@ and open the template in the editor.
     </head>
     <body>
         <div>
-        Home Page man !!!!!!!!!!!!! :D
+            Home Page man !!!!!!!!!!!!! :D<br>
         
-        Bienvenue à toi jeune padawen ton login est <?php echo($_SESSION['user']->getIdUtilisateur()) ?>
+        Bienvenue à toi jeune padawen ton login est <?php echo("$_SESSION['idUtilisateur'] <br> $user") ?>
         
         </div>
     </body>
