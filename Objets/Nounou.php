@@ -98,8 +98,7 @@ class Nounou {
         $this->Prénom = $Prénom;
         $this->Portable = $Portable;
         $this->Présentation = $Présentation;
-        $this->Expérience = $Expérience;
-        
+        $this->Expérience = $Expérience;        
     }
 
     function __construct2($idNounous) {

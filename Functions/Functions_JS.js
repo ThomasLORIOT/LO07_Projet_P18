@@ -45,20 +45,19 @@ function verifAge(champ){
    }
    return valeur;
 }
-function verifTelephone(champ){
-   var valeur=true;
+function verifTel(champ){
    var tel = parseInt(champ.value);
-   if(isNaN(tel)){
+   if(isNaN(tel) || champ.value.length !=10){
       surligne(champ, true);
-      valeur = false;
+      return false;
    }
    else{
       surligne(champ, false);
+      return true;
    }
-   return valeur;
 }
-function verifTextArea(champ){
-   if(champ.value.length < 30){
+function verifTextArea(champ,taille){
+   if(champ.value.length < taille){
       surligne(champ, true);
       return false;
    }
@@ -96,7 +95,7 @@ function verifFormConnexion(f){
 function verifFormNounou(f){
    var prenomOk = verif(f.prenom);
    var ageOk = verifMail(f.age);
-   var telOK = verifTel(f.telephone);
+   var telOk = verifTel(f.telephone);
    var preOk = verifTexteArea(f.presentation);
    var expOk = verifTexteArea (f.experience);
    if( prenomOk && ageOk && telOk && preOk && expOk)
@@ -105,4 +104,14 @@ function verifFormNounou(f){
       alert("Veuillez remplir correctement tous les champs");
       return false;
    }
+}
+function addInput(name,div){
+    var input = document.createElement("input");
+    input.name = name;
+    div.appendChild(input);
+}
+function addField(doc) {
+    div=doc.getElementById('champs');
+    addInput("titre[]");
+    div.appendChild(document.createElement("br"));
 }
