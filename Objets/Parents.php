@@ -84,9 +84,8 @@ class Parents {
     }
 
     function updateDB() {
-        $requete = "UPDATE parents SET Ville='$this->Ville', `Informations Générales`='$this->InformationsGénérales' WHERE idParents = '$this->idUtilisateur'";
+        $requete = "UPDATE parents SET Ville='$this->Ville', `Informations Générales`='$this->InformationsGénérales' WHERE idParents = '$this->idParents'";
         requete($requete);
     }
 
 }
-

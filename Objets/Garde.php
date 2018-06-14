@@ -16,13 +16,13 @@ require_once '../Functions/Functions_SQL.php';
 
 class Garde {
 
-    private $Nounous_idNounous;
-    private $Horaires_idHoraires;
+    private $idNounous;
+    private $idHoraires;
     private $Régulier; //bool
     private $DateDébut;
     private $DateFin;
     private $Langue; //bool
-    private $nbr_enfants;
+    private $nbr_enfants_max;
     private $Prix;
     private $Note;
     private $Appréciation;
@@ -36,11 +36,11 @@ class Garde {
         $this->nbrHeure = $nbrHeure;
     }
 
-    function getNounous_idNounous() {
+    function getidNounous() {
         return $this->Nounous_idNounous;
     }
 
-    function getHoraires_idHoraires() {
+    function getidHoraires() {
         return $this->Horaires_idHoraires;
     }
 
@@ -60,7 +60,7 @@ class Garde {
         return $this->Langue;
     }
 
-    function getNbr_enfants() {
+    function getNbr_enfants_max() {
         if ($this->nbr_enfants == null){
             $this->setNbr_enfants();
         }
@@ -79,11 +79,11 @@ class Garde {
         return $this->Appréciation;
     }
 
-    function setNounous_idNounous($Nounous_idNounous) {
+    function setidNounous($Nounous_idNounous) {
         $this->Nounous_idNounous = $Nounous_idNounous;
     }
 
-    function setHoraires_idHoraires($Horaires_idHoraires) {
+    function setidHoraires($Horaires_idHoraires) {
         $this->Horaires_idHoraires = $Horaires_idHoraires;
     }
 
@@ -104,7 +104,7 @@ class Garde {
     }
 
     private function setNbr_enfants() {
-        $requete = "SELECT * FROM enfants_gard WHERE Garde_Nounous_idNounous=$this->Nounous_idNounous AND Garde_Horaires_idHoraires";
+        $requete = "SELECT * FROM enfants_gard WHERE idNounous=$this->idNounous AND idHoraires=$this->idHoraires";
         $myDB = connectDB();
         $result = $myDB->query($requete);
         $this->nbr_enfants = $result->num_rows;
@@ -127,8 +127,8 @@ class Garde {
     function __construct() {
         $argv = func_get_args();
         switch (func_num_args()) {
-            case 7:
-                self::__construct1($argv[0], $argv[1], $argv[2], $argv[3], $argv[4], $argv[5], $argv[6]);
+            case 8:
+                self::__construct1($argv[0], $argv[1], $argv[2], $argv[3], $argv[4], $argv[5], $argv[6], $argv[7]);
                 break;
             case 2:
                 self::__construct2($argv[0], $argv[1]);
@@ -137,20 +137,21 @@ class Garde {
     }
     
     //pour pouvoir bien insérer la date dans DB, il faut ecrire comme un INT Année/Mois/jour tout attaché pas de slash : 19970324 (24 mars 1997)
-    function __construct1($idNounous, $idHoraires, $Régulier, $DateD, $DateF, $Lanque, $Appréciation) { //peut être ajouter une vérification que ces id existent
-        $this->Nounous_idNounous = $idNounous;
-        $this->Horaires_idHoraires = $idHoraires;
+    function __construct1($idNounous, $idHoraires, $Régulier, $DateD, $DateF, $Lanque, $nbr_enfants_max, $Appréciation) { //peut être ajouter une vérification que ces id existent
+        $this->idNounous = $idNounous;
+        $this->idHoraires = $idHoraires;
         $this->Régulier = $Régulier;
         $this->DateDébut = $DateD;
         $this->DateFin = $DateF;
         $this->Langue = $Lanque;
         $this->Appréciation = $Appréciation;
-        $this->setNbr_enfants();
+        $this->nbr_enfants_max = $nbr_enfants_max;
+        //$this->calculPrix();
     }
     
     function __construct2($idNounous, $idHoraire){
         $myDB = connectDB();
-        $result = $myDB->query("SELECT * FROM garde WHERE Horaires_idHoraires = '$idHoraire' AND Nounous_idNounous = '$idNounous'");
+        $result = $myDB->query("SELECT * FROM garde WHERE idHoraires = '$idHoraire' AND idNounous = '$idNounous'");
         if ($result->num_rows == 0) {
             echo "<script>console.log('connait pas cette garde');</script>";
         } else {
@@ -161,13 +162,13 @@ class Garde {
     
     //magouille pour pouvoir dépasser les 20 lignes autorisées pour un constructeur
     private function setConstruct($row){
-        $this->Nounous_idNounous = $row['Nounous_idNounous'];
-        $this->Horaires_idHoraires = $row['Horaires_idHoraires'];
+        $this->idNounous = $row['idNounous'];
+        $this->idHoraires = $row['idHoraires'];
         $this->Régulier = $row['Régulier'];
         $this->DateDébut = $row['Date Début'];
         $this->DateFin = $row['Date Fin'];
         $this->Langue = $row['Langue'];
-        $this->nbr_enfants = $row['nbr_enfant'];
+        $this->nbr_enfants_max = $row['nbr_enfant_max'];
         $this->Prix = $row['Prix'];
         $this->Note = $row['Note'];
         $this->Appréciation = $row['Appreciation'];
@@ -185,23 +186,27 @@ class Garde {
     }
     
     function addDB(){
-        $requete = "INSERT INTO garde(Nounous_idNounous, Horaires_idHoraires, Régulier, `Date Début`, `Date Fin`, Langue, Appreciation) VALUES ($this->Nounous_idNounous, $this->Horaires_idHoraires, $this->Régulier, $this->DateDébut, $this->DateFin, $this->Langue, '$this->Appréciation')";
+        $requete = "INSERT INTO garde(idNounous, idHoraires, Régulier, `Date Début`, `Date Fin`, Langue, nbr_enfant_max, Appreciation) VALUES ($this->idNounous, $this->idHoraires, $this->Régulier, $this->DateDébut, $this->DateFin, $this->Langue, $this->nbr_enfants_max, '$this->Appréciation')";
         requete($requete);
     }
     
     //celle ci n'update pas les dates, à utilisé quand elles ne sont pas à update
     function updateDB(){
-        $requete = "UPDATE garde SET Nounous_idNounous=$this->Nounous_idNounous, Horaires_idHoraires=$this->Horaires_idHoraires, Régulier=$this->Régulier, Langue=$this->Langue, Appreciation='$this->Appréciation' WHERE Horaires_idHoraires = $this->Horaires_idHoraires AND Nounous_idNounous=$this->Nounous_idNounous";
+        $requete = "UPDATE garde SET idNounous=$this->idNounous, idHoraires=$this->idHoraires, Régulier=$this->Régulier, Langue=$this->Langue, Appreciation='$this->Appréciation' WHERE idHoraires = $this->idHoraires AND idNounous=$this->idNounous";
         requete($requete);
     }
     
     //celle ci update tout, utilisable uniquement si les dates Début et Fin ont changées 
     function updateDBDate(){
-        $requete = "UPDATE garde SET Nounous_idNounous=$this->Nounous_idNounous, Horaires_idHoraires=$this->Horaires_idHoraires, Régulier=$this->Régulier, `Date Début`=$this->DateDébut, `Date Fin`=$this->DateFin, Langue=$this->Langue, Appreciation='$this->Appréciation' WHERE Horaires_idHoraires = $this->Horaires_idHoraires AND Nounous_idNounous=$this->Nounous_idNounous";
+        $requete = "UPDATE garde SET idNounous=$this->idNounous, idHoraires=$this->idHoraires, Régulier=$this->Régulier, `Date Début`=$this->DateDébut, `Date Fin`=$this->DateFin, Langue=$this->Langue, Appreciation='$this->Appréciation' WHERE idHoraires = $this->idHoraires AND idNounous=$this->idNounous";
         requete($requete);
     }
     
     function __toString() {
-        return "Garde(idNounou = $this->Nounous_idNounous ; idHoriare = $this->Horaires_idHoraires ; Régulier = $this->Régulier ; Date Début = $this->DateDébut; Date Fin = $this->DateFin ; Langue = $this->Langue ; Nombre d'enfants : $this->nbr_enfants ; Prix = $this->Prix ; Note = $this->Note ; Appréciation = $this->Appréciation)";
+        return "Garde(idNounou = $this->idNounous ; idHoriare = $this->idHoraires ; Régulier = $this->Régulier ; Date Début = $this->DateDébut; Date Fin = $this->DateFin ; Langue = $this->Langue ; Nombre d'enfants maximum  : $this->nbr_enfants_max ; Prix = $this->Prix ; Note = $this->Note ; Appréciation = $this->Appréciation)<br>\n";
     }
 }
+
+$test = new Garde(4, 2, 0, 20180707, 20180808, 0, 10, "fgsdfgfdg");
+echo($test);
+$test->addDB();
