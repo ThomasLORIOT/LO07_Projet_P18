@@ -135,6 +135,11 @@ class Nounou {
         requete($requete);
     }
     
+    function dropDB(){
+        $requete = "DELETE FROM nounous WHERE idNounous=$this->idNounous";
+        requete($requete);
+    }
+    
     function getGardeAVenir(){
         $requete = "SELECT Horaires_idHoraires FROM garde WHERE `Date Fin` > CURRENT_DATE() ORDER BY `Date Début`";
         $myDB = connectDB();
@@ -144,5 +149,6 @@ class Nounou {
         foreach ($row as $value) {
             $ListeGarde[] = new Garde($this->idNounous, $value);
         }
+        return $ListeGarde[];
     }
 }

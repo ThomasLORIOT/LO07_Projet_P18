@@ -98,7 +98,7 @@ class Enfants {
     }
     
     function __toString() {
-        return "Enfant($this->idEnfants;$this->Prénom;$this->DateDeNaissance;$this->RestrictionsAlimentaires;$this->IdParents)";
+        return "Enfant($this->idEnfants;$this->Prénom;$this->DateDeNaissance;$this->RestrictionsAlimentaires;$this->IdParents)<br>\n";
     }
     
     function addDB(){

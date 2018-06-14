@@ -87,7 +87,7 @@ class Horaires {
     }
         
     function __toString() {
-        return "Horaire($this->idHoraires;$this->Date;$this->HeureDébut;$this->HeureFin)";
+        return "Horaire($this->idHoraires;$this->Date;$this->HeureDébut;$this->HeureFin)<br>\n";
     }
     
     function addDB(){

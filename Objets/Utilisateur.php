@@ -9,6 +9,22 @@ class Utilisateur {
     private $MDP;
     private $idNounous;
     private $idParents;
+    
+    function getIdNounous() {
+        return $this->idNounous;
+    }
+
+    function getIdParents() {
+        return $this->idParents;
+    }
+
+    function setIdNounous($idNounous) {
+        $this->idNounous = $idNounous;
+    }
+
+    function setIdParents($idParents) {
+        $this->idParents = $idParents;
+    }
 
     function getIdUtilisateur() {
         return $this->idUtilisateur;
@@ -44,6 +60,9 @@ class Utilisateur {
             case 3:
                 self::__construct2($argv[0], $argv[1], $argv[2]);
                 break;
+            case 1:
+                self::__construct3($argv[0]);
+                break;
         }
     }
     //construction lors d'une connexion
@@ -57,6 +76,24 @@ class Utilisateur {
         $this->nom = $nom;
         $this->email = $email;
         $this->setMDP($MDP);
+        $this->idParents = 0;
+        $this->idNounous = 0;
+    }
+    
+    private function __construct3($idUtilisateur){
+        $myDB = connectDB();
+        $result = $myDB->query("SELECT * FROM utilisateur WHERE idUtilisateur = '$idUtilisateur'");
+        if ($result->num_rows == 0) {
+            echo "<script>console.log('connait pas cet utilisateur');</script>";
+        } else {
+            $row = mysqli_fetch_assoc($result);
+            $this->idUtilisateur = $idUtilisateur;
+            $this->nom = $row['Nom'];
+            $this->email = $row['Email'];
+            $this->MDP = $row['MDP'];
+            $this->idNounous = $row['idNounous'];
+            $this->idParents = $row['idParents'];
+        }
     }
 
     function __tostring() {
@@ -112,5 +149,5 @@ class Utilisateur {
     function updateDB() {
         requete("UPDATE utilisateur SET Nom='$this->nom', Email='$this->email', MDP='$this->MDP' WHERE idUtilisateur = '$this->idUtilisateur'");
     }
-
+    
 }
