@@ -83,7 +83,7 @@ class Langue {
     }
     
     function updateDB(){
-        $requete = "UPDATE langues SET Nom = $this->langue, Visible = $this->visible WHERE idLangue=$this->idLangue";
+        $requete = "UPDATE langues SET Nom = '$this->langue', Visible = $this->visible WHERE idLangue=$this->idLangue";
         requete($requete);
     }
     
@@ -92,7 +92,3 @@ class Langue {
         requete($requete);
     }
 }
-
-$test = new Langue(1);
-echo($test);
-

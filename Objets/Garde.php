@@ -127,8 +127,8 @@ class Garde {
     function __construct() {
         $argv = func_get_args();
         switch (func_num_args()) {
-            case 8:
-                self::__construct1($argv[0], $argv[1], $argv[2], $argv[3], $argv[4], $argv[5], $argv[6], $argv[7]);
+            case 7:
+                self::__construct1($argv[0], $argv[1], $argv[2], $argv[3], $argv[4], $argv[5], $argv[6]);
                 break;
             case 2:
                 self::__construct2($argv[0], $argv[1]);
@@ -137,14 +137,13 @@ class Garde {
     }
     
     //pour pouvoir bien insérer la date dans DB, il faut ecrire comme un INT Année/Mois/jour tout attaché pas de slash : 19970324 (24 mars 1997)
-    function __construct1($idNounous, $idHoraires, $Régulier, $DateD, $DateF, $Lanque, $nbr_enfants_max, $Appréciation) { //peut être ajouter une vérification que ces id existent
+    function __construct1($idNounous, $idHoraires, $Régulier, $DateD, $DateF, $Lanque, $nbr_enfants_max) { //peut être ajouter une vérification que ces id existent
         $this->idNounous = $idNounous;
         $this->idHoraires = $idHoraires;
         $this->Régulier = $Régulier;
         $this->DateDébut = $DateD;
         $this->DateFin = $DateF;
         $this->Langue = $Lanque;
-        $this->Appréciation = $Appréciation;
         $this->nbr_enfants_max = $nbr_enfants_max;
         //$this->calculPrix();
     }
@@ -206,7 +205,3 @@ class Garde {
         return "Garde(idNounou = $this->idNounous ; idHoriare = $this->idHoraires ; Régulier = $this->Régulier ; Date Début = $this->DateDébut; Date Fin = $this->DateFin ; Langue = $this->Langue ; Nombre d'enfants maximum  : $this->nbr_enfants_max ; Prix = $this->Prix ; Note = $this->Note ; Appréciation = $this->Appréciation)<br>\n";
     }
 }
-
-$test = new Garde(4, 2, 0, 20180707, 20180808, 0, 10, "fgsdfgfdg");
-echo($test);
-$test->addDB();

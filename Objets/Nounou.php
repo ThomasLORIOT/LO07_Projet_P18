@@ -12,6 +12,9 @@
  * @author Thomas
  */
 require_once '../Functions/Functions_SQL.php';
+require_once 'debug.php';
+require_once 'Garde.php';
+require_once 'Langue.php';
 
 class Nounou {
 
@@ -92,13 +95,14 @@ class Nounou {
                 break;
         }
     }
+
     //écrire les portable comme ça "'0611223344'" sinon il supprime le premier 0
     function __construct1($Prénom, $Portable, $Age, $Présentation, $Expérience) {
         $this->setAge($Age);
         $this->Prénom = $Prénom;
         $this->Portable = $Portable;
         $this->Présentation = $Présentation;
-        $this->Expérience = $Expérience;        
+        $this->Expérience = $Expérience;
     }
 
     function __construct2($idNounous) {
@@ -122,32 +126,74 @@ class Nounou {
     function __toString() {
         return "Nounou($this->idNounous;$this->Prénom;$this->Portable;$this->Age;$this->Présentation;$this->Expérience;$this->Visible)<br>\n";
     }
-    
+
     function addDB() {
+        $result = FALSE;
         $requete = "INSERT INTO nounous(Prénom, Portable, Age, Présentation, Expérience, Visible) Values ('$this->Prénom', $this->Portable, $this->Age, '$this->Présentation', '$this->Expérience', 0)";
-        requete($requete);
+        $myDB = connectDB();
+        $res = mysqli_query($myDB, $requete);
+        echo "<script>console.log('requete : $requete');</script><br>\n";
+
+        if ($res) {
+            echo "<script>console.log('requête bien effectuée');</script><br>\n";
+            $result = TRUE;
+        } else {
+            $erreur = mysqli_error($myDB);
+            echo "<script>console.log('erreur : $erreur');</script><br>\n";
+        }
+        mysqli_close($myDB);
+        return $result;
     }
-    
+
     //de base toujours invisible à l'insertion
     function updateDB() {
         $requete = "UPDATE nounous SET Prénom='$this->Prénom', Portable=$this->Portable, Age=$this->Age, Présentation='$this->Présentation', Expérience='$this->Expérience', Visible=$this->Visible WHERE idNounous = '$this->idNounous'";
         requete($requete);
     }
-    
-    function dropDB(){
+
+    function dropDB() {
         $requete = "DELETE FROM nounous WHERE idNounous=$this->idNounous";
         requete($requete);
     }
-    
-    function getGardeAVenir(){
-        $requete = "SELECT Horaires_idHoraires FROM garde WHERE `Date Fin` > CURRENT_DATE() ORDER BY `Date Début`";
+
+    //return le liste de garde que la nounou va faire
+    function getGardeAVenir() {
+        $requete = "SELECT idHoraires FROM garde WHERE `Date Fin` > CURRENT_DATE() ORDER BY `Date Début`";
         $myDB = connectDB();
         $result = $myDB->query($requete);
         $row = mysqli_fetch_row($result);
+
         $ListeGarde = Array();
         foreach ($row as $value) {
             $ListeGarde[] = new Garde($this->idNounous, $value);
         }
-        return $ListeGarde[];
+        return $ListeGarde;
     }
+
+    //ajoute à la db le fait que la nounou sait parlé une langue
+    function addParle($idLangue, $niveau) {
+        $requete = "INSERT INTO parle VALUES ($idLangue, $this->idNounous, '$niveau')";
+        requete($requete);
+    }
+
+    //return la liste des langues parlées de la nounou
+    function getLangue() {
+        $requete = "SELECT idLangue FROM parle WHERE idNounous=$this->idNounous";
+        $myDB = connectDB();
+        $result = $myDB->query($requete);
+        $row = mysqli_fetch_row($result);
+
+        $ListeLangue = Array();
+        foreach ($row as $value) {
+            $ListeLangue[] = new Langue($value);
+        }
+        return $ListeLangue;
+    }
+
+}
+
+$test = new Nounou(4);
+echo($test);
+foreach ($test->getLangue() as $value) {
+    echo($value);
 }
