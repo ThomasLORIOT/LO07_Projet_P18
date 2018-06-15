@@ -12,6 +12,7 @@
  * @author Thomas
  */
 require_once '../Functions/Functions_SQL.php';
+require_once 'Enfants.php';
 
 class Parents {
 
@@ -79,8 +80,21 @@ class Parents {
 
     //ajout d'un parent dans la base
     function addDB() {
+        $result = FALSE;
         $requete = "INSERT INTO parents(Ville, `Informations Générales`) VALUES ('$this->Ville','$this->InformationsGénérales') ";
-        requete($requete);
+        $myDB = connectDB();
+        $res = mysqli_query($myDB, $requete);
+        echo "<script>console.log('requete : $requete');</script><br>\n";
+
+        if ($res) {
+            echo "<script>console.log('requête bien effectuée');</script><br>\n";
+            $result = TRUE;
+        } else {
+            $erreur = mysqli_error($myDB);
+            echo "<script>console.log('erreur : $erreur');</script><br>\n";
+        }
+        mysqli_close($myDB);
+        return $result;
     }
 
     function updateDB() {
@@ -88,4 +102,26 @@ class Parents {
         requete($requete);
     }
 
+    function addEnfant($Prénom, $DateDeNaissance, $Restrictions) {
+        $enfant = new Enfants($Prénom, $DateDeNaissance, $Restrictions, $this->idParents);
+        $enfant->addDB();
+    }
+
+    //return liste de ses enfants
+    function getEnfant() {
+        $requete = "SELECT idEnfants FROM enfants WHERE idParents=$this->idParents";
+        $myDB = connectDB();
+        $result = $myDB->query($requete);
+        $row = mysqli_fetch_row($result);
+        $ListeEnfant = Array();
+        foreach ($row as $value) {
+            $ListeEnfant[] = new Enfants($value);
+        }
+        return $ListeEnfant;
+    }
+
 }
+
+$test = new Parents(1);
+echo($test);
+$test->addEnfant("Alexandre", 19970408, "pas de sucre");
