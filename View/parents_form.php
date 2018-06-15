@@ -12,50 +12,62 @@
             include '../Functions/Functions.php'; 
             $method = "post";
             $action="";
-            if(!empty($_POST))                print_r($_POST);
+            if(!empty($_POST)){
+                echo ("<pre>");
+                print_r($_POST);
+                echo ("</pre>");
+            }
         ?>
     </head>
     <body>
         <div class="container">
             <h1 class="text-center">Inscription Parent</h1>
             <div class="block-center">
+                <div>
                 <?php            
                     //formulaire
                     debutForm($method,$action, 'onsubmit="return verifFormParents(this)"');
                     formInput('Ville ','text','ville','onblur="verif(this)"');
                     textArea('info',"Avez-vous des éléments importants pour l'organisation",'5','60','onblur="verifTextArea(this)" ');
+                    formSelect('nbEnfants',"Combien d'enfant avez vous ?", array(1,2,3,4,5,6,7,8,9,10), 'onchange="ajouteEnfant(this)"');
                 ?>
-                <div id='enfants'>
-                    <fieldset id='enfant[]' class="scheduler-border">
-                        <legend  class="scheduler-border">Enfants</legend>
-                        <div  class="control-group">
-                            <?php
-                               formInput('Nom', 'text', 'nom[]', 'onblur="verif(this)"');
-                               formInput('Date de naissance', 'date[]', 'date', 'onblur="verif(this)"');
-                               textArea('restrictions[]',"L'enfant à t'il des restrictions alimentaires ?",'5','60','onblur="verifTextArea(this,0)" ');
-                            ?>
-                        </div>
+                </div>
+                <div  id='enfants'>                    
+                    <fieldset id=0 class='form-check'>
+                        <legend  class="label-control" value="Enfant">Enfant</legend>
+                        <?php
+                           formInput('Nom', 'text', 'nom[]', 'onblur="verif(this)"');
+                           formInput('Date de naissance', 'date', 'date[]', 'onblur="verif(this)"');
+                           textArea('restrictions[]',"L'enfant à t'il des restrictions alimentaires ?",'5','60','onblur="verifTextArea(this,0)" ');
+                        ?>                        
                     </fieldset>
                 </div>
-                    <?php
+                <script type="text/javascript" >
+                        var count=0;
+                        var div = document.getElementById('enfants');
+                        var field=document.getElementById(0); 
+                        function ajout(){
+                            count++;
+                            clone=div.cloneNode(field);
+                            clone.id=count;
+                            div.appendChild(clone);                               
+                        }
+                        function enlever(){
+                            if(count>0){
+                                div.removeChild(div.children[count]);
+                                count--;
+                            }
+                        }
+                </script>                    
+                <div class="text-center">
+                    <input type="button" onclick="ajout()" class='btn btn-default' value="Ajouter un champ enfant"/>
+                    <input type="button" onclick="enlever()" class='btn btn-default' value="Enlever le champ enfant"/>
+                </div>
+                
+                <?php
                     formAddSubmitReset();
                     finForm();
                 ?>
-                <input type="button" onclick="ajout()" class='btn btn-default' value="ajouter un champ"/>
-                <input type="button" onclick="enlever()" class='btn btn-default' value="enlever le champ"/>
-                    <script type="text/javascript" >
-                            var field = document.getElementById('enfants');
-                            var div1=document.getElementById('enfant[]');
-                            function ajout(){
-                                clone=div1.cloneNode(true);
-                                clone.id='enfant[]';
-                                field.appendChild(clone)                                
-                            }
-                            function enlever(){
-                                child=document.getElementById('enfant[]')
-                                field.removeChild(child);
-                            }
-                    </script>
             </div>
         </div>                
     </body>

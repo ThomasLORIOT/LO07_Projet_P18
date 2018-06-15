@@ -12,14 +12,13 @@ function finForm(){
 
 
 //$nom est le label et le nom de la variable, $tab est la liste des options.
-function formSelect($nom, $tab) {
-        echo("<label>$nom : </label>");
-        echo("<select name='$nom'>");
+function formSelect($id,$label, $tab, $text='') {
+        echo("<label class='control-label'>$label</label>\n");
+        echo("<select class='form-control' id='$id', $text>");
         foreach ($tab as $value) {
-            echo("<option>$value</option>");
+            echo("<option value='$value'>$value</option>");
         }
         echo("</select>");
-        echo("<br/>\n");
     }
     
 //$nom est le label et le nom de la variable, $type est le type d'input souhaité.
