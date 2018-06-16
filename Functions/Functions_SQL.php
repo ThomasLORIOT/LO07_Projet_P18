@@ -23,12 +23,36 @@ function requete($requete) {
     } else {
         $erreur = mysqli_error($myDB);
         echo "<script>console.log('erreur : $erreur');</script><br>\n";
-        
     }
     mysqli_close($myDB);
     return $res;
 }
 
+function fetchRowRequete($requete) {
+    $myDB = connectDB();
+    $result = $myDB->query($requete);
+    if ($result) {
+        echo "<script>console.log('requête bien effectuée');</script><br>\n";
+    } else {
+        $erreur = mysqli_error($myDB);
+        echo "<script>console.log('erreur : $erreur');</script><br>\n";
+    }
+    $row = mysqli_fetch_row($result);
+    return $row;
+}
+
+function fetchAllRequete($requete){
+    $myDB = connectDB();
+    $result = $myDB->query($requete);
+    if ($result) {
+        echo "<script>console.log('requête bien effectuée');</script><br>\n";
+    } else {
+        $erreur = mysqli_error($myDB);
+        echo "<script>console.log('erreur : $erreur');</script><br>\n";
+    }
+    $row = mysqli_fetch_all($result);
+    return $row;
+}
 
 /* 
  * To change this license header, choose License Headers in Project Properties.

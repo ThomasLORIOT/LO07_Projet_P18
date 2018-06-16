@@ -23,7 +23,7 @@ function nombreCandidatureNounous() {
 
 //retourne liste des nounous qui attendent d'être validées et celles invisibles
 function listeCandidature() {
-    $requete = "SELECT idNounous FROM nounous";
+    $requete = "SELECT idNounous FROM nounous WHERE Visible = 0";
     $myDB = connectDB();
     $result = $myDB->query($requete);
     $row = mysqli_fetch_row($result);
@@ -129,4 +129,12 @@ function listeGardeNounou($idNounou){
         $listeGarde[] = new Garde($idNounou, $value);
     }
     return $listeGarde;
+}
+
+function revenuTotalNounou($idNounou){
+    $requete = "SELECT SUM(Prix) FROM garde WHERE idNounous = $idNounou AND Prix != NULL";
+    $myDB = connectDB();
+    $result = $myDB->query($requete);
+    $row = mysqli_fetch_row($result);
+    return $row[0];
 }
