@@ -147,7 +147,16 @@ class Utilisateur {
     }
 
     function updateDB() {
-        requete("UPDATE utilisateur SET Nom='$this->nom', Email='$this->email', MDP='$this->MDP', idNounous = $this->idNounous, idParents = $this->idParents WHERE idUtilisateur = '$this->idUtilisateur'");
+        if ($this->idNounous != NULL && $this->idParents != NULL){
+            $requete = "UPDATE utilisateur SET Nom='$this->nom', Email='$this->email', MDP='$this->MDP', idNounous = $this->idNounous, idParents = $this->idParents WHERE idUtilisateur = '$this->idUtilisateur'";
+        } else if ($this->idNounous != NULL && $this->idParents == NULL){
+            $requete = "UPDATE utilisateur SET Nom='$this->nom', Email='$this->email', MDP='$this->MDP', idNounous = $this->idNounous WHERE idUtilisateur = '$this->idUtilisateur'";
+        } else if ($this->idParents != NULL && $this->idNounous == NULL){
+            $requete = "UPDATE utilisateur SET Nom='$this->nom', Email='$this->email', MDP='$this->MDP', idParents = $this->idParents WHERE idUtilisateur = '$this->idUtilisateur'";
+        } else {
+            $requete = "UPDATE utilisateur SET Nom='$this->nom', Email='$this->email', MDP='$this->MDP' WHERE idUtilisateur = '$this->idUtilisateur'";
+        }
+        requete($requete);
     }
     
 }
