@@ -1,4 +1,3 @@
-
 <html>
     <head>
         <title>Connexion</title>
@@ -16,24 +15,31 @@
         ?>
     </head>
     <body>
-        <h1> Connexion </h1>    
-        
-        <?php
-            //message a afficher en fonction de certain cas
-            $message="Inscription avec succés, vous pouvez maintenant vous connecter";
-            message5Secondes($message,'coOK');
-            $identifiant="Les identifiants sont éronnés";
-            message5Secondes($identifiant,'wrongID');
-            $message2="Un problème est survenue ! <br> Si cela persiste merci de contacter notre admin";
-            message5Secondes($message2,'pb');
-            
-            //formulaire
-            debutForm($method,$action, 'onsubmit="return verifFormConnexion(this)"');
-            formInput('Mail ','text','email','onblur="verifMail(this)"');
-            formInput('Mot de passe ','password','mdp','onblur="verif(this)"');
-            formAddSubmitReset();
-            finForm();
-        ?> 
+        <div class="container">
+            <h1 class="text-center">Connexion</h1>
+            <div class="row">
+                <div class="col-sm-4">
+                </div>
+                <div class="col-sm-4">
+                    <?php
+                        //message a afficher en fonction de certain cas
+                        $message="Inscription avec succés, vous pouvez maintenant vous connecter";
+                        message5Secondes($message,'coOK');
+                        $identifiant="Les identifiants sont éronnés";
+                        message5Secondes($identifiant,'wrongID');
+                        $message2="Un problème est survenue ! <br> Si cela persiste merci de contacter notre admin";
+                        message5Secondes($message2,'pb');
+
+                        //formulaire
+                        debutForm($method,$action, 'onsubmit="return verifFormConnexion(this)"');
+                        formInput('Mail ','email','email','onblur="verifMail(this)"');
+                        formInput('Mot de passe ','password','mdp','onblur="verif(this)"');
+                        formAddSubmitReset();
+                        finForm();
+                    ?> 
+                </div>
+            </div>
+        </div>  
     </body>
 </html>
 

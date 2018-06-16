@@ -1,27 +1,3 @@
-function JS3(){
-    //alert ("bonjour a tous les LO07");
-    document.write("JS3");
-}
-function lien1_onmouseover(){
-    alert ("Ne clique pas !!!!!!!!!!!!!!!!!!!!");
-}
-function lien1_onmouseup(){
-    alert("INTERDICTION !!!!!!!!!!!!");
-}
-function nom_focus(){
-    alert("STOOOOOP ");
-}
-function prenom_onchange(input){
-    input.value = input.value.toUpperCase();    
-}
-function age_onchange(input){
-    age=input.value;
-    if (age <= 0 || 140 <= age ) {
-        input.value="";
-        alert("Pas le bonne age");
-    }  
-        
-}
 function jsValidation(){
     $('#validation').show();
     $('#valider').hide();
@@ -46,7 +22,6 @@ function verif(champ){
       return true;
    }
 }
-
 function verifMail(champ){
    var regex = /^[a-zA-Z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$/;
    if(!regex.test(champ.value))   {
@@ -58,7 +33,6 @@ function verifMail(champ){
       return true;
    }
 }
-
 function verifAge(champ){
    var valeur=true;
    var age = parseInt(champ.value);
@@ -71,6 +45,31 @@ function verifAge(champ){
    }
    return valeur;
 }
+function verifTel(champ){
+   var tel = parseInt(champ.value);
+   if(isNaN(tel) || champ.value.length !=10){
+      surligne(champ, true);
+      return false;
+   }
+   else{
+      surligne(champ, false);
+      return true;
+   }
+}
+function verifTextArea(champ,taille){
+   if(champ.value.length < taille){
+      surligne(champ, true);
+      return false;
+   }
+   else{
+      surligne(champ, false);
+      return true;
+   }
+}
+
+
+
+
 
 function verifFormInscription(f){
    var nomOk = verif(f.nom);
@@ -92,4 +91,27 @@ function verifFormConnexion(f){
       alert("Veuillez remplir correctement tous les champs");
       return false;
    }
+}
+function verifFormNounou(f){
+   var prenomOk = verif(f.prenom);
+   var ageOk = verifMail(f.age);
+   var telOk = verifTel(f.telephone);
+   var preOk = verifTexteArea(f.presentation);
+   var expOk = verifTexteArea (f.experience);
+   if( prenomOk && ageOk && telOk && preOk && expOk)
+      return true;
+   else {
+      alert("Veuillez remplir correctement tous les champs");
+      return false;
+   }
+}
+function addInput(name,div){
+    var input = document.createElement("input");
+    input.name = name;
+    div.appendChild(input);
+}
+function addField(doc) {
+    div=doc.getElementById('champs');
+    addInput("titre[]");
+    div.appendChild(document.createElement("br"));
 }

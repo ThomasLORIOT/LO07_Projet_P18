@@ -1,6 +1,5 @@
 <?php
 require_once '../Functions/Functions_SQL.php';
-require_once 'debug.php';
 
 class Utilisateur {
 
@@ -8,8 +7,24 @@ class Utilisateur {
     private $nom;
     private $email;
     private $MDP;
-    private $Nounous_idNounous;
-    private $Parents_idParents;
+    private $idNounous;
+    private $idParents;
+    
+    function getIdNounous() {
+        return $this->idNounous;
+    }
+
+    function getIdParents() {
+        return $this->idParents;
+    }
+
+    function setIdNounous($idNounous) {
+        $this->idNounous = $idNounous;
+    }
+
+    function setIdParents($idParents) {
+        $this->idParents = $idParents;
+    }
 
     function getIdUtilisateur() {
         return $this->idUtilisateur;
@@ -45,6 +60,9 @@ class Utilisateur {
             case 3:
                 self::__construct2($argv[0], $argv[1], $argv[2]);
                 break;
+            case 1:
+                self::__construct3($argv[0]);
+                break;
         }
     }
     //construction lors d'une connexion
@@ -58,10 +76,28 @@ class Utilisateur {
         $this->nom = $nom;
         $this->email = $email;
         $this->setMDP($MDP);
+        $this->idParents = 0;
+        $this->idNounous = 0;
+    }
+    
+    private function __construct3($idUtilisateur){
+        $myDB = connectDB();
+        $result = $myDB->query("SELECT * FROM utilisateur WHERE idUtilisateur = '$idUtilisateur'");
+        if ($result->num_rows == 0) {
+            echo "<script>console.log('connait pas cet utilisateur');</script>";
+        } else {
+            $row = mysqli_fetch_assoc($result);
+            $this->idUtilisateur = $idUtilisateur;
+            $this->nom = $row['Nom'];
+            $this->email = $row['Email'];
+            $this->MDP = $row['MDP'];
+            $this->idNounous = $row['idNounous'];
+            $this->idParents = $row['idParents'];
+        }
     }
 
     function __tostring() {
-        return "Utilisateur($this->idUtilisateur, $this->nom, $this->email, $this->MDP, $this->Nounous_idNounous, $this->Parents_idParents)<br>\n";
+        return "Utilisateur($this->idUtilisateur, $this->nom, $this->email, $this->MDP, $this->idNounous, $this->idParents)<br>\n";
     }
     
     function recupDB(){
@@ -77,8 +113,8 @@ class Utilisateur {
                 $this->nom = $row['Nom'];
                 $this->email = $row['Email'];
                 $this->MDP = $row['MDP'];
-                $this->Parents_idParents = $row['Parents_idParents'];
-                $this->Nounous_idNounous = $row['Nounous_idNounous'];
+                $this->Parents_idParents = $row['idParents'];
+                $this->Nounous_idNounous = $row['idNounous'];
                 $verif['connexion']=TRUE;
             }else{
                 $verif['wrongID']=TRUE;
@@ -98,8 +134,8 @@ class Utilisateur {
         $result = $myDB->query("SELECT * FROM utilisateur WHERE Email='$this->email'");
         if ($result->num_rows == 0) { 
             //le mail est nouveau : On INSERT le mail
-            $requete = "INSERT INTO utilisateur(nom,email,MDP) VALUES ('$this->nom','$this->email','$this->MDP')";
-            if ($myDB->query($requete) == TRUE) {
+            $requete = "INSERT INTO utilisateur(Nom,Email,MDP) VALUES ('$this->nom','$this->email','$this->MDP')";
+            if (requete($requete) == TRUE) {
                 //mail INSERT reussi
                 $verif['ajoutOk']=TRUE;
             } 
@@ -111,20 +147,16 @@ class Utilisateur {
     }
 
     function updateDB() {
-        requete("UPDATE utilisateur SET Nom='$this->nom', Email='$this->email', MDP='$this->MDP' WHERE idUtilisateur = '$this->idUtilisateur'");
+        if ($this->idNounous != NULL && $this->idParents != NULL){
+            $requete = "UPDATE utilisateur SET Nom='$this->nom', Email='$this->email', MDP='$this->MDP', idNounous = $this->idNounous, idParents = $this->idParents WHERE idUtilisateur = '$this->idUtilisateur'";
+        } else if ($this->idNounous != NULL && $this->idParents == NULL){
+            $requete = "UPDATE utilisateur SET Nom='$this->nom', Email='$this->email', MDP='$this->MDP', idNounous = $this->idNounous WHERE idUtilisateur = '$this->idUtilisateur'";
+        } else if ($this->idParents != NULL && $this->idNounous == NULL){
+            $requete = "UPDATE utilisateur SET Nom='$this->nom', Email='$this->email', MDP='$this->MDP', idParents = $this->idParents WHERE idUtilisateur = '$this->idUtilisateur'";
+        } else {
+            $requete = "UPDATE utilisateur SET Nom='$this->nom', Email='$this->email', MDP='$this->MDP' WHERE idUtilisateur = '$this->idUtilisateur'";
+        }
+        requete($requete);
     }
-
+    
 }
-//$test = new Utilisateur("yolo", "yolqzdo@rer.fr", "lsqsqdqs");
-//$verif=$test->addDB();
-//print_r($verif);
-//echo("<br>");
-
-//$test2 = new Utilisateur("vladimir.trois@gmail.com", "lou");
-//print_r($test2);
-//echo("<br>");
-//
-//$verif = $test2->recupDB();
-//print_r($verif);
-
-?>

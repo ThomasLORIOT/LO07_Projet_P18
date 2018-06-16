@@ -20,7 +20,7 @@ class Enfants {
     private $Prénom;
     private $DateDeNaissance;
     private $RestrictionsAlimentaires;
-    private $Parents_IdParents;
+    private $IdParents;
     
     function getIdEnfants() {
         return $this->idEnfants;
@@ -79,7 +79,7 @@ class Enfants {
         $this->Prénom = $Prénom;
         $this->DateDeNaissance = $DateDeNaissance;
         $this->RestrictionsAlimentaires = $Restrictions;
-        $this->Parents_IdParents = $idParents;
+        $this->IdParents = $idParents;
     }
     
     function __construct2($idEnfant){
@@ -93,16 +93,16 @@ class Enfants {
             $this->Prénom = $row['Prénom'];
             $this->DateDeNaissance = $row['Date de Naissance'];
             $this->RestrictionsAlimentaires = $row['Restrictions Alimentaires'];
-            $this->Parents_IdParents = $row['Parents_idParents'];
+            $this->IdParents = $row['idParents'];
         }
     }
     
     function __toString() {
-        return "Enfant($this->idEnfants;$this->Prénom;$this->DateDeNaissance;$this->RestrictionsAlimentaires;$this->Parents_IdParents)";
+        return "Enfant($this->idEnfants;$this->Prénom;$this->DateDeNaissance;$this->RestrictionsAlimentaires;$this->IdParents)<br>\n";
     }
     
     function addDB(){
-        $requete = "INSERT INTO enfants(Prénom, `Date De Naissance`, `Restrictions Alimentaires`, Parents_idParents) VALUES ('$this->Prénom', '$this->DateDeNaissance', '$this->RestrictionsAlimentaires', $this->Parents_IdParents)";
+        $requete = "INSERT INTO enfants(Prénom, `Date De Naissance`, `Restrictions Alimentaires`, idParents) VALUES ('$this->Prénom', '$this->DateDeNaissance', '$this->RestrictionsAlimentaires', $this->IdParents)";
         requete($requete);
     }
     
@@ -111,7 +111,3 @@ class Enfants {
         requete($requete);
     }
 }
-
-
-$test = new Enfants(2);
-echo($test);
