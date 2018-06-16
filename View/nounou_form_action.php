@@ -25,9 +25,7 @@ if ($_SESSION['connexion']){
         }
     }
 }
-//redirection vers la page home en cas de problème
-header('Location: home.php');s
-
-
+////redirection vers la page welcome en cas de problème
+//header('Location: welcome.php');s
 
 ?>

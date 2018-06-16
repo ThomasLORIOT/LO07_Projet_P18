@@ -9,7 +9,7 @@ define('BD_NAME', 'nounou');
 function connectDB() {
     $myDB = mysqli_connect(HOST, USER, PASSEWORD, BD_NAME) or
             die('Impossible de se connecter à la MySql : ' + mysqli_connect_error());
-    mysqli_set_charset($myDB, "utf8");
+    mysqli_set_charset($myDB, 'utf8');
     return $myDB;
 }
 
@@ -35,4 +35,3 @@ function requete($requete) {
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-

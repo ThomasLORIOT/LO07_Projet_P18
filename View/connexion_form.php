@@ -1,3 +1,13 @@
+<?php
+//    session_start();
+//    if(isset($_SESSION['connexion'])){
+//        if($_SESSION['connexion']==true){
+//            header('Location: choix.php');
+//            exit();
+//        }
+//        
+//    }
+?>
 <!--
     Formulaire de connexion, renvoi les infos vers connexion_acion.php
 
@@ -11,7 +21,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> <!--load jquery avant js -->
         <script src="../include/bootstrap/js/bootstrap.min.js"></script>        
         <script type="text/javascript" src="../Functions/Functions_JS.js"></script>
-        <?php 
+        <?php
             include '../Functions/Functions_Formulaires.php'; 
             include '../Functions/Functions.php'; 
             $method = "post";
@@ -23,6 +33,7 @@
             <h1 class="text-center">Connexion</h1>
             <div class="row">
                 <div class="col-sm-4">
+                    <button type="button" class="btn" onclick="location.href='inscription_form.php'">S'inscrire</button>
                 </div>
                 <div class="col-sm-4">
                     <?php
