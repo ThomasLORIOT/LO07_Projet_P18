@@ -1,3 +1,7 @@
+<!--
+    //connecte l'utilisateur si mdp et email correcte, conduit ensuite sur home si l'utilisateur est nounou ou parent sinon vers choix
+
+-->
 <?php
 include '../Objets/Utilisateur.php';
 

@@ -96,8 +96,8 @@ function verifFormNounou(f){
    var prenomOk = verif(f.prenom);
    var ageOk = verifMail(f.age);
    var telOk = verifTel(f.telephone);
-   var preOk = verifTexteArea(f.presentation);
-   var expOk = verifTexteArea (f.experience);
+   var preOk = verifTexteArea(f.presentation,30);
+   var expOk = verifTexteArea (f.experience,30);
    if( prenomOk && ageOk && telOk && preOk && expOk)
       return true;
    else {
@@ -105,6 +105,15 @@ function verifFormNounou(f){
       return false;
    }
 }
+function verifFormParents(f){
+   var villeOk = verif(f.ville);
+   if(villeOk){
+      return true;
+   }
+   alert("Veuillez remplir correctement tous les champs");
+   return false;
+}
+
 function addInput(name,div){
     var input = document.createElement("input");
     input.name = name;

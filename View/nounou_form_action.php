@@ -9,14 +9,14 @@ if (isset($_POST)){
     }
     //création de nounou
     $newNounou = new Nounou($_POST['prenom'],$_POST['telephone'],$_POST['age'],$_POST['presentation'],$_POST['experience']);
-    $verif=$newNounou->recupDB();
-    //si la nounou est bien ajouté
-    if($verif){
-        header('Location: home.php');
-        exit();
-    }
+//    $verif=$newNounou->addDB();
+//    //si la nounou est bien ajouté
+//    if($verif){
+//        header('Location: home.php');
+//        exit();
+//    }
 }
-
-//redirection vers la page home en cas de problème
-header('Location: home.php');s
+//
+////redirection vers la page home en cas de problème
+//header('Location: home.php');s
 ?>

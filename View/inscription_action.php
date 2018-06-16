@@ -1,3 +1,7 @@
+<!--
+    //créer l'utilisateur et renvoi vers connexion si tous ce passe bien
+
+-->
 <?php
 include '../Objets/Utilisateur.php';
 
