@@ -115,7 +115,7 @@ class Nounou {
             $this->idNounous = $idNounous;
             $this->Prénom = $row['Prénom'];
             $temp = $row['Portable'];
-            $this->Portable = "'$temp'";
+            $this->Portable = "$temp";
             $this->Age = $row['Age'];
             $this->Présentation = $row['Présentation'];
             $this->Expérience = $row['Expérience'];
@@ -129,7 +129,7 @@ class Nounou {
 
     function addDB() {
         $result = FALSE;
-        $requete = "INSERT INTO nounous(Prénom, Portable, Age, Présentation, Expérience, Visible) Values ('$this->Prénom', $this->Portable, $this->Age, '$this->Présentation', '$this->Expérience', 0)";
+        $requete = "INSERT INTO nounous(Prénom, Portable, Age, Présentation, Expérience, Visible) Values ('$this->Prénom', '$this->Portable', $this->Age, '$this->Présentation', '$this->Expérience', 0)";
         $myDB = connectDB();
         $res = mysqli_query($myDB, $requete);
         echo "<script>console.log('requete : $requete');</script><br>\n";
@@ -137,6 +137,10 @@ class Nounou {
         if ($res) {
             echo "<script>console.log('requête bien effectuée');</script><br>\n";
             $result = TRUE;
+            $requete2 = "SELECT idNounous FROM nounous WHERE Portable = '$this->Portable'";
+            $res2 = $myDB->query($requete2);
+            $id = mysqli_fetch_assoc($res2);
+            $this->idNounous = $id['idNounous'];
         } else {
             $erreur = mysqli_error($myDB);
             echo "<script>console.log('erreur : $erreur');</script><br>\n";
@@ -147,7 +151,7 @@ class Nounou {
 
     //de base toujours invisible à l'insertion
     function updateDB() {
-        $requete = "UPDATE nounous SET Prénom='$this->Prénom', Portable=$this->Portable, Age=$this->Age, Présentation='$this->Présentation', Expérience='$this->Expérience', Visible=$this->Visible WHERE idNounous = '$this->idNounous'";
+        $requete = "UPDATE nounous SET Prénom='$this->Prénom', Portable='$this->Portable', Age=$this->Age, Présentation='$this->Présentation', Expérience='$this->Expérience', Visible=$this->Visible WHERE idNounous = '$this->idNounous'";
         requete($requete);
     }
 
@@ -158,7 +162,20 @@ class Nounou {
 
     //return le liste de garde que la nounou va faire
     function getGardeAVenir() {
-        $requete = "SELECT idHoraires FROM garde WHERE `Date Fin` > CURRENT_DATE() ORDER BY `Date Début`";
+        $requete = "SELECT garde.idHoraires FROM garde NATURAL JOIN horaires WHERE garde.idNounous = $this->idNounous AND Date > CURRENT_DATE() ORDER BY Date";
+        $myDB = connectDB();
+        $result = $myDB->query($requete);
+        $row = mysqli_fetch_row($result);
+
+        $ListeGarde = Array();
+        foreach ($row as $value) {
+            $ListeGarde[] = new Garde($this->idNounous, $value);
+        }
+        return $ListeGarde;
+    }
+    
+    function getGardeFini(){
+        $requete = "SELECT garde.idHoraires FROM garde NATURAL JOIN horaires WHERE garde.idNounous = $this->idNounous AND Date < CURRENT_DATE() ORDER BY Date";
         $myDB = connectDB();
         $result = $myDB->query($requete);
         $row = mysqli_fetch_row($result);
@@ -189,11 +206,9 @@ class Nounou {
         }
         return $ListeLangue;
     }
-
-}
-
-$test = new Nounou(4);
-echo($test);
-foreach ($test->getLangue() as $value) {
-    echo($value);
+    
+    function addLangue($langue){
+        $new = new Langue($langue, 0);
+        $new->addDB();
+    }
 }

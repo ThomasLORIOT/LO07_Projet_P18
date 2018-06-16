@@ -11,15 +11,15 @@
  *
  * @author Thomas
  */
-
 require_once '../Functions/Functions_SQL.php';
 
 class Horaires {
+
     private $idHoraires;
     private $Date;
     private $HeureDébut;
     private $HeureFin;
-    
+
     function getIdHoraires() {
         return $this->idHoraires;
     }
@@ -63,7 +63,7 @@ class Horaires {
                 break;
         }
     }
-    
+
     //pour pouvoir bien insérer la date dans DB, il faut ecrire comme un INT Année/Mois/jour tout attaché pas de slash : 19970324 (24 mars 1997)
     //                          une heure                                    Heure/min/sec                             : 163000 (16h30min0sec)                      
     function __construct1($Date, $HeureD, $HeureF) {
@@ -71,8 +71,8 @@ class Horaires {
         $this->HeureDébut = $HeureD;
         $this->HeureFin = $HeureF;
     }
-    
-    function __construct2($idHoraire){
+
+    function __construct2($idHoraire) {
         $myDB = connectDB();
         $result = $myDB->query("SELECT * FROM horaires WHERE idHoraires = '$idHoraire'");
         if ($result->num_rows == 0) {
@@ -85,21 +85,26 @@ class Horaires {
             $this->HeureFin = $row['Heure Fin'];
         }
     }
-        
+
     function __toString() {
         return "Horaire($this->idHoraires;$this->Date;$this->HeureDébut;$this->HeureFin)<br>\n";
     }
-    
-    function addDB(){
-        $requete = "INSERT INTO horaires(Date, `Heure Début`, `Heure Fin`) VALUES ($this->Date, '$this->HeureDébut', '$this->HeureFin')";
-        requete($requete);
+
+    function addDB() {
+        $myDB = connectDB();
+        //est-ce que ce horaire est nouveau ?
+        $result = $myDB->query("SELECT idHoraires FROM horaires WHERE Date = $this->Date AND `Heure Début` = $this->HeureDébut AND `Heure Fin` = $this->HeureFin");
+        if ($result->num_rows == 0) {
+            //l'horaire est nouveau : On INSERT l'horaire
+            $requete = "INSERT INTO horaires(Date, `Heure Début`, `Heure Fin`) VALUES ('$this->Date', '$this->HeureDébut', '$this->HeureFin')";
+            requete($requete);
+        } else {
+            echo "<script>console.log('horaire existe déjà');</script><br>\n";
+        }
     }
-    
-    function updateDB(){
-        $requete = "UPDATE horaires SET Date='$this->Date', `Heure Début`='$this->HeureDébut', `Heure Fin`='$this->HeureFin' WHERE idHoraires = $this->idHoraires";
-        requete($requete);
-    }
+
 }
 
-$test = new Horaires(20180915, 140000, 180000);
+$test = new Horaires('2000-06-12', 140000, 180000);
+echo($test);
 $test->addDB();

@@ -79,7 +79,7 @@ class Enfants {
         $this->Prénom = $Prénom;
         $this->DateDeNaissance = $DateDeNaissance;
         $this->RestrictionsAlimentaires = $Restrictions;
-        $this->Parents_IdParents = $idParents;
+        $this->IdParents = $idParents;
     }
     
     function __construct2($idEnfant){
