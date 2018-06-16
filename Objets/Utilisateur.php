@@ -147,7 +147,7 @@ class Utilisateur {
     }
 
     function updateDB() {
-        requete("UPDATE utilisateur SET Nom='$this->nom', Email='$this->email', MDP='$this->MDP' WHERE idUtilisateur = '$this->idUtilisateur'");
+        requete("UPDATE utilisateur SET Nom='$this->nom', Email='$this->email', MDP='$this->MDP', idNounous = $this->idNounous, idParents = $this->idParents WHERE idUtilisateur = '$this->idUtilisateur'");
     }
     
 }
