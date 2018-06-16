@@ -94,11 +94,11 @@ function verifFormConnexion(f){
 }
 function verifFormNounou(f){
    var prenomOk = verif(f.prenom);
-   var ageOk = verifMail(f.age);
+   var ageOk = verifAge(f.age);
    var telOk = verifTel(f.telephone);
-   var preOk = verifTexteArea(f.presentation,30);
-   var expOk = verifTexteArea (f.experience,30);
-   if( prenomOk && ageOk && telOk && preOk && expOk)
+   var preOk = verifTextArea(f.presentation,30);
+   var expOk = verifTextArea (f.experience,30);
+   if( prenomOk && ageOk && telOk && preOk && expOk )
       return true;
    else {
       alert("Veuillez remplir correctement tous les champs");
