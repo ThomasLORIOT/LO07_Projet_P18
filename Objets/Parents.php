@@ -85,10 +85,14 @@ class Parents {
         $myDB = connectDB();
         $res = mysqli_query($myDB, $requete);
         echo "<script>console.log('requete : $requete');</script><br>\n";
-
         if ($res) {
             echo "<script>console.log('requête bien effectuée');</script><br>\n";
             $result = TRUE;
+            //ajoute l'id crée par DB à l'objet
+            $requete2 = "SELECT idParents FROM parents WHERE Ville = '$this->Ville' AND `Informations Générales` = '$this->InformationsGénérales'";
+            $res2 = $myDB->query($requete2);
+            $id = mysqli_fetch_assoc($res2);
+            $this->idParents = $id['idParents'];
         } else {
             $erreur = mysqli_error($myDB);
             echo "<script>console.log('erreur : $erreur');</script><br>\n";
@@ -119,9 +123,12 @@ class Parents {
         }
         return $ListeEnfant;
     }
-
+    
+    function addEnfantGarde($idEnfant, $idNounous, $idHoraires){
+        $requete = "INSERT INTO enfants_gardé VALUES ($idEnfant, $idNounous, $idHoraires)";
+        requete($requete);
+    }
+    
+    
 }
 
-$test = new Parents(1);
-echo($test);
-$test->addEnfant("Alexandre", 19970408, "pas de sucre");
