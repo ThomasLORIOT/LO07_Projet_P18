@@ -13,6 +13,8 @@
  */
 require_once '../Functions/Functions_SQL.php';
 require_once 'Enfants.php';
+require_once 'Garde.php';
+require_once 'debug.php';
 
 class Parents {
 
@@ -89,7 +91,7 @@ class Parents {
             echo "<script>console.log('requête bien effectuée');</script><br>\n";
             $result = TRUE;
             //ajoute l'id crée par DB à l'objet
-            $requete2 = "SELECT idParents FROM parents WHERE Ville = '$this->Ville' AND `Informations Générales` = '$this->InformationsGénérales'";
+            $requete2 = "SELECT MAX(idParents) FROM parents WHERE Ville = '$this->Ville' AND `Informations Générales` = '$this->InformationsGénérales'";
             $res2 = $myDB->query($requete2);
             $id = mysqli_fetch_assoc($res2);
             $this->idParents = $id['idParents'];
@@ -114,21 +116,42 @@ class Parents {
     //return liste de ses enfants
     function getEnfant() {
         $requete = "SELECT idEnfants FROM enfants WHERE idParents=$this->idParents";
-        $myDB = connectDB();
-        $result = $myDB->query($requete);
-        $row = mysqli_fetch_row($result);
+        $row = fetchAllRequete($requete);
+        debug($row);
         $ListeEnfant = Array();
         foreach ($row as $value) {
-            $ListeEnfant[] = new Enfants($value);
+            $temp = (int)$value;
+            echo($temp);
+            $ListeEnfant[] = new Enfants($temp);
         }
         return $ListeEnfant;
     }
-    
-    function addEnfantGarde($idEnfant, $idNounous, $idHoraires){
+
+    function addEnfantGarde($idEnfant, $idNounous, $idHoraires) {
         $requete = "INSERT INTO enfants_gardé VALUES ($idEnfant, $idNounous, $idHoraires)";
         requete($requete);
     }
-    
-    
-}
 
+    function getGardeFaite() {
+        $enfants = $this->getEnfant();
+        $listeGarde = Array();
+        foreach ($enfants as $value) {
+            $requete = "SELECT idNounous, idHoraires FROM enfants_gardé NATURAL JOIN horaires WHERE enfants.idEnfants = $value->Enfants->getIdEnfants() AND Date < CURRENT_DATE() ORDER BY Date";
+            $row = fetchRowRequete($requete);
+            $i = 0;
+            while (isset($row[i])){
+                $listeGarde[] = new Garde($row[$i], $row[($i+1)]);
+                $i = $i + 2;
+            }
+        }
+        return $listeGarde;
+    }
+
+}
+$test = new Parents(1);
+echo($test);
+$listeGarde = $test->getEnfant();
+debug($listeGarde);
+foreach ($listeGarde as $value) {
+    echo($value);
+}

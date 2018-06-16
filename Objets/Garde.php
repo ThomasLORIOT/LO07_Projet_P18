@@ -102,7 +102,7 @@ class Garde {
     }
 
     private function getNbr_enfants() {
-        $requete = "SELECT * FROM enfants_gard WHERE idNounous=$this->idNounous AND idHoraires=$this->idHoraires";
+        $requete = "SELECT * FROM enfants_gardé WHERE idNounous=$this->idNounous AND idHoraires=$this->idHoraires";
         $myDB = connectDB();
         $result = $myDB->query($requete);
         return $result->num_rows;
@@ -178,15 +178,19 @@ class Garde {
         //$this->calculPrix();
     }
 
-    private function calculPrix() {
+    function calculPrix() {
         $nbr_enfants = $this->getNbr_enfants();
-        $nbrHeure = "SELECT TIMEDIFF(horaires.`Heure Fin`, horaires.`Heure Début`) FROM horaires WHERE idHoraires = 2";
+        $requete = "SELECT CONVERT(TIMEDIFF(horaires.`Heure Fin`, horaires.`Heure Début`), SIGNED INTEGER) FROM horaires WHERE idHoraires = $this->idHoraires";
+        $myDB = connectDB();
+        $result = $myDB->query($requete);
+        $row = mysqli_fetch_row($result);
+        $nbrHeure = ($row[0]/10000);
         if (!$this->Régulier) {
-            $prix = (7 * $this->nbrHeure) + (4 * $this->nbrHeure * ($nbr_enfants - 1));
+            $prix = (7 * $nbrHeure) + (4 * $nbrHeure * ($nbr_enfants - 1));
         } else if ($this->Langue) {
-            $prix = (15 * $this->nbrHeure * $nbr_enfants);
+            $prix = (15 * $nbrHeure * $nbr_enfants);
         } else if ($this->Régulier && !$this->Langue) {
-            $prix = (10 * $this->nbrHeure) + (5 * $this->nbrHeure * ($nbr_enfants - 1));
+            $prix = (10 * $nbrHeure) + (5 * $nbrHeure * ($nbr_enfants - 1));
         }
         $this->setPrix($prix);
     }
@@ -206,7 +210,12 @@ class Garde {
 
     //celle ci n'update pas les dates, à utilisé quand elles ne sont pas à update
     function updateDB() {
-        $requete = "UPDATE garde SET idNounous=$this->idNounous, idHoraires=$this->idHoraires, Régulier=$this->Régulier, Langue=$this->Langue, Appreciation='$this->Appréciation' WHERE idHoraires = $this->idHoraires AND idNounous=$this->idNounous";
+        $requete = "UPDATE garde SET idNounous=$this->idNounous, idHoraires=$this->idHoraires, Régulier=$this->Régulier, Langue=$this->Langue, Appreciation='$this->Appréciation', Prix = '$this->Prix' WHERE idHoraires = $this->idHoraires AND idNounous=$this->idNounous";
+        requete($requete);
+    }
+    
+    function updateNote(){
+        $requete = "UPDATE garde SET Note = '$this->Note' WHERE idHoraires = $this->idHoraires AND idNounous=$this->idNounous";
         requete($requete);
     }
 
@@ -222,6 +231,3 @@ class Garde {
 
 }
 
-//$test = new Garde(4, 2, 1, 5);
-//echo($test);
-//$test->addDB();
