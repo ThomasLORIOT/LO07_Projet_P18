@@ -19,18 +19,14 @@ if ($_SESSION['connexion']){
             $user= new Utilisateur($_SESSION['idUtilisateur']);
             $user->setIdNounous($newNounou->getIdNounous());
             $user->updateDB();
-
-            echo("<pre>");
-            print_r($newNounou);
-            print_r($user);
-    //        header('Location: home.php');
-    //        exit();
+            $_SESSION['nounouOUparents']='nounou';
+            header('Location: home.php');
+            exit();
         }
     }
 }
-echo("nope");
-//   //redirection vers la page home en cas de problème
-//   header('Location: home.php');s
+//redirection vers la page home en cas de problème
+header('Location: home.php');s
 
 
 

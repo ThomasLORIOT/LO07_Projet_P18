@@ -2,7 +2,7 @@
     session_start();
     include '../Objets/Utilisateur.php';
     $user=$_SESSION['idUtilisateur'];
-    echo($_SESSION['idUtilisateur']);
+    $user= new Utilisateur($_SESSION['idUtilisateur']);
 ?>
 
 <!DOCTYPE html>
@@ -25,7 +25,7 @@ and open the template in the editor.
         <div>
         Home Page man !!!!!!!!!!!!! :D
         
-        Bienvenue à toi jeune padawen ton login est <?php echo( $_SESSION['idUtilisateur'] ."<br>". $user) ?>
+        Bienvenue à toi jeune padawan ton nom est <?php $nom=$user->getNom();  echo("$nom <br> <pre>");  print_r($user) ?>
         
         </div>
     </body>
