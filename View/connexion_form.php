@@ -1,3 +1,7 @@
+<!--
+    Formulaire de connexion, renvoi les infos vers connexion_acion.php
+
+-->
 <html>
     <head>
         <title>Connexion</title>

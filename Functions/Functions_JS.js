@@ -36,7 +36,7 @@ function verifMail(champ){
 function verifAge(champ){
    var valeur=true;
    var age = parseInt(champ.value);
-   if(isNaN(age) || age < 5 || age > 111){
+   if(isNaN(age) || age < 15 || age > 111){
       surligne(champ, true);
       valeur = false;
    }
@@ -94,17 +94,26 @@ function verifFormConnexion(f){
 }
 function verifFormNounou(f){
    var prenomOk = verif(f.prenom);
-   var ageOk = verifMail(f.age);
+   var ageOk = verifAge(f.age);
    var telOk = verifTel(f.telephone);
-   var preOk = verifTexteArea(f.presentation);
-   var expOk = verifTexteArea (f.experience);
-   if( prenomOk && ageOk && telOk && preOk && expOk)
+   var preOk = verifTextArea(f.presentation,30);
+   var expOk = verifTextArea (f.experience,30);
+   if( prenomOk && ageOk && telOk && preOk && expOk )
       return true;
    else {
       alert("Veuillez remplir correctement tous les champs");
       return false;
    }
 }
+function verifFormParents(f){
+   var villeOk = verif(f.ville);
+   if(villeOk){
+      return true;
+   }
+   alert("Veuillez remplir correctement tous les champs");
+   return false;
+}
+
 function addInput(name,div){
     var input = document.createElement("input");
     input.name = name;

@@ -78,7 +78,7 @@ class Parents {
         return "Parent($this->idParents;$this->Ville;$this->InformationsGénérales)<br>\n";
     }
 
-    //ajout d'un parent dans la base
+    //ajout d'un parent dans la base + recupération de l'ID
     function addDB() {
         $result = FALSE;
         $requete = "INSERT INTO parents(Ville, `Informations Générales`) VALUES ('$this->Ville','$this->InformationsGénérales') ";

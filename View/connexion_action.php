@@ -1,3 +1,7 @@
+<!--
+    //connecte l'utilisateur si mdp et email correcte, conduit ensuite sur home si l'utilisateur est nounou ou parent sinon vers choix
+
+-->
 <?php
 include '../Objets/Utilisateur.php';
 
@@ -16,6 +20,7 @@ if (isset($_POST)){
     //récupération de l'utilisateur avec email et mdp
     if($verif['connexion']){
         session_start();
+        $_SESSION['connexion']=true;
         $_SESSION['idUtilisateur']=$newUser->getIdUtilisateur();
         if($newUser->getIdUtilisateur()==0){
             //redirection admin

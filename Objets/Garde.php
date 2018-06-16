@@ -222,6 +222,6 @@ class Garde {
 
 }
 
-$test = new Garde(4, 2, 1, 5);
-echo($test);
-$test->addDB();
+//$test = new Garde(4, 2, 1, 5);
+//echo($test);
+//$test->addDB();

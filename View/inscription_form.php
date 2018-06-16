@@ -1,3 +1,7 @@
+<!--
+    Formulaire d'inscription, renvoi les infos vers inscription_action.php
+
+-->
 <html>
     <head>
         <title>Inscription</title>
@@ -21,17 +25,18 @@
                 <div class="col-sm-4">
                 </div>
                 <div class="col-sm-4">
-                    
-                            <?php
-                                $message="Un utilisateur possède déjà ce mail";
-                                message5Secondes($message,'mail');        
-                                debutForm($method,$action, 'onsubmit="return verifFormInscription(this)"'); 
-                                formInput('Nom ', 'text', 'nom','onblur="verif(this)"');
-                                formInput('Mail ','text','email','onblur="verifMail(this)"');
-                                formInput('Mot de passe ','password','mdp','onblur="verif(this)"');
-                                formAddSubmitReset();
-                                finForm();
-                            ?> 
+                    <?php
+                        //message
+                        $message="Un utilisateur possède déjà ce mail";
+                        message5Secondes($message,'mail');
+                        //form
+                        debutForm($method,$action, 'onsubmit="return verifFormInscription(this)"'); 
+                        formInput('Nom ', 'text', 'nom','onblur="verif(this)"');
+                        formInput('Mail ','text','email','onblur="verifMail(this)"');
+                        formInput('Mot de passe ','password','mdp','onblur="verif(this)"');
+                        formAddSubmitReset();
+                        finForm();
+                    ?> 
                 </div>
             </div>
         </div>

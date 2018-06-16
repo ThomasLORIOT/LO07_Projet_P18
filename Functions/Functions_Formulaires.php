@@ -23,9 +23,9 @@ function formSelect($id,$label, $tab, $text='') {
     
 //$nom est le label et le nom de la variable, $type est le type d'input souhaité.
 
-function formInput($label, $type, $key, $text=''){
-    echo("<label for='$key' class='control-label'>$label</label>\n");
-    echo("<input id='$key' class='form-control' type='$type' name='$key' $text/>\n");
+function formInput($label, $type, $id, $text=''){
+    echo("<label for='$id' class='control-label'>$label</label>\n");
+    echo("<input id='$id' class='form-control' type='$type' name='$id' $text/>\n");
 }
 
 //rajoute direcement les bouton submit et reset
