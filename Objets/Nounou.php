@@ -212,8 +212,3 @@ class Nounou {
         $new->addDB();
     }
 }
-
-$test = new Nounou("Bertille", "0799887766", "25", "Grande blonde", "Peut gérer 15 momes à la fois");
-echo($test);
-$test->addDB();
-echo($test);
