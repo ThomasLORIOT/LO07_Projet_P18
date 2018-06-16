@@ -121,6 +121,7 @@ class Nounou {
             $this->Expérience = $row['Expérience'];
             $this->Visible = $row['Visible'];
         }
+        mysqli_close($myDB);
     }
 
     function __toString() {
@@ -160,7 +161,7 @@ class Nounou {
         requete($requete);
     }
 
-    //return le liste de garde que la nounou va faire
+    //return le liste de gardes que la nounou va faire
     function getGardeAVenir() {
         $requete = "SELECT garde.idHoraires FROM garde NATURAL JOIN horaires WHERE garde.idNounous = $this->idNounous AND Date > CURRENT_DATE() ORDER BY Date";
         $myDB = connectDB();
@@ -171,9 +172,11 @@ class Nounou {
         foreach ($row as $value) {
             $ListeGarde[] = new Garde($this->idNounous, $value);
         }
+        mysqli_close($myDB);
         return $ListeGarde;
     }
     
+    //return la liste de gardes que la nounou à déjà faite
     function getGardeFini(){
         $requete = "SELECT garde.idHoraires FROM garde NATURAL JOIN horaires WHERE garde.idNounous = $this->idNounous AND Date < CURRENT_DATE() ORDER BY Date";
         $myDB = connectDB();
@@ -184,6 +187,7 @@ class Nounou {
         foreach ($row as $value) {
             $ListeGarde[] = new Garde($this->idNounous, $value);
         }
+        mysqli_close($myDB);
         return $ListeGarde;
     }
 
@@ -204,6 +208,7 @@ class Nounou {
         foreach ($row as $value) {
             $ListeLangue[] = new Langue($value);
         }
+        mysqli_close($myDB);
         return $ListeLangue;
     }
     
