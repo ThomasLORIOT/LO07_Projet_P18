@@ -1,12 +1,12 @@
 <?php
-//    session_start();
-//    if(isset($_SESSION['connexion'])){
-//        if($_SESSION['connexion']==true){
-//            header('Location: choix.php');
-//            exit();
-//        }
-//        
-//    }
+    session_start();
+    if(isset($_SESSION['connexion'])){
+        if($_SESSION['connexion']==true){
+            header('Location: choix.php');
+            exit();
+        }
+        
+    }
 ?>
 <!--
     Formulaire de connexion, renvoi les infos vers connexion_acion.php

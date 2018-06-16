@@ -32,7 +32,7 @@ if (isset($_POST)){
         //si l'utilisateur n'est ni nounou ni parents
         if ($newUser->getIdNounous() == null && $newUser->getIdParents()==null ){
             //redirection page de choix
-            header('Location: choix.html');
+            header('Location: choix.php');
             exit();
         }else{
             header('Location: home.php');

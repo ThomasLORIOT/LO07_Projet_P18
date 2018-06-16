@@ -1,5 +1,8 @@
 <?php
+session_start();
+include '../Objets/Utilisateur.php';
 include '../Objets/Parents.php';
+$user= new Utilisateur($_SESSION['idUtilisateur']);
 
 // inscription d'une nounou 
 //récupération des données du POST et vérification des valeurs 
@@ -14,12 +17,12 @@ if (isset($_POST)){
     $verif=$newParents->addDB();
     //si la nounou est bien ajouté
     if($verif){
-        echo("<pre>");        
+        $user->setIdParents($newParents->getIdParents());
+        $user->updateDB();
         header('Location: home.php');
         exit();
     }
 }
-echo("<pre>");
 //redirection vers la page welcome en cas de problème
-//header('Location: welcome.php');s
+header('Location: welcome.php');s
 ?>
