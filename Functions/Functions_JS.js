@@ -36,7 +36,7 @@ function verifMail(champ){
 function verifAge(champ){
    var valeur=true;
    var age = parseInt(champ.value);
-   if(isNaN(age) || age < 5 || age > 111){
+   if(isNaN(age) || age < 15 || age > 111){
       surligne(champ, true);
       valeur = false;
    }

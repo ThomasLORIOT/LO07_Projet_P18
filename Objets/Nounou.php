@@ -11,10 +11,10 @@
  *
  * @author Thomas
  */
-require_once '../Functions/Functions_SQL.php';
-require_once 'debug.php';
-require_once 'Garde.php';
-require_once 'Langue.php';
+include_once '../Functions/Functions_SQL.php';
+include_once 'debug.php';
+include_once 'Garde.php';
+include_once 'Langue.php';
 
 class Nounou {
 
@@ -132,7 +132,7 @@ class Nounou {
         $requete = "INSERT INTO nounous(Prénom, Portable, Age, Présentation, Expérience, Visible) Values ('$this->Prénom', '$this->Portable', $this->Age, '$this->Présentation', '$this->Expérience', 0)";
         $myDB = connectDB();
         $res = mysqli_query($myDB, $requete);
-        echo "<script>console.log('requete : $requete');</script><br>\n";
+        echo "<script>console.log('requete demandé : $requete');</script><br>\n";
 
         if ($res) {
             echo "<script>console.log('requête bien effectuée');</script><br>\n";

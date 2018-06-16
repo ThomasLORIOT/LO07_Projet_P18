@@ -20,6 +20,7 @@ if (isset($_POST)){
     //récupération de l'utilisateur avec email et mdp
     if($verif['connexion']){
         session_start();
+        $_SESSION['connexion']=true;
         $_SESSION['idUtilisateur']=$newUser->getIdUtilisateur();
         if($newUser->getIdUtilisateur()==0){
             //redirection admin
