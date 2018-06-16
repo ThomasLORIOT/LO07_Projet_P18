@@ -12,27 +12,31 @@ function finForm(){
 
 
 //$nom est le label et le nom de la variable, $tab est la liste des options.
-function formSelect($nom, $tab) {
-        echo("<label>$nom : </label>");
-        echo("<select name='$nom'>");
+function formSelect($id,$label, $tab, $text='') {
+        echo("<label class='control-label'>$label</label>\n");
+        echo("<select class='form-control' id='$id', $text>");
         foreach ($tab as $value) {
-            echo("<option>$value</option>");
+            echo("<option value='$value'>$value</option>");
         }
         echo("</select>");
-        echo("<br/>\n");
     }
     
 //$nom est le label et le nom de la variable, $type est le type d'input souhaité.
 
 function formInput($label, $type, $key, $text=''){
-    echo("<label for='$label'>$label</label>");
-    echo("<input id='$key' type='$type' name='$key' $text/><br/>\n");
+    echo("<label for='$key' class='control-label'>$label</label>\n");
+    echo("<input id='$key' class='form-control' type='$type' name='$key' $text/>\n");
 }
 
 //rajoute direcement les bouton submit et reset
 function formAddSubmitReset(){
-    echo("<input id='valider' type='submit' value='Valider'/>\n");
-    echo("<input id='effacer' type='reset' value='Effacer'/>\n");
+    echo("<br><button id='valider' class='btn btn-default' type='submit'>Valider</button>\n");
+    echo("<button id='effacer' class='btn btn-default' type='reset'>Effacer</button>\n");
+}
+
+function textArea($id,$textDefault,$rows,$cols,$text){
+    echo("<label for='$id' class='control-label'></label>\n");
+    echo("<textarea class='form-control' name=$id id=$id  rows=$rows cols=$cols onfocus='this.select()' $text>$textDefault</textarea>\n");
 }
 
 //1 radio boutton

@@ -23,7 +23,7 @@ if($verif['ajoutOk']){
 else{
     // si mail existant, le dire
     if($verif['mailPB']){
-        header('Location: inscription_form.php?mailDoublon=1');
+        header('Location: inscription_form.php?mail=1');
         exit();
     }
     else{// si autre, retour acceuil avec mot problème connexion
