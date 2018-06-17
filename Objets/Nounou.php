@@ -196,17 +196,25 @@ class Nounou {
         $requete = "INSERT INTO parle VALUES ($idLangue, $this->idNounous, '$niveau')";
         requete($requete);
     }
+    function addParleLangue($langue, $niveau) {
+        $requete = "SELECT idLangue FROM `langues` WHERE Nom='$langue'";
+        $myDB= connectDB();
+        $result =$myDB->query($requete);
+        $row = mysqli_fetch_row($result);
+        self::addParle($row[0],$niveau);
+    }
 
     //return la liste des langues parlées de la nounou
     function getLangue() {
-        $requete = "SELECT idLangue FROM parle WHERE idNounous=$this->idNounous";
+        $ListeLangue = Array();
+        $requete = "SELECT Nom,Niveau FROM parle NATURAL JOIN langues WHERE idNounous=$this->idNounous";
         $myDB = connectDB();
         $result = $myDB->query($requete);
-        $row = mysqli_fetch_row($result);
-
-        $ListeLangue = Array();
-        foreach ($row as $value) {
-            $ListeLangue[] = new Langue($value);
+        $i=0;
+        while($row = $result->fetch_assoc()){
+            $ListeLangue[$i]['Nom']=$row['Nom'];
+            $ListeLangue[$i]['Niveau']=$row['Niveau'];
+            $i++;
         }
         mysqli_close($myDB);
         return $ListeLangue;
