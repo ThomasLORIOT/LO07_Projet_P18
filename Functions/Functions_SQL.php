@@ -25,13 +25,13 @@ function connectDB() {
 function requete($requete) {
     $myDB = connectDB();
     $res = mysqli_query($myDB, $requete);
-    echo "<script>console.log('requete : $requete');</script><br>\n";
+    echo "<script>console.log('requete : $requete');</script>\n";
 
     if ($res) {
-        echo "<script>console.log('requête bien effectuée');</script><br>\n";
+        echo "<script>console.log('requête bien effectuée');</script>\n";
     } else {
         $erreur = mysqli_error($myDB);
-        echo "<script>console.log('erreur : $erreur');</script><br>\n";
+        echo "<script>console.log('erreur : $erreur');</script>\n";
     }
     mysqli_close($myDB);
     return $res;

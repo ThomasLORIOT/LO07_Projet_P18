@@ -6,7 +6,7 @@
     $user= new Utilisateur($_SESSION['idUtilisateur']);
     $nounou= new Nounou($user->getIdNounous());
     if (!$nounou->getVisible()){
-        header('Location: home.php');
+        header('Location: homeNounouIndisponible.php');
         exit();
 
     } 
