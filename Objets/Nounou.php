@@ -199,7 +199,7 @@ class Nounou {
     
     //drop à la db le fait que la nounou sait parlé une langue
     function dropParle($idLangue) {
-        $requete = "DROP FROM parle VALUES ($idLangue, $this->idNounous)";
+        $requete = "DROP FROM parle WHERE idLangue=$idLangue AND idNounous=$this->idNounous";
         requete($requete);
     }
 
