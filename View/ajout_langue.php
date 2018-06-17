@@ -1,8 +1,9 @@
 <?php
     session_start();        
-    include '../Objets/Utilisateur.php';
-    include '../Objets/Nounou.php';
-    include '../Functions/Functions_Formulaires.php';
+    require_once '../Objets/Utilisateur.php';
+    require_once '../Objets/Nounou.php';
+    require_once '../Functions/Functions_Formulaires.php';
+    require_once '../Objets/Langue.php';
     $user=$_SESSION['idUtilisateur'];
     $user= new Utilisateur($_SESSION['idUtilisateur']);
     $nounou= new Nounou($user->getIdNounous());
@@ -10,8 +11,8 @@
         header('Location: home.php');
         exit();
 
-    } 
-     
+    }
+         
 ?>
 
 <!DOCTYPE html>
@@ -50,7 +51,7 @@
             </div>
             <div class="col-sm-8 text-left">
 
-                <?php CheckBox("test","idtest"); ?>
+                <?php $langues = assoc_langues() ; echo("<pre>") ; print_r($langues);  ?>
 
             </div>
             <div class="col-sm-2 sidenav">

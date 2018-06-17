@@ -1,5 +1,9 @@
 <?php
 
+//créer un formulaire de Checkbox à partir d'un fetch_all_assoc
+function formAssoc($assoc){
+    
+}
 
 //DEBUT FORMULAIRE
 function debutForm($method, $action,$text=""){

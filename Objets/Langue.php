@@ -91,12 +91,11 @@ class Langue {
         $requete = "DELETE FROM langues WHERE idLangue=$this->idLangue";
         requete($requete);
     }
-
 }
-
-function getLangue() {
+function assoc_langues() {
     $requete = "SELECT * FROM langues WHERE Visible = 1";
     $myDB = connectPDO();
-    $result = $myDB->query($requete);
-    return $result->fetch(PDO::FETCH_ALL_ASSOC);
+    $assoc = $myDB->query($requete);
+    $result = $assoc->fetch(PDO::FETCH_ALL_ASSOC); 
+    return $result;
 }
