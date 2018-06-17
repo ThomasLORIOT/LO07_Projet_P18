@@ -113,8 +113,8 @@ class Utilisateur {
                 $this->nom = $row['Nom'];
                 $this->email = $row['Email'];
                 $this->MDP = $row['MDP'];
-                $this->Parents_idParents = $row['idParents'];
-                $this->Nounous_idNounous = $row['idNounous'];
+                $this->idParents = $row['idParents'];
+                $this->idNounous = $row['idNounous'];
                 $verif['connexion']=TRUE;
             }else{
                 $verif['wrongID']=TRUE;

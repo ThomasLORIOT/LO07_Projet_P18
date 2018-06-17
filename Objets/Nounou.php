@@ -213,6 +213,7 @@ class Nounou {
     }
     
     function addLangue($langue){
+        
         $new = new Langue($langue, 0);
         $new->addDB();
     }

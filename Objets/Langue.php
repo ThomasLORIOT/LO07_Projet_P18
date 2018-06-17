@@ -78,8 +78,14 @@ class Langue {
     }
 
     function addDB() {
-        $requete = "INSERT INTO langues(Nom, Visible) VALUES ('$this->langue', '$this->visible')";
-        requete($requete);
+        $myDB = connectDB();
+        $result = $myDB->query("SELECT * FROM langues WHERE Nom = $this->langue");
+        if ($result->num_rows != 0) {
+            echo "<script>console.log('connait déjà cette langue');</script>";
+        } else {
+            $requete = "INSERT INTO langues(Nom, Visible) VALUES ('$this->langue', '$this->visible')";
+            requete($requete);
+        }
     }
 
     function updateDB() {
