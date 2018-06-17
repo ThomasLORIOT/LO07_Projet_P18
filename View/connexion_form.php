@@ -10,7 +10,7 @@
 ?>
 <!--
     Formulaire de connexion, renvoi les infos vers connexion_acion.php
-
+    //$_SESSION contient : connexion (true or false) idIdentifiant , nounouOUparents
 -->
 <html>
     <head>

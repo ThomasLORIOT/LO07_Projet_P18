@@ -1,14 +1,5 @@
 <?php
-    session_start();
-    if(isset($_SESSION['nounouOUparents'])){
-        if($_SESSION['nounouOUparents']=='nounou'){
-            header('Location: homeNounou.php');
-            exit();            
-        }else{
-            header('Location: homeParents.php');
-            exit();
-        }
-    }
+    session_start();        
     include '../Objets/Utilisateur.php';
     $user=$_SESSION['idUtilisateur'];
     $user= new Utilisateur($_SESSION['idUtilisateur']);
