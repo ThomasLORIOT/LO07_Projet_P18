@@ -1,7 +1,7 @@
 <?php
 
 //créer un formulaire de Checkbox à partir d'un fetch_all_assoc
-function formAssoc($method,$action,$assoc){
+function formAssoc($method,$action,$assoc,$choix){
     echo('<pre>');
     $row = $assoc->fetch(PDO::FETCH_ASSOC);
     foreach ($row as $key=>$value){
@@ -14,6 +14,7 @@ function formAssoc($method,$action,$assoc){
     }
     
     debutForm($method, $action);
+    formAddSubmitReset();
     finForm();
 }
 
@@ -23,16 +24,16 @@ function debutForm($method, $action,$text=""){
 }
 //FIN FORMULAIRE
 function finForm(){
-	echo"</form>";
+	echo"</form><br>";
 }
 
 
 //$nom est le label et le nom de la variable, $tab est la liste des options.
 function formSelect($id,$label, $tab, $text='') {
-        echo("<label class='control-label'>$label</label>\n");
-        echo("<select class='form-control' id='$id', $text>");
+        echo("<label for=$id class='control-label'>$label</label>\n");
+        echo("<select class='form-control' name=$id id=$id $text>\n");
         foreach ($tab as $value) {
-            echo("<option value='$value'>$value</option>");
+            echo("<option value='$value'>$value</option>\n");
         }
         echo("</select>");
     }

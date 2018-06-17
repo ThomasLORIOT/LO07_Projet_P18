@@ -10,10 +10,11 @@
     $nounou= new Nounou($user->getIdNounous());
     
     
-    if (isset($_POST['newLangue'])){
-        $langue = new Langue($_POST['newLangue'],0);
-        $langue->addDB();
-        header('Location: ajout_langue.php?ajout=1');
+    if (isset($_POST['langues'])){
+        foreach($_POST['langues'] as $value){
+            $nounou->dropParle($value);
+        }
+        header('Location: home.php');
         exit();
     }
 ?>
@@ -55,21 +56,15 @@
             </div>
             <div class="col-sm-8 text-left">
                 <h1>Ajouter des langues</h1>
-                <?php
-                    $message="L'ajout de la langue a été pris en compte, notre administrateur l'ajoutera si elle est correcte";
-                    message5Secondes($message,'ajout');
-                    
+                <?php                    
                     //ajout des langues
                     $action='ajout_langue_niveau.php';
-                    $langues = tabLangues(); 
-                    debutForm('GET', $action);
-                    formSelect('langue[]', 'Choissisez les langues que vous parlez', $langues,'multiple');
-                    formAddSubmitReset();
-                    finForm();
-                    
-                    //formulaire d'ajout de langue nouvelle
-                    debutForm('POST', 'ajout_langue.php');
-                    formInput('Ajouter une nouvelle langue, elle sera ensuite validé par notre administrateur', 'string', 'newLangue');
+                    $langues = $nounou->getLangue();
+                    foreach($langues as $value){
+                        $mesLangues[]=$value['Nom'];
+                    }
+                    debutForm('POST', '#');
+                    formSelect("langues[]", 'Quelles langues voulez vous supprimer ?', $mesLangues,'multiple');
                     formAddSubmitReset();
                     finForm();
                 ?>

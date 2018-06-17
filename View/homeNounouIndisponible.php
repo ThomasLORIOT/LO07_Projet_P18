@@ -48,20 +48,6 @@
               <h3>Attente</h3>
               <p>Dès votre validation accepté, vous aurez ici votre homepage où vous aurez accès à l'ajout de langue, de garde,... </p>
             </div>
-            <div class="col-sm-2 sidenav">
-              <button class="btn btn-outline-success my-2 my-sm-0" onclick="location.href='deconnexion.php'">Déconnexion</button>
-            </div>
-        </nav>
-
-        <div class="container-fluid text-center">    
-          <div class="row content">
-            <div class="col-sm-2 sidenav">
-            </div>
-            <div class="col-sm-8 text-left">
-                <h1>Bienvenue <?php echo(ucfirst($user->getNom())); echo(" ".ucfirst($nounou->getPrénom())) ?>
-            </div>
-          </div>
-        </div>
 
     <footer class="container-fluid text-center">
       <p>Merci pour votre compréhension et bienvenue parmis nous !</p>

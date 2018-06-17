@@ -8,7 +8,6 @@
         echo('not set :p');
         
     }
-    session_destroy();
 ?>
 <html>
     <head>

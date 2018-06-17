@@ -203,6 +203,16 @@ class Nounou {
         $row = mysqli_fetch_row($result);
         self::addParle($row[0],$niveau);
     }
+    
+    //drop à la db le fait que la nounou sait parlé une langue
+    function dropParle($langue) {
+        $requete = "SELECT idLangue FROM `langues` WHERE Nom='$langue'";
+        $myDB= connectDB();
+        $result =$myDB->query($requete);
+        $row = mysqli_fetch_row($result);
+        $requete = "DELETE FROM `parle` WHERE idLangue=$row[0] AND idNounous=$this->idNounous";
+        requete($requete);
+    }
 
     //return la liste des langues parlées de la nounou
     function getLangue() {
