@@ -51,7 +51,13 @@
             </div>
             <div class="col-sm-8 text-left">
 
-                <?php $langues = assoc_langues() ; echo("<pre>") ; print_r($langues);  ?>
+                <?php
+                    $method="POST";
+                    $action='';
+                    $langues = assoc_langues() ; 
+                    formAssoc($method,$action,$langues);
+
+                ?>
 
             </div>
             <div class="col-sm-2 sidenav">

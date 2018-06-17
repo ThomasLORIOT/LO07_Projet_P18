@@ -1,8 +1,20 @@
 <?php
 
 //créer un formulaire de Checkbox à partir d'un fetch_all_assoc
-function formAssoc($assoc){
+function formAssoc($method,$action,$assoc){
+    echo('<pre>');
+    $row = $assoc->fetch(PDO::FETCH_ASSOC);
+    foreach ($row as $key=>$value){
+         echo($key."<br>");
+    }
+    print_r($row);    
     
+    while($row = $assoc->fetch(PDO::FETCH_ASSOC)){
+        print_r($row);
+    }
+    
+    debutForm($method, $action);
+    finForm();
 }
 
 //DEBUT FORMULAIRE

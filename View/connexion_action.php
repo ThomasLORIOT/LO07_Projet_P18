@@ -1,7 +1,7 @@
 <!--
     //connecte l'utilisateur si mdp et email correcte, conduit ensuite sur home si l'utilisateur est nounou ou parent sinon vers choix
 
-    //$_SESSION contient : connexion (true or false) idIdentifiant , nounouOUparents, 
+    //$_SESSION contient : connexion (true or false) idIdentifiant , nounouOUparents (contient soit nounou soit parents), 
 
 -->
 <?php

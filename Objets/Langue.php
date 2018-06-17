@@ -95,7 +95,6 @@ class Langue {
 function assoc_langues() {
     $requete = "SELECT * FROM langues WHERE Visible = 1";
     $myDB = connectPDO();
-    $assoc = $myDB->query($requete);
-    $result = $assoc->fetch(PDO::FETCH_ALL_ASSOC); 
+    $result = $myDB->query($requete);
     return $result;
 }
