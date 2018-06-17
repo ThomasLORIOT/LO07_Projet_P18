@@ -196,6 +196,12 @@ class Nounou {
         $requete = "INSERT INTO parle VALUES ($idLangue, $this->idNounous, '$niveau')";
         requete($requete);
     }
+    
+    //drop à la db le fait que la nounou sait parlé une langue
+    function dropParle($idLangue) {
+        $requete = "DROP FROM parle VALUES ($idLangue, $this->idNounous)";
+        requete($requete);
+    }
 
     //return la liste des langues parlées de la nounou
     function getLangue() {
