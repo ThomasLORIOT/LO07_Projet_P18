@@ -5,6 +5,15 @@ define('PASSEWORD', '');
 define('HOST', 'localhost');
 define('BD_NAME', 'nounou');
 
+//retourne objet PDO connecté à la base nounou
+function connectPDO(){
+    $user = 'root';
+    $password = '';
+    $dataSourceName = 'mysql:host=localhost;dbname=nounou;charset=utf8';
+    $res = new PDO($dataSourceName, $user, $password);
+    return $res;
+}
+
 // retourne la variable connecté à la BD nounou
 function connectDB() {
     $myDB = mysqli_connect(HOST, USER, PASSEWORD, BD_NAME) or
