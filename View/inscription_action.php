@@ -12,11 +12,11 @@ if (isset($_POST)){
         $_POST[$key]=htmlspecialchars($value);
     }
 }
-print_r($_POST);
 
 //création de l'utilisateur
 $newUser = new Utilisateur($_POST['nom'],$_POST['email'],$_POST['mdp']);
 $verif=$newUser->addDB();
+
 
 //si l'utilisateur est bien créer, direction page connexion
 if($verif['ajoutOk']){

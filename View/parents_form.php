@@ -23,7 +23,7 @@
                     //formulaire
                     debutForm($method,$action, 'onsubmit="return verifFormParents(this)"');
                     formInput('Ville ','text','ville','onblur="verif(this)"');
-                    textArea('info',"Avez-vous des éléments importants pour l'organisation",'5','60','onblur="verifTextArea(this,2)" ');
+                    textArea('info',"Avez-vous des éléments importants pour l'organisation",'5','60','onblur="verifTextArea(this,0)" ');
                     //formSelect('nbEnfants',"Combien d'enfant avez vous ?", array(1,2,3,4,5,6,7,8,9,10), 'onchange="ajouteEnfant(this)"');
                     formAddSubmitReset();
                     finForm();

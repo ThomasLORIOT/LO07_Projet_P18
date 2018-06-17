@@ -1,6 +1,8 @@
 <!--
     //connecte l'utilisateur si mdp et email correcte, conduit ensuite sur home si l'utilisateur est nounou ou parent sinon vers choix
 
+    //$_SESSION contient : connexion (true or false) idIdentifiant , nounouOUparents (contient soit nounou soit parents), 
+
 -->
 <?php
 include '../Objets/Utilisateur.php';
@@ -26,13 +28,18 @@ if (isset($_POST)){
             //redirection admin
             header('Location: admin.php');
             exit();
-        }
+        }      
         //si l'utilisateur n'est ni nounou ni parents
         if ($newUser->getIdNounous() == null && $newUser->getIdParents()==null ){
             //redirection page de choix
-            header('Location: choix.html');
+            header('Location: choix.php');
             exit();
         }else{
+            if($newUser->getIdNounous()!=null){
+                $_SESSION['nounouOUparents']='nounou';
+            }else{
+                $_SESSION['nounouOUparents']='parents';
+            }
             header('Location: home.php');
             exit();
         }
@@ -46,5 +53,5 @@ if (isset($_POST)){
         }
     }
 }
-//redirection vers la page home en cas de problème
-header('Location: connexion_form.php?pb=1');  
+////redirection vers la page home en cas de problème
+//header('Location: connexion_form.php?pb=1');  

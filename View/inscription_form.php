@@ -23,6 +23,7 @@
             <h1 class="text-center">Inscription</h1>
             <div class="row">
                 <div class="col-sm-4">
+                    <button type="button" class="btn" onclick="location.href='connexion_form.php'">Se connecter</button>
                 </div>
                 <div class="col-sm-4">
                     <?php
@@ -37,6 +38,7 @@
                         formAddSubmitReset();
                         finForm();
                     ?> 
+                    
                 </div>
             </div>
         </div>

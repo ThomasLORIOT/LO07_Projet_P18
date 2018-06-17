@@ -132,7 +132,7 @@ class Nounou {
         $result = FALSE;
         $requete = "INSERT INTO nounous(Prénom, Portable, Age, Présentation, Expérience, Visible) Values ('$this->Prénom', '$this->Portable', $this->Age, '$this->Présentation', '$this->Expérience', 0)";
         $myDB = connectDB();
-        $res = mysqli_query($myDB, $requete);
+        $res = $myDB->query($requete);
         echo "<script>console.log('requete demandé : $requete');</script><br>\n";
 
         if ($res) {

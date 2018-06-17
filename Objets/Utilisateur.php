@@ -156,7 +156,8 @@ class Utilisateur {
         } else {
             $requete = "UPDATE utilisateur SET Nom='$this->nom', Email='$this->email', MDP='$this->MDP' WHERE idUtilisateur = '$this->idUtilisateur'";
         }
-        requete($requete);
+        $myDB = connectDB();
+        $myDB->query($requete);
     }
     
 }
