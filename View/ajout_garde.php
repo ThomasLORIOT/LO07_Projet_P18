@@ -52,7 +52,7 @@ $nounou = new Nounou($user->getIdNounous());
                     <?php
                     //formulaire
                     debutForm("POST", "ajout_garde_action.php");
-                    formInput('Date', 'text', 'date');
+                    formInput('Date (YYYY-mm-jj', 'text', 'date');
                     $heureDispo = array();
                     for ($i = 0 ; $i <= 24 ; $i++){
                         $heureDispo[] = "$i:00:00";

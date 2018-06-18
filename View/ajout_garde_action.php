@@ -48,7 +48,6 @@ $nounou = new Nounou($user->getIdNounous());
                 </div>
                 <div class="col-sm-8">
                     <?php
-                    debug($_POST);
                     if (isset($_POST['date']) && isset($_POST['heureDébut']) && isset($_POST['heureFin']) && isset($_POST['langue']) && isset($_POST['enfantsMax'])) {
                         //crée l'horaire et la'ajouter à la DB, ne s'ajoute que si elle n'existe pas
                         $horaire = new Horaires($_POST['date'], $_POST['heureDébut'], $_POST['heureFin']);
@@ -70,6 +69,8 @@ $nounou = new Nounou($user->getIdNounous());
                             echo("La garde n'a pas pu être ajoutée, vérifiez si vous avez correctement remplie le formulaire");
                         }
                         
+                    } else {
+                        echo("Formulaire pas rempli entièrement");
                     }
                     ?>
 
