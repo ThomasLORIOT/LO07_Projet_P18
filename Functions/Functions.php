@@ -18,14 +18,41 @@ function message5Secondes($message, $declencheur){
 }
 
 //Affiche un tableau les clés sont les noms des colonnes et les values sont en dessous 
+//tab est de la forme 
+//Array
+//(
+//    [0] => Array
+//        (
+//            [NomCol1] => Ligne1 valeur Col1
+//            [NomCol2] => Ligne1 valeur Col2
+//        )
+//    [1] => Array
+//        (
+//            [NomCol1] => Ligne2 valeur Col1
+//            [NomCol2] => Ligne2 valeur Col2
+//        )
+//)
+
+
 function affiche($tab){
-    echo("<div class='row'>");
-    foreach($tab as $key=>$value){
-        
+    echo("<table class='table'>\n");
+    echo("<thead class='thead-light'> <tr>\n");
+    foreach($tab[0] as $key=>$value){
+        echo("<th> $key </th>\n");
     }
-//                  <div class="col">Hey Guys</div>
-//                  <div class="col">Whats'up</div>
-//              </div>
+    echo("</tr> </thead>\n");
+    echo("<tbody>\n");
+    foreach($tab as $value){
+        echo("<tr>\n");
+        foreach($value as $v){
+            echo("<td>$v</td>\n");
+        }
+        echo("</tr>\n");
+    }
+    echo("</tbody>\n");
+    echo("</table>\n");
+    
+//    foreach($tab as $key){
 }
 
 

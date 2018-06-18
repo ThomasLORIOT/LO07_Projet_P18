@@ -21,7 +21,7 @@ require_once '../../Functions/Functions_admin.php';
     </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-          <a class="navbar-brand" href="home.php">Admin</a>
+          <a class="navbar-brand" href="admin.php">Admin</a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -40,17 +40,17 @@ require_once '../../Functions/Functions_admin.php';
             <div class="col-sm-8 text-left">
               <h1>Bonjour admin, que souhaitez vous faire ?</h1>
               <hr>
-              <h3>Gérer les candidatures et nounous invisibles</h3>
-              <button type="button" class="btn" onclick="location.href='admin_candidatures.php'">LET'S GO !</button>
-              <h3>Gérer les langues proposées</h3>
-              <button type="button" class="btn" onclick="location.href='admin_langue.php'">LET'S GO !</button>
-              <h3>Gérer toutes les nounous</h3>
-              <button type="button" class="btn" onclick="location.href='admin_nounous.php'">LET'S GO !</button>
               <h3>Informations Générales</h3>
               <ul>
                   <li>Nombre de nounous inscrite : <?php echo(nombreNounousInscrite())?></li>
                   <li>Nombre de candidatures à gérer : <?php echo(nombreCandidatureNounous())?> </li>
               </ul>
+              <h3>Gérer les candidatures et nounous bloqués</h3>
+              <button type="button" class="btn btn-dark" onclick="location.href='admin_candidatures.php'">Candidature</button>
+              <h3>Valider les langues proposées</h3>
+              <button type="button" class="btn btn-dark" onclick="location.href='admin_langue.php'">Langues</button>
+              <h3>Bloquer des nounous</h3>
+              <button type="button" class="btn btn-dark" onclick="location.href='admin_nounous.php'">Nounous</button>
             </div>
             <div class="col-sm-2 sidenav">
               </div>
@@ -59,7 +59,6 @@ require_once '../../Functions/Functions_admin.php';
         </div>
 
     <footer class="container-fluid text-center">
-      <p>Footer</p>
     </footer>
 
     </body>

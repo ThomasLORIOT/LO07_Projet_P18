@@ -33,7 +33,7 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
             </ul>
-              <button class="btn btn-outline-success my-2 my-sm-0" onclick="location.href='deconnexion.php'">Déconnexion</button>
+                <button class="btn btn-outline-success my-2 my-sm-0" onclick="location.href='deconnexion.php'">Déconnexion</button>
             </div>
         </nav>
 
@@ -42,15 +42,19 @@
             <div class="col-sm-2 sidenav">
             </div>
             <div class="col-sm-8 text-left">
-                <h1>Bienvenue <?php echo(ucfirst($user->getNom())); echo(" ".ucfirst($nounou->getPrénom())); ?></h1>
-              <p>Vous êtes pour le moment en attente de validation par notre administrateur.</p>
-              <hr>
-              <h3>Attente</h3>
-              <p>Dès votre validation accepté, vous aurez ici votre homepage où vous aurez accès à l'ajout de langue, de garde,... </p>
+                <h1>Bienvenue 
+                    <?php 
+                        echo(ucfirst($user->getNom())); 
+                        echo(" ".ucfirst($nounou->getPrénom())); 
+                    ?>
+                </h1>
+                <p>Vous êtes pour le moment en attente de validation par notre administrateur.</p>
+                <hr>
+                <h3>Attente</h3>
+                <p>Dès votre validation accepté, vous aurez ici votre homepage où vous aurez accès à l'ajout de langue, de garde,... </p>
             </div>
-    <footer class="container-fluid text-center">
-      <p>Merci pour votre compréhension et bienvenue parmis nous !</p>
-    </footer>
-
+        <footer class="container-fluid text-center">
+          <p>Merci pour votre compréhension et bienvenue parmis nous !</p>
+        </footer>
     </body>
 </html>
