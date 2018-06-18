@@ -23,9 +23,9 @@ function affiche($tab){
     foreach($tab as $key=>$value){
         
     }
-                  <div class="col">Hey Guys</div>
-                  <div class="col">Whats'up</div>
-              </div>
+//                  <div class="col">Hey Guys</div>
+//                  <div class="col">Whats'up</div>
+//              </div>
 }
 
 
