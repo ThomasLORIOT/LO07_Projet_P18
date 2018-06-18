@@ -21,15 +21,16 @@ function nombreCandidatureNounous() {
     return $result->num_rows;
 }
 
-function afficherCandidature() {
+function getCandidatures() {
     $requete = "SELECT * FROM nounous WHERE Visible = 0";
     $myDB = connectPDO();
     $result = $myDB->query($requete);
+    $i = 0;
     while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-        echo("<pre>");
-        print_r($row);
-        echo("</pre>");
+        $Candidature[$i] = $row;
+        $i++;
     }
+    return $Candidature;
 }
 
 //accepte candidature d'une nounou
@@ -57,15 +58,19 @@ function supprimeNounous($idNounou) {
 }
 
 //retourne les id des langues proposés
-function afficherPropositionLangue() {
+function getPropositionsLangues() {
     $requete = "SELECT * FROM langues WHERE Visible = 0";
     $myDB = connectPDO();
     $result = $myDB->query($requete);
+    $i = 0;
     while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-        echo("<pre>");
-        print_r($row);
-        echo("</pre>");
+        $propLangues[$i] = $row;
+        $i++;
     }
+//    echo("<pre>");
+//    print_r($propLangues);
+//    echo("</pre>");
+    return $propLangues;
 }
 
 //accepte une langue proposée
@@ -85,11 +90,12 @@ function listeNounous() {
     $requete = "SELECT * FROM nounous";
     $myDB = connectPDO();
     $result = $myDB->query($requete);
+    $i = 0;
     while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-        echo("<pre>");
-        print_r($row);
-        echo("</pre>");
+        $nounous[$i] = $row;
+        $i++;
     }
+    return $nounous;
 }
 
 //return dossier complet d'une nounou

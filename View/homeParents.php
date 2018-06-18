@@ -31,6 +31,9 @@
 
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="contact.php">Contact <span class="sr-only">(current)</span></a>
+                </li>
               <li class="nav-item active">
                 <a class="nav-link" href="home.php">Home <span class="sr-only">(current)</span></a>
               </li>
@@ -81,8 +84,12 @@
           </div>
         </div>
 
-    <footer class="container-fluid text-center">
-      <p>Footer Text</p>
+    <footer class="page-footer font-small stylish-color-dark pt-4 mt-4">
+
+        <!-- Copyright -->
+        <div class="footer-copyright text-center py-3">© 2018 Copyright : Créer par Thomas Loriot et Vladimir Trois
+        </div>
+        <!-- Copyright -->
     </footer>
 
     </body>

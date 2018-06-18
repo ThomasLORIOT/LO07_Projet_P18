@@ -1,14 +1,11 @@
 <?php
-    session_start();        
-    include '../Objets/Utilisateur.php';
-    include '../Objets/Nounou.php';
-    $user=$_SESSION['idUtilisateur'];
-    $user= new Utilisateur($_SESSION['idUtilisateur']);
-    $nounou= new Nounou($user->getIdNounous());
-    if (!$nounou->getVisible()){
-        header('Location: homeNounouIndisponible.php');
-        exit();
-    }      
+session_start();
+include '../Objets/Utilisateur.php';
+include '../Objets/Nounou.php';
+include '../Functions/Functions.php';
+$user = $_SESSION['idUtilisateur'];
+$user = new Utilisateur($_SESSION['idUtilisateur']);
+$nounou = new Nounou($user->getIdNounous());
 ?>
 
 <!DOCTYPE html>
@@ -29,51 +26,62 @@
     </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-          <a class="navbar-brand" href="home.php"><?php echo(ucfirst($_SESSION['nounouOUparents']))?></a>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-            </ul>
-              <button class="btn btn-outline-success my-2 my-sm-0" onclick="location.href='deconnexion.php'">Déconnexion</button>
+            <a class="navbar-brand" href="home.php"><?php echo(ucfirst($_SESSION['nounouOUparents'])) ?></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon">
+                </span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="contact.php">Contact <span class="sr-only">(current)</span></a>
+                    </li>
+                </ul>
+                <button class="btn btn-outline-success my-2 my-sm-0" onclick="location.href = 'deconnexion.php'">Déconnexion</button>
             </div>
         </nav>
 
         <div class="container-fluid text-center">    
-          <div class="row content">
-            <div class="col-sm-2 sidenav">
+            <div class="row content">
+                <div class="col-sm-2 sidenav">
+                </div>
+                <div class="col-sm-8 text-left">
+                    <h1>
+                        <?php
+                        echo(ucfirst($user->getNom()));
+                        echo(" " . ucfirst($nounou->getPrénom()));
+                        ?>
+                    </h1>
+                    <?php
+                    if (!$nounou->getVisible()) {
+                        echo("Vous n'êtes pas validé par l'administrateur, surêment car vous venez de vous inscrire. <br>"
+                        . "Sinon, veuillez contacter notre administrateur, il vous a surêment bloquer pour une raison spécifique.");
+                    }
+                    ?>
+                    <hr>
+
+                    <h3>Mes gardes</h3>
+                    <button type="button" class="btn" onclick="location.href = 'ajout_garde.php'">+</button>
+                    <button type="button" class="btn" onclick="location.href = 'enlever_garde.php'">-</button>
+
+                    <h3>Mes langues</h3>
+                    <?php affiche($nounou->getLangue()); ?>
+                    <button type="button" class="btn" onclick="location.href = 'ajout_langue.php'">+</button>
+                    <button type="button" class="btn" onclick="location.href = 'enlever_langue.php'">-</button>
+
+                    <h3>Mon planning</h3>
+                    <p>Lorem ipsum...</p>
+                </div>
+                <div class="col-sm-2 sidenav">
+                </div>
             </div>
-            <div class="col-sm-8 text-left">
-              <h1><?php echo(ucfirst($user->getNom())); echo(" ".ucfirst($nounou->getPrénom())); ?></h1>
-              <p> Vous êtes nounou<p>
-              <hr>
-              <h3>Mes gardes</h3>
-              <button type="button" class="btn" onclick="location.href='ajout_garde.php'">+</button>
-              <button type="button" class="btn" onclick="location.href='enlever_garde.php'">-</button>
-              <h3>Mes langues</h3>
-              <div class="row">
-                  <div class="col">Hey Guys</div>
-                  <div class="col">Whats'up</div>
-              </div>
-              
-              
-              <p><?php echo("<pre>") ; print_r($nounou->getLangue()); echo("</pre>");  ?>              </p>
-              <button type="button" class="btn" onclick="location.href='ajout_langue.php'">+</button>
-              <button type="button" class="btn" onclick="location.href='enlever_langue.php'">-</button>
-              <h3>Mon planning</h3>
-              <p>Lorem ipsum...</p>
-            </div>
-            <div class="col-sm-2 sidenav">
-              </div>
-            </div>
-          </div>
         </div>
-
-    <footer class="container-fluid text-center">
-      <p>Footer</p>
-    </footer>
-
     </body>
+    <footer class="page-footer font-small stylish-color-dark pt-4 mt-4">
+
+        <!-- Copyright -->
+        <div class="footer-copyright text-center py-3">© 2018 Copyright : Créer par Thomas Loriot et Vladimir Trois
+        </div>
+        <!-- Copyright -->
+    </footer>
 </html>

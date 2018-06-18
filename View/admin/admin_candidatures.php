@@ -1,15 +1,16 @@
 <?php
 require_once '../../Functions/Functions_admin.php';
 require_once '../../Functions/Functions_Formulaires.php';
+require_once '../../Functions/Functions.php';
 
-if (isset($_POST['idVal'])){
+if (isset($_POST['idVal'])) {
     accepterCandidature($_POST['idVal']);
-    echo("candidature de nounou id ".$_POST['idVal']." à bien été validée<br>");
+    //echo("candidature de nounou id " . $_POST['idVal'] . " à bien été validée<br>");
     unset($_POST['idVal']);
 }
-if (isset($_POST['idSup'])){
+if (isset($_POST['idSup'])) {
     supprimeNounous($_POST['idSup']);
-    echo("nounou id ".$_POST['idSup']." à bien été supprimé<br>");
+    //echo("nounou id " . $_POST['idSup'] . " à bien été supprimé<br>");
     unset($_POST['idSup']);
 }
 ?>
@@ -31,7 +32,7 @@ if (isset($_POST['idSup'])){
     </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <a class="navbar-brand" href="home.php">Admin</a>
+            <a class="navbar-brand" href="admin.php">Admin</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -46,24 +47,20 @@ if (isset($_POST['idSup'])){
         <div class="container-fluid text-center">    
             <div class="row content">
                 <div class="col-sm-2 sidenav">
+                    <hr>
                     <button class="btn btn-outline-success my-2 my-sm-0" onclick="location.href = 'admin.php'">Retour</button>
                 </div>
                 <div class="col-sm-8 text-left">
-                    <?php afficherCandidature() ?>
+                    <?php affiche(getCandidatures()) ?>
                 </div>
                 <div class="col-sm-2 sidenav">
-                    <h5>Entrer id de nounou à valider</h5><br>
-                    <?php 
-                    debutForm("POST", "admin_candidatures.php");
-                    formInput("Nounou", "text", "idVal");
-                    ?>
                     <hr>
-                    
-                    <h5>Entrer id nounou à supprimer</h5><br>
                     <?php
-                    formInput("Nounou", "text", "idSup");
-                    echo("<br>");
-                    Submit("Confirmer");
+                    debutForm("POST", "admin_candidatures.php");
+                    formInput("<h5 class='text-success'>Entrer idNounou à valider</h5>", "text", "idVal");
+                    echo("<hr>");
+                    formInput("<h5 class='text-danger'>Entrer idNounou à supprimer</h5>", "text", "idSup");
+                    formAddSubmitReset("Confirmer");
                     finForm();
                     ?>
                 </div>
@@ -72,7 +69,6 @@ if (isset($_POST['idSup'])){
     </div>
 
     <footer class="container-fluid text-center">
-        <p>Footer</p>
     </footer>
 
 </body>

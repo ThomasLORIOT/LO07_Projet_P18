@@ -55,5 +55,20 @@
             </div>
         </div>
     </body>
+    <footer class="page-footer font-small stylish-color-dark pt-4 mt-4">
+        <hr>
+        <!-- Call to action -->
+        <ul class="list-unstyled list-inline text-center py-2">
+            <li class="list-inline-item">
+                <button onclick="location.href='contact.php'" class="btn btn-default btn-rounded">Contact</button>
+            </li>
+        </ul>
+        <!-- Call to action -->
+        <hr>
+        <!-- Copyright -->
+        <div class="footer-copyright text-center py-3">© 2018 Copyright : Créer par Thomas Loriot et Vladimir Trois
+        </div>
+        <!-- Copyright -->
+    </footer>
 </html>
 

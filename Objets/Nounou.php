@@ -222,8 +222,7 @@ class Nounou {
         $result = $myDB->query($requete);
         $i=0;
         while($row = $result->fetch_assoc()){
-            $ListeLangue[$i]['Nom']=$row['Nom'];
-            $ListeLangue[$i]['Niveau']=$row['Niveau'];
+            $ListeLangue[$i]=$row;
             $i++;
         }
         mysqli_close($myDB);
