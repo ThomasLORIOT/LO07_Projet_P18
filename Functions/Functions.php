@@ -1,4 +1,7 @@
 <?php
+//Quelques fonctions PHP
+
+//Affiche un message de 5 secondes si le declecheur est présent en GET et égale à 1
 function message5Secondes($message, $declencheur){
     if(isset($_GET[$declencheur])){
             if($_GET[$declencheur]==1){         
@@ -12,6 +15,17 @@ function message5Secondes($message, $declencheur){
                     </script>');
             }
     }
+}
+
+//Affiche un tableau les clés sont les noms des colonnes et les values sont en dessous 
+function affiche($tab){
+    echo("<div class='row'>");
+    foreach($tab as $key=>$value){
+        
+    }
+                  <div class="col">Hey Guys</div>
+                  <div class="col">Whats'up</div>
+              </div>
 }
 
 
