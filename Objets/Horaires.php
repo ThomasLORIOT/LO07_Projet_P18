@@ -93,7 +93,7 @@ class Horaires {
     function addDB() {
         $myDB = connectDB();
         //est-ce que ce horaire est nouveau ?
-        $result = $myDB->query("SELECT idHoraires FROM horaires WHERE Date = $this->Date AND `Heure Début` = $this->HeureDébut AND `Heure Fin` = $this->HeureFin");
+        $result = $myDB->query("SELECT idHoraires FROM horaires WHERE Date = '$this->Date' AND `Heure Début` = '$this->HeureDébut' AND `Heure Fin` = '$this->HeureFin'");
         if ($result->num_rows == 0) {
             //l'horaire est nouveau : On INSERT l'horaire
             $requete = "INSERT INTO horaires(Date, `Heure Début`, `Heure Fin`) VALUES ('$this->Date', '$this->HeureDébut', '$this->HeureFin')";
@@ -104,7 +104,3 @@ class Horaires {
     }
 
 }
-
-$test = new Horaires('2000-06-12', 140000, 180000);
-echo($test);
-$test->addDB();

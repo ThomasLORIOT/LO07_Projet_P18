@@ -196,6 +196,7 @@ class Garde {
     }
 
     function addDB() {
+        $res = FALSE;
         $myDB = connectDB();
         //est-ce que ce horaire est nouveau ?
         $result = $myDB->query("SELECT idNounous, idHoraires FROM garde WHERE idNounous = $this->idNounous AND idHoraires = $this->idHoraires");
@@ -203,9 +204,11 @@ class Garde {
             //la garde est nouvelle : On INSERT la garde
             $requete = "INSERT INTO garde(idNounous, idHoraires, Régulier, Langue, nbr_enfant_max) VALUES ($this->idNounous, $this->idHoraires, $this->Régulier, $this->Langue, $this->nbr_enfants_max)";
             requete($requete);
+            $res = TRUE;
         } else {
             echo "<script>console.log('garde existe déjà');</script><br>\n";
         }
+        return $res;
     }
 
     //celle ci n'update pas les dates, à utilisé quand elles ne sont pas à update

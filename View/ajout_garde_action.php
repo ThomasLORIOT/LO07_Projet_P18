@@ -17,7 +17,7 @@ $nounou = new Nounou($user->getIdNounous());
 -->
 <html>
     <head>
-        <title>Ajout garde</title>
+        <title>Ajout langue</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="../include/bootstrap/css/bootstrap.min.css">
@@ -40,30 +40,37 @@ $nounou = new Nounou($user->getIdNounous());
         </nav>
 
         <div class="container">
-            <h1 class="text-center">Proposer une garde</h1>
+            <h1 class="text-center">Vérification</h1>
             <hr>
             <div class="row">
                 <div class="col-sm-2">
-                    <button class="btn btn-dark" onclick="location.href = 'choix.php'">Retour</button>
+                    <button class="btn btn-dark" onclick="location.href = 'ajout_garde.php'">Retour</button>
                 </div>
                 <div class="col-sm-8">
-
-
                     <?php
-                    //formulaire
-                    debutForm("POST", "ajout_garde_action.php");
-                    formInput('Date', 'text', 'date');
-                    formInput('Heure de début', 'text', 'heureDébut');
-                    formInput('Heure de fin', 'text', 'heureFin');
-                    echo("<label>Avec langue étrangère : oui</label>");
-                    Radio('langue', '1');
-                    echo("non");
-                    Radio('langue', '0');
-                    echo("<br>");
-                    formInput("Nombre d'enfants au maximum", 'number', 'enfnatsMax');
-                    formAddSubmitReset();
-                    finForm();
+                    if (isset($_POST['date']) && isset($_POST['heureDébut']) && isset($_POST['heureFin']) && isset($_POST['langue']) && isset($_POST['enfantsMax'])) {
+                        //crée l'horaire et la'ajouter à la DB, ne s'ajoute que si elle n'existe pas
+                        $horaire = new Horaires($_POST['date'], $_POST['heureDébut'], $_POST['heureFin']);
+                        $horaire->addDB();
+                        //recupérer l'id de l'horaire 
+                        $myDB = connectDB();
+                        $requete = "SELECT idHoraires FROM horaires WHERE Date = '".$_POST['date']."' AND `Heure Début` = '".$_POST['heureDébut']."' AND `Heure Fin` = '".$_POST['heureFin']."'";
+                        $res2 = $myDB->query($requete2);
+                        $id = mysqli_fetch_assoc($res2);
+                        $horaire->idHoraires = $id['idHoraires'];
+                        //crée la garde et l'ajoute à la DB
+                        $garde = new Garde($nounou->getIdNounous(), $horaire->getIdHoraires(), $_POST['langue'], $__POST['enfantsMax']);
+                        if($garde->addDB()){
+                            echo("La garde à bien été ajoutée.<br>");
+                            echo("Les parents intéressés pourront ajouter leurs enfants de votre garde.");
+                        } else {
+                            echo("La garde n'a pas pu être ajoutée, vérifiez si vous avez correctement remplie le formulaire");
+                        }
+                        
+                    }
                     ?>
+
+
                 </div>
             </div>
         </div>
@@ -78,3 +85,4 @@ $nounou = new Nounou($user->getIdNounous());
 
     </body>
 </html>
+
