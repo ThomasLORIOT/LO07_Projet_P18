@@ -113,18 +113,11 @@ class Parents {
         $enfant->addDB();
     }
 
-    //return liste de ses enfants
+    //return liste des id de ses enfants
     function getEnfant() {
         $requete = "SELECT idEnfants FROM enfants WHERE idParents=$this->idParents";
         $row = fetchAllRequete($requete);
-        debug($row);
-        $ListeEnfant = Array();
-        foreach ($row as $value) {
-            $temp = (int)$value;
-            echo($temp);
-            $ListeEnfant[] = new Enfants($temp);
-        }
-        return $ListeEnfant;
+        return $row;
     }
 
     function addEnfantGarde($idEnfant, $idNounous, $idHoraires) {

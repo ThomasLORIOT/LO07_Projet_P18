@@ -48,7 +48,6 @@
               <h3>Attente</h3>
               <p>Dès votre validation accepté, vous aurez ici votre homepage où vous aurez accès à l'ajout de langue, de garde,... </p>
             </div>
-
     <footer class="container-fluid text-center">
       <p>Merci pour votre compréhension et bienvenue parmis nous !</p>
     </footer>
