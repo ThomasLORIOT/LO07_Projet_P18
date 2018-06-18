@@ -199,10 +199,10 @@ class Garde {
         $res = FALSE;
         $myDB = connectDB();
         //est-ce que ce horaire est nouveau ?
-        $result = $myDB->query("SELECT idNounous, idHoraires FROM garde WHERE idNounous = $this->idNounous AND idHoraires = $this->idHoraires");
+        $result = $myDB->query("SELECT idNounous, idHoraires FROM garde WHERE idNounous = '$this->idNounous' AND idHoraires = '$this->idHoraires'");
         if ($result->num_rows == 0) {
             //la garde est nouvelle : On INSERT la garde
-            $requete = "INSERT INTO garde(idNounous, idHoraires, Régulier, Langue, nbr_enfant_max) VALUES ($this->idNounous, $this->idHoraires, $this->Régulier, $this->Langue, $this->nbr_enfants_max)";
+            $requete = "INSERT INTO garde(idNounous, idHoraires, Régulier, Langue, nbr_enfant_max) VALUES ($this->idNounous, $this->idHoraires, '0', $this->Langue, $this->nbr_enfants_max)";
             requete($requete);
             $res = TRUE;
         } else {

@@ -53,14 +53,18 @@ $nounou = new Nounou($user->getIdNounous());
                     //formulaire
                     debutForm("POST", "ajout_garde_action.php");
                     formInput('Date', 'text', 'date');
-                    formInput('Heure de début', 'text', 'heureDébut');
-                    formInput('Heure de fin', 'text', 'heureFin');
+                    $heureDispo = array();
+                    for ($i = 0 ; $i <= 24 ; $i++){
+                        $heureDispo[] = "$i:00:00";
+                    }     
+                    formSelect('heureDébut', 'Heure de début', $heureDispo);
+                    formSelect('heureFin', 'Heure de fin', $heureDispo);
                     echo("<label>Avec langue étrangère : oui</label>");
                     Radio('langue', '1');
                     echo("non");
                     Radio('langue', '0');
                     echo("<br>");
-                    formInput("Nombre d'enfants au maximum", 'number', 'enfnatsMax');
+                    formInput("Nombre d'enfants au maximum", 'number', 'enfantsMax');
                     formAddSubmitReset();
                     finForm();
                     ?>
