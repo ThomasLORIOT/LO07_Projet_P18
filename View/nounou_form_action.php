@@ -1,12 +1,13 @@
 <?php
 session_start();
-if ($_SESSION['connexion']){
+if (isset($_SESSION['connexion'])){
     include '../Objets/Nounou.php';
     include '../Objets/Utilisateur.php';
 
     // inscription d'une nounou 
     //récupération des données du POST et vérification des valeurs 
     if (isset($_POST)){
+        echo("ici");
         foreach ($_POST as $key => $value){
             $_POST[$key]=htmlspecialchars($value);
         }
@@ -14,24 +15,19 @@ if ($_SESSION['connexion']){
         $newNounou = new Nounou($_POST['prenom'],$_POST['telephone'],$_POST['age'],$_POST['presentation'],$_POST['experience']);
         $verif=$newNounou->addDB();
         //si la nounou est bien ajouté
+        //print_r($verif);
         if($verif){
             //récupération de l'id et ajout de celui ci dans utilisateur
             $user= new Utilisateur($_SESSION['idUtilisateur']);
             $user->setIdNounous($newNounou->getIdNounous());
             $user->updateDB();
-
-            echo("<pre>");
-            print_r($newNounou);
-            print_r($user);
-    //        header('Location: home.php');
-    //        exit();
+            $_SESSION['nounouOUparents']='nounou';
+            header('Location: home.php');
+            exit();
         }
     }
 }
-echo("nope");
-//   //redirection vers la page home en cas de problème
-//   header('Location: home.php');s
-
-
+//redirection vers la page welcome en cas de problème
+header('Location: welcome.php?pb=1');s
 
 ?>

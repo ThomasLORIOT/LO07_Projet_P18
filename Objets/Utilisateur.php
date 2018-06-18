@@ -113,8 +113,8 @@ class Utilisateur {
                 $this->nom = $row['Nom'];
                 $this->email = $row['Email'];
                 $this->MDP = $row['MDP'];
-                $this->Parents_idParents = $row['idParents'];
-                $this->Nounous_idNounous = $row['idNounous'];
+                $this->idParents = $row['idParents'];
+                $this->idNounous = $row['idNounous'];
                 $verif['connexion']=TRUE;
             }else{
                 $verif['wrongID']=TRUE;
@@ -156,7 +156,8 @@ class Utilisateur {
         } else {
             $requete = "UPDATE utilisateur SET Nom='$this->nom', Email='$this->email', MDP='$this->MDP' WHERE idUtilisateur = '$this->idUtilisateur'";
         }
-        requete($requete);
+        $myDB = connectDB();
+        $myDB->query($requete);
     }
     
 }

@@ -132,7 +132,7 @@ class Nounou {
         $result = FALSE;
         $requete = "INSERT INTO nounous(Prénom, Portable, Age, Présentation, Expérience, Visible) Values ('$this->Prénom', '$this->Portable', $this->Age, '$this->Présentation', '$this->Expérience', 0)";
         $myDB = connectDB();
-        $res = mysqli_query($myDB, $requete);
+        $res = $myDB->query($requete);
         echo "<script>console.log('requete demandé : $requete');</script><br>\n";
 
         if ($res) {
@@ -196,23 +196,42 @@ class Nounou {
         $requete = "INSERT INTO parle VALUES ($idLangue, $this->idNounous, '$niveau')";
         requete($requete);
     }
+    function addParleLangue($langue, $niveau) {
+        $requete = "SELECT idLangue FROM `langues` WHERE Nom='$langue'";
+        $myDB= connectDB();
+        $result =$myDB->query($requete);
+        $row = mysqli_fetch_row($result);
+        self::addParle($row[0],$niveau);
+    }
+    
+    //drop à la db le fait que la nounou sait parlé une langue
+    function dropParle($langue) {
+        $requete = "SELECT idLangue FROM `langues` WHERE Nom='$langue'";
+        $myDB= connectDB();
+        $result =$myDB->query($requete);
+        $row = mysqli_fetch_row($result);
+        $requete = "DELETE FROM `parle` WHERE idLangue=$row[0] AND idNounous=$this->idNounous";
+        requete($requete);
+    }
 
     //return la liste des langues parlées de la nounou
     function getLangue() {
-        $requete = "SELECT idLangue FROM parle WHERE idNounous=$this->idNounous";
+        $ListeLangue = Array();
+        $requete = "SELECT Nom,Niveau FROM parle NATURAL JOIN langues WHERE idNounous=$this->idNounous";
         $myDB = connectDB();
         $result = $myDB->query($requete);
-        $row = mysqli_fetch_row($result);
-
-        $ListeLangue = Array();
-        foreach ($row as $value) {
-            $ListeLangue[] = new Langue($value);
+        $i=0;
+        while($row = $result->fetch_assoc()){
+            $ListeLangue[$i]['Nom']=$row['Nom'];
+            $ListeLangue[$i]['Niveau']=$row['Niveau'];
+            $i++;
         }
         mysqli_close($myDB);
         return $ListeLangue;
     }
     
     function addLangue($langue){
+        
         $new = new Langue($langue, 0);
         $new->addDB();
     }

@@ -1,10 +1,10 @@
 <?php
 
-require_once 'Functions_SQL';
-require_once '../Objets/Nounou.php';
-require_once '../Objets/Langue.php';
-require_once '../Objets/Garde.php';
+require_once 'Functions_SQL.php';
 
+//require_once '../Objets/Nounou.php';
+//require_once '../Objets/Langue.php';
+//require_once '../Objets/Garde.php';
 //retourne nombre de nounous inscrites et validées
 function nombreNounousInscrite() {
     $myDB = connectDB();
@@ -21,112 +21,98 @@ function nombreCandidatureNounous() {
     return $result->num_rows;
 }
 
-//retourne liste des nounous qui attendent d'être validées et celles invisibles
-function listeCandidature() {
-    $requete = "SELECT idNounous FROM nounous";
-    $myDB = connectDB();
+function afficherCandidature() {
+    $requete = "SELECT * FROM nounous WHERE Visible = 0";
+    $myDB = connectPDO();
     $result = $myDB->query($requete);
-    $row = mysqli_fetch_row($result);
-
-    $ListeNounous = Array();
-    foreach ($row as $value) {
-        $ListeNounous[] = new Nounou($value);
-    }
-    mysqli_close($myDB);
-    return $ListeNounous;
-}
-
-//accepte candidature d'une liste de nounou
-function accepterCandidature($listeIdNounous){
-    $listeNounous = Array();
-    foreach ($listeIdNounous as $value) {
-        $listeNounous = new Nounou($value);
-    }
-    foreach ($listeNounous as $value) {
-        $value->setVisible(1);
-        $value->updateDB();
+    while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+        echo("<pre>");
+        print_r($row);
+        echo("</pre>");
     }
 }
 
-//drop une liste de nounous de la DB
-function supprimeNounous($listeIdNounous){
-    $listeNounous = Array();
-    foreach ($listeIdNounous as $value) {
-        $listeNounous = new Nounou($value);
-    }
-    foreach ($listeNounous as $value) {
-        $value->dropDB();
-    }
+//accepte candidature d'une nounou
+function accepterCandidature($idNounou) {
+    $requete = "UPDATE nounous SET Visible=1 WHERE idNounous = '$idNounou'";
+    requete($requete);
 }
 
-//retourne les propositions de langues
-function propositionLangue(){
-    $requete = "SELECT idLangue FROM langues WHERE Visible = 0";
-    $myDB = connectDB();
+//gère vision d'une nounou
+function gérerVisibilitéNounou($idNounou, $visible) {
+    $requete = "UPDATE nounous SET Visible=$visible WHERE idNounous = '$idNounou'";
+    requete($requete);
+}
+
+//drop la nounou de la DB
+function supprimeNounous($idNounou) {
+    $requete1 = "DELETE FROM parle WHERE idNounous=$idNounou";
+    $requete2 = "DELETE FROM enfants_gardé WHERE idNounous=$idNounou";
+    $requete3 = "DELETE FROM garde WHERE idNounous=$idNounou";
+    $requete4 = "DELETE FROM nounous WHERE idNounous=$idNounou";
+    requete($requete1);
+    requete($requete2);
+    requete($requete3);
+    requete($requete4);
+}
+
+//retourne les id des langues proposés
+function afficherPropositionLangue() {
+    $requete = "SELECT * FROM langues WHERE Visible = 0";
+    $myDB = connectPDO();
     $result = $myDB->query($requete);
-    $row = mysqli_fetch_row($result);
-
-    $ListeNounous = Array();
-    foreach ($row as $value) {
-        $ListeNounous[] = new Nounou($value);
-    }
-    mysqli_close($myDB);
-    return $ListeNounous;
-}
-
-//accepte une liste de langues proposées
-function accepteLangue($listeidLangue){
-    $listeLangue = Array();
-    foreach ($listeidLangue as $value) {
-        $listeLangue = new Langue($value);
-    }
-    foreach ($listeLangue as $value) {
-        $value->setVisible(1);
-        $value->updateDB();
+    while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+        echo("<pre>");
+        print_r($row);
+        echo("</pre>");
     }
 }
 
-//supprime liste langues
-function supprimeLangue($listeidLangue){
-    $listeLangue = Array();
-    foreach ($listeidLangue as $value) {
-        $listeLangue = new Langue($value);
-    }
-    foreach ($listeLangue as $value) {
-        $value->dropDB();
-    }
+//accepte une langue proposée
+function accepteLangue($idLangue) {
+    $requete = "UPDATE langues SET Visible=1 WHERE idLangue = '$idLangue'";
+    requete($requete);
 }
 
-//retourne toutes les nounous de la DB
-function listeNounous(){
-    $requete = "SELECT idNounous FROM nounous WHERE Visible = 0";
-    $myDB = connectDB();
+//supprime une langue
+function supprimeLangue($idLangue) {
+    $requete = "DELETE FROM langues WHERE idLangue=$idLangue";
+    requete($requete);
+}
+
+//affiche toutes les nounous de la DB
+function listeNounous() {
+    $requete = "SELECT * FROM nounous";
+    $myDB = connectPDO();
     $result = $myDB->query($requete);
-    $row = mysqli_fetch_row($result);
-
-    $ListeNounous = Array();
-    foreach ($row as $value) {
-        $ListeNounous[] = new Nounou($value);
+    while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+        echo("<pre>");
+        print_r($row);
+        echo("</pre>");
     }
-    mysqli_close($myDB);
-    return $ListeNounous;
 }
-
 
 //return dossier complet d'une nounou
-function dossierNounou($idNounou){
+function dossierNounou($idNounou) {
     $dossier = Array("listeGarde" => listeGardeNounou($idNounou));
-    
 }
 
-function listeGardeNounou($idNounou){
+function listeGardeNounou($idNounou) {
     $requete = "SELECT idHoraires FROM garde WHERE idNounous = $idNounou";
     $myDB = connectDB();
     $result = $myDB->query($requete);
     $row = mysqli_fetch_row($result);
     $listeGarde = Array();
-    foreach ($row as $value){
+    foreach ($row as $value) {
         $listeGarde[] = new Garde($idNounou, $value);
     }
     return $listeGarde;
+}
+
+function revenuTotalNounou($idNounou) {
+    $requete = "SELECT SUM(Prix) FROM garde WHERE idNounous = $idNounou AND Prix != NULL";
+    $myDB = connectDB();
+    $result = $myDB->query($requete);
+    $row = mysqli_fetch_row($result);
+    return $row[0];
 }

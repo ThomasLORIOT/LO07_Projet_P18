@@ -11,14 +11,14 @@
  *
  * @author Thomas
  */
-
 require_once '../Functions/Functions_SQL.php';
 
 class Langue {
+
     private $idLangue;
     private $langue;
     private $visible;
-    
+
     function getIdLangue() {
         return $this->idLangue;
     }
@@ -54,8 +54,8 @@ class Langue {
                 break;
         }
     }
-    
-    function __construct1($idLangue){
+
+    function __construct1($idLangue) {
         $myDB = connectDB();
         $result = $myDB->query("SELECT * FROM langues WHERE idLangue = '$idLangue'");
         if ($result->num_rows == 0) {
@@ -67,28 +67,51 @@ class Langue {
             $this->visible = $row['Visible'];
         }
     }
-    
-    function __construct2($langue, $visible){
+
+    function __construct2($langue, $visible) {
         $this->langue = $langue;
         $this->visible = $visible;
     }
-    
+
     function __toString() {
         return "Langue($this->idLangue;$this->langue;$this->visible)<br>\n";
     }
-    
-    function addDB(){
-        $requete = "INSERT INTO langues(Nom, Visible) VALUES ('$this->langue', '$this->visible')";
-        requete($requete);
+
+    function addDB() {
+        $myDB = connectDB();
+        $result = $myDB->query("SELECT * FROM langues WHERE Nom = $this->langue");
+        if ($result->num_rows != 0) {
+            echo "<script>console.log('connait déjà cette langue');</script>";
+        } else {
+            $requete = "INSERT INTO langues(Nom, Visible) VALUES ('$this->langue', '$this->visible')";
+            requete($requete);
+        }
     }
-    
-    function updateDB(){
+
+    function updateDB() {
         $requete = "UPDATE langues SET Nom = '$this->langue', Visible = $this->visible WHERE idLangue=$this->idLangue";
         requete($requete);
     }
-    
-    function dropDB(){
-        $requete="DELETE FROM langues WHERE idLangue=$this->idLangue";
+
+    function dropDB() {
+        $requete = "DELETE FROM langues WHERE idLangue=$this->idLangue";
         requete($requete);
     }
+}
+function assoc_langues() {
+    $requete = "SELECT * FROM langues WHERE Visible = 1";
+    $myDB = connectPDO();
+    $result = $myDB->query($requete);
+    return $result;
+}
+
+function tabLangues() {
+    $requete = "SELECT * FROM langues WHERE Visible = 1";
+    $langues=array();
+    $myDB = connectPDO();
+    $result = $myDB->query($requete);
+    while($row = $result->fetch(PDO::FETCH_ASSOC)){
+        $langues[]=$row['Nom'];
+    }
+    return $langues;
 }
