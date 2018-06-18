@@ -8,9 +8,7 @@
     if (!$nounou->getVisible()){
         header('Location: homeNounouIndisponible.php');
         exit();
-
-    } 
-     
+    }      
 ?>
 
 <!DOCTYPE html>
@@ -49,12 +47,21 @@
             </div>
             <div class="col-sm-8 text-left">
               <h1><?php echo(ucfirst($user->getNom())); echo(" ".ucfirst($nounou->getPrénom())); ?></h1>
-              <p> Vous êtes nounou, vous pouvez :<p>
+              <p> Vous êtes nounou<p>
               <hr>
               <h3>Mes gardes</h3>
               <button type="button" class="btn" onclick="location.href='ajout_garde.php'">+</button>
+              <button type="button" class="btn" onclick="location.href='enlever_garde.php'">-</button>
               <h3>Mes langues</h3>
+              <div class="row">
+                  <div class="col">Hey Guys</div>
+                  <div class="col">Whats'up</div>
+              </div>
+              
+              
+              <p><?php echo("<pre>") ; print_r($nounou->getLangue()); echo("</pre>");  ?>              </p>
               <button type="button" class="btn" onclick="location.href='ajout_langue.php'">+</button>
+              <button type="button" class="btn" onclick="location.href='enlever_langue.php'">-</button>
               <h3>Mon planning</h3>
               <p>Lorem ipsum...</p>
             </div>

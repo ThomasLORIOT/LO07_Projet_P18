@@ -104,3 +104,14 @@ function assoc_langues() {
     $result = $myDB->query($requete);
     return $result;
 }
+
+function tabLangues() {
+    $requete = "SELECT * FROM langues WHERE Visible = 1";
+    $langues=array();
+    $myDB = connectPDO();
+    $result = $myDB->query($requete);
+    while($row = $result->fetch(PDO::FETCH_ASSOC)){
+        $langues[]=$row['Nom'];
+    }
+    return $langues;
+}

@@ -8,14 +8,15 @@
     $user=$_SESSION['idUtilisateur'];
     $user= new Utilisateur($_SESSION['idUtilisateur']);
     $nounou= new Nounou($user->getIdNounous());
-    
-    
-    if (isset($_POST['newLangue'])){
-        $langue = new Langue($_POST['newLangue'],0);
-        $langue->addDB();
-        header('Location: ajout_langue.php?ajout=1');
-        exit();
+
+    if(isset($_POST['langue'])){
+        foreach($_POST['langue'] as $key => $value){
+            $nounou->addParleLangue($key, $value);
+        }
+       header('Location: home.php');
+       exit();
     }
+    
 ?>
 
 <!DOCTYPE html>
@@ -51,27 +52,20 @@
         <div class="container-fluid text-center">    
           <div class="row content">
             <div class="col-sm-2 sidenav">
-                <button class="btn btn-default my-2 my-sm-0" onclick="location.href='home.php'">Retour</button>
+                <button class="btn btn-default my-2 my-sm-0" onclick="location.href='ajout_langue.php'">Retour</button>
             </div>
             <div class="col-sm-8 text-left">
                 <h1>Ajouter des langues</h1>
                 <?php
-                    $message="L'ajout de la langue a été pris en compte, notre administrateur l'ajoutera si elle est correcte";
-                    message5Secondes($message,'ajout');
-                    
-                    //ajout des langues
-                    $action='ajout_langue_niveau.php';
-                    $langues = tabLangues(); 
-                    debutForm('GET', $action);
-                    formSelect('langue[]', 'Choissisez les langues que vous parlez', $langues,'multiple');
-                    formAddSubmitReset();
-                    finForm();
-                    
-                    //formulaire d'ajout de langue nouvelle
-                    debutForm('POST', 'ajout_langue.php');
-                    formInput('Ajouter une nouvelle langue, elle sera ensuite validé par notre administrateur', 'string', 'newLangue');
-                    formAddSubmitReset();
-                    finForm();
+                    if (isset($_GET['langue'])){
+                        $langue=array();
+                        debutForm('POST', 'ajout_langue_niveau.php');
+                        foreach($_GET['langue'] as $key=>$value){
+                            formInput("Votre niveau pour la langue $value ", 'String', "langue[$value]");
+                        }
+                        formAddSubmitReset();
+                        finForm();
+                    }
                 ?>
 
             </div>
