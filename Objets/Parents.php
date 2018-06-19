@@ -15,7 +15,6 @@ require_once '../Functions/Functions_SQL.php';
 require_once 'Enfants.php';
 require_once 'Garde.php';
 require_once 'debug.php';
-require_once 'Horaires.php';
 
 class Parents {
 
@@ -116,58 +115,32 @@ class Parents {
 
     //return liste des id de ses enfants
     function getEnfant() {
-        $requete = "SELECT * FROM enfants WHERE idParents=$this->idParents";
-        $myDB = connectPDO();
-        $result = $myDB->query($requete);
-        $i = 0;
-        $enfants = array();
-        while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-            $enfants[$i] = $row;
-            $i++;
-        }
-        return $enfants;
+        $requete = "SELECT idEnfants FROM enfants WHERE idParents=$this->idParents";
+        $row = fetchAllRequete($requete);
+        return $row;
     }
 
     function addEnfantGarde($idEnfant, $idNounous, $idHoraires) {
-        $enfant = new Enfants($idEnfant);
-        $res = FALSE;
-        if ($enfant->getIdParents() == $this->idParents) {
-            $requete = "INSERT INTO enfants_gardé VALUES ($idEnfant, $idNounous, $idHoraires)";
-            requete($requete);
-            $res = TRUE;
-        } else {
-            echo("Ce n'est pas votre enfant. Bien tenté.");
-        }
-        return $res;
+        $requete = "INSERT INTO enfants_gardé VALUES ($idEnfant, $idNounous, $idHoraires)";
+        requete($requete);
     }
 
-    function getGarde() {
-        $requete = "SELECT idEnfants FROM enfants WHERE idParents=$this->idParents";
-        $myDB = connectPDO();
-        $result = $myDB->query($requete);
-        $i = 0;
-        $enfants = array();
-        while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-            $enfants[$i] = $row;
-            $i++;
-        }
+    function getGardeFaite() {
+        $enfants = $this->getEnfant();
         $listeGarde = Array();
-        foreach ($enfants as $key => $value) {
-            //probleme de conversion de string à int, renvoie toujours 1 et fait tout foirer
-            $val = $value['idEnfants'];
-            $requete2 = "SELECT e.Prénom, n.idNounous, Date, `Heure Début`, `Heure Fin` FROM enfants e NATURAL JOIN enfants_gardé as eg JOIN nounous n ON n.idNounous = eg.idNounous NATURAL JOIN horaires WHERE e.idEnfants = $val  AND Date > CURRENT_DATE() ORDER BY Date";
-            $result = $myDB->query($requete2);
+        foreach ($enfants as $value) {
+            $requete = "SELECT idNounous, idHoraires FROM enfants_gardé NATURAL JOIN horaires WHERE enfants.idEnfants = $value->Enfants->getIdEnfants() AND Date < CURRENT_DATE() ORDER BY Date";
+            $row = fetchRowRequete($requete);
             $i = 0;
-            while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-                $listeGarde[$i] = $row;
-                $i++;
+            while (isset($row[i])){
+                $listeGarde[] = new Garde($row[$i], $row[($i+1)]);
+                $i = $i + 2;
             }
         }
         return $listeGarde;
     }
 
 }
-
 //$test = new Parents(1);
 //echo($test);
 //$listeGarde = $test->getEnfant();
