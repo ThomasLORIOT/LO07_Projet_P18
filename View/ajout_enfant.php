@@ -23,11 +23,6 @@ $parent = new Parents($user->getIdParents());
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> <!--load jquery avant js -->
         <script src="../include/bootstrap/js/bootstrap.min.js"></script>        
         <script type="text/javascript" src="../Functions/Functions_JS.js"></script>
-        <script src="//cdn.jsdelivr.net/webshim/1.14.5/polyfiller.js"></script>
-        <script>
-            webshims.setOptions('forms-ext', {types: 'date'});
-            webshims.polyfill('forms forms-ext');
-        </script>
     </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -72,22 +67,22 @@ $parent = new Parents($user->getIdParents());
                     <button class="btn btn-dark" onclick="location.href = 'choix.php'">Retour</button>
                 </div>
                 <div class="col-sm-8 text-left"> 
-                    <?php
+                     <?php
                     //formulaire
                     debutForm("POST", "ajout_enfant_action.php");
                     formInput('Prénom', 'text', 'prénom');
-                    formInput('Date de naissance', 'date', 'date');
-                    textArea('restriction', "Veuillez déclire les restrictions alimentaires de l'enfant en quelques lignes", '5', '60', 'onblur="verifTextArea(this,0)"');
+                    formInput('Date de naissance (YYYY-mm-jj)', 'text', 'date');
+                    textArea('restriction', "Veuillez déclire les restrictions alimentaires de l'enfant en quelques lignes", '5', '60', 'onblur="verifTextArea(this,5)"');
                     formAddSubmitReset();
                     finForm();
                     ?>
                 </div>
                 <div class="col-sm-2 sidenav">
                     <div class="well">
-
+                        
                     </div>
                     <div class="well">
-
+                        
                     </div>
                 </div>
             </div>

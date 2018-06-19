@@ -31,48 +31,33 @@ and open the template in the editor.
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
-                    <button class="btn btn-dark" onclick="location.href = 'inscription_form.php'">Inscription</button>
                 </ul>
-                
                 <button class="btn btn-outline-success my-2 my-sm-0" onclick="location.href = 'connexion_form.php'">Connexion</button>
             </div>
         </nav>
         <div class="container text-center">
             <h1 class="text-center">Bienvenue chez Nou !</h1>
             <div class="row">
-                <div class="col-sm-1">
+                <div class="col-sm-2">
                 </div>
-                <div class="col-sm-10">
+                <div class="col-sm-8">
                     <?php
                     $message = "Un problème est survenue ! <br> Si cela persiste merci de contacter notre admin";
                     message5Secondes($message, 'pb');
                     ?>
+
                     <p>Nous mettons en relations les nounous avec les parents</p>
-                    <img src="../include/images/bandeau_welcome.jpg" class="img-fluid" alt="Bandeau welcome parent et bébé">
-                    <hr>
-                    <div class='text-left'>
-                    <h2>Qui sommes-nous ?</h2>
-                        <p>Notre entreprise est situé à Troyes, nous l'avons créer en Mai 2018 et depuis nous nous consacrons à l'agrandir et à l'améliorer.
-                        Nous voulons chaque jour apporter de nouvelle manière de mettre en relation les gens. Pour le moment ce site est le premier d'une grande flote.</p>
-                        <h2>Que peut on faire ici ?</h2>
-                        <p>Cette plateforme permet à toute personne de garder des enfants ou faire garder ses enfants. Vous avez juste à vous inscrire et à choisir si vous souhaitez
-                        être nounou ou parents. Vous aurez ensuite accès à toutes nos fonctionnalités. <P>
-                        <p> <strong>En tant que nounou</strong> vous pouvez gérer vos disponibilités, indiquer les langues étrangères que vous parlez, accéder au planning de vos gardes.</p>
-                        <p> <strong>En tant que parents</strong> vous pouvez ajouter toutes les informations nécéssaires à l'organisation d'une garde, indiquer les informations importantes sur
-                            vos enfants (les allergies, les restrictions alimentaires,...), rechercher une nounou disponible ou une nounou qui parle une langue étrangère pour une garde linguistique.
-                        </p>
-                    </div>
                     <hr>
                     <h3>Vous êtes nounou ?</h3>
-                    <p>Ici vous pouvez trouver les meilleurs parents de votre ville et gardez en toute simplicité leur enfants.</p>
+                    <p>Ici vous pouvez trouver les meilleurs parents de votre ville et gardez en toute simplicité leur enfants</p>
                     <h3>Vous êtes parents ?</h3>
-                    <p>Ici vous pouvez trouver les meilleurs nounou de votre ville.</p>
+                    <p>Ici vous pouvez trouver les meilleurs nounou de votre ville </p>
 
-                    <button type="button" class="btn btn-dark" onclick="location.href = 'connexion_form.php'">Connectez vous</button>
-                    <button type="button" class="btn btn-dark" onclick="location.href = 'inscription_form.php'">Inscrivez vous</button>
+                    <button type="button" class="btn btn-dark" onclick="location.href = 'connexion_form.php'">Se connecter</button>
+                    <button type="button" class="btn btn-dark" onclick="location.href = 'inscription_form.php'">S'inscrire</button>
 
                 </div>
-                <div class="col-sm-1">
+                <div class="col-sm-2">
                 </div>
             </div>
         </div>
