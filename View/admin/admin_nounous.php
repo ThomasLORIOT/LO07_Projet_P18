@@ -49,6 +49,13 @@ if (isset($_POST['idSup'])) {
                 <div class="col-sm-2 sidenav">
                     <hr>
                     <button class="btn btn-outline-success my-2 my-sm-0" onclick="location.href = 'admin.php'">Retour</button>
+                    <hr>
+                    <?php
+                    debutForm("POST", "../information_nounou.php");
+                    formInput("Afficher les informations d'une nounou", "text", "idNounou");
+                    formAddSubmitReset("Confirmer");
+                    finForm();
+                    ?>
                 </div>
                 <div class="col-sm-8 text-left">
                     <?php affiche(listeNounous()) ?>

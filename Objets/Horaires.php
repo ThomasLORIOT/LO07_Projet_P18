@@ -12,6 +12,7 @@
  * @author Thomas
  */
 require_once '../Functions/Functions_SQL.php';
+require_once 'Garde.php';
 
 class Horaires {
 
@@ -93,7 +94,7 @@ class Horaires {
     function addDB() {
         $myDB = connectDB();
         //est-ce que ce horaire est nouveau ?
-        $result = $myDB->query("SELECT idHoraires FROM horaires WHERE Date = $this->Date AND `Heure Début` = $this->HeureDébut AND `Heure Fin` = $this->HeureFin");
+        $result = $myDB->query("SELECT idHoraires FROM horaires WHERE Date = '$this->Date' AND `Heure Début` = '$this->HeureDébut' AND `Heure Fin` = '$this->HeureFin'");
         if ($result->num_rows == 0) {
             //l'horaire est nouveau : On INSERT l'horaire
             $requete = "INSERT INTO horaires(Date, `Heure Début`, `Heure Fin`) VALUES ('$this->Date', '$this->HeureDébut', '$this->HeureFin')";
@@ -105,6 +106,26 @@ class Horaires {
 
 }
 
-$test = new Horaires('2000-06-12', 140000, 180000);
-echo($test);
-$test->addDB();
+function horaireCorrespondant($date, $heureD, $heureF) {
+    $requete = "SELECT idHoraires FROM horaires WHERE Date = '$date' AND `Heure Début` <= '$heureD' AND `Heure Fin` >= '$heureF'";
+    $myDB = connectPDO();
+    $result = $myDB->query($requete);
+    $idhoraires = array();
+    while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+        $idhoraires[] = $row['idHoraires'];
+    }
+    return $idhoraires;
+}
+
+function gardeConrrespondant($idHoraires) {
+    $idGarde = array();
+    $myDB = connectPDO();
+    foreach ($idHoraires as $value) {
+            $requete = "SELECT idNounous, idHoraires FROM garde WHERE idHoraires = '" . intval($value) . "'";
+            $result = $myDB->query($requete);
+            while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+                $idGarde[] = $row;
+        }
+    }
+    return $idGarde;
+}
