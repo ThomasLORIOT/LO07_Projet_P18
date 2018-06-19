@@ -38,8 +38,8 @@ class Enfants {
         return $this->RestrictionsAlimentaires;
     }
 
-    function getParents_IdParents() {
-        return $this->Parents_IdParents;
+    function getIdParents() {
+        return $this->IdParents;
     }
 
     function setIdEnfants($idEnfants) {
@@ -58,8 +58,8 @@ class Enfants {
         $this->RestrictionsAlimentaires = $RestrictionsAlimentaires;
     }
 
-    function setParents_IdParents($Parents_IdParents) {
-        $this->Parents_IdParents = $Parents_IdParents;
+    function setIdParents($Parents_IdParents) {
+        $this->IdParents = $IdParents;
     }
     
     function __construct() {
@@ -102,8 +102,21 @@ class Enfants {
     }
     
     function addDB(){
-        $requete = "INSERT INTO enfants(Prénom, `Date De Naissance`, `Restrictions Alimentaires`, idParents) VALUES ('$this->Prénom', '$this->DateDeNaissance', '$this->RestrictionsAlimentaires', $this->IdParents)";
+        $myDB = connectDB();
+        //la fonction bizarre permet de pouvoir mettre des apostrophe dans un text area sans faire planter la requete sql
+        $requete = "INSERT INTO enfants(Prénom, `Date De Naissance`, `Restrictions Alimentaires`, idParents) VALUES ('$this->Prénom', '$this->DateDeNaissance', '".mysqli_real_escape_string($myDB, $this->RestrictionsAlimentaires)."', $this->IdParents)";
         requete($requete);
+    }
+    
+    function dropDB($idparent){
+        $myDB = connectDB();
+        $res = FALSE;
+        $requete = "DELETE FROM enfants WHERE idEnfants = $this->idEnfants AND idParents = $idparent";
+        $done = $myDB->query($requete);
+        if ($done){
+            $res = TRUE;
+        }
+        return $res;
     }
     
     function updateDB(){

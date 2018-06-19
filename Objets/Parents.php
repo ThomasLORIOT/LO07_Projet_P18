@@ -115,9 +115,16 @@ class Parents {
 
     //return liste des id de ses enfants
     function getEnfant() {
-        $requete = "SELECT idEnfants FROM enfants WHERE idParents=$this->idParents";
-        $row = fetchAllRequete($requete);
-        return $row;
+        $requete = "SELECT * FROM enfants WHERE idParents=$this->idParents";
+        $myDB = connectPDO();
+        $result = $myDB->query($requete);
+        $i = 0;
+        $enfants = array();
+        while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+            $enfants[$i] = $row;
+            $i++;
+        }
+        return $enfants;
     }
 
     function addEnfantGarde($idEnfant, $idNounous, $idHoraires) {
@@ -132,8 +139,8 @@ class Parents {
             $requete = "SELECT idNounous, idHoraires FROM enfants_gardé NATURAL JOIN horaires WHERE enfants.idEnfants = $value->Enfants->getIdEnfants() AND Date < CURRENT_DATE() ORDER BY Date";
             $row = fetchRowRequete($requete);
             $i = 0;
-            while (isset($row[i])){
-                $listeGarde[] = new Garde($row[$i], $row[($i+1)]);
+            while (isset($row[i])) {
+                $listeGarde[] = new Garde($row[$i], $row[($i + 1)]);
                 $i = $i + 2;
             }
         }
@@ -141,6 +148,7 @@ class Parents {
     }
 
 }
+
 //$test = new Parents(1);
 //echo($test);
 //$listeGarde = $test->getEnfant();

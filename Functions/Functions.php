@@ -1,19 +1,19 @@
 <?php
-//Quelques fonctions PHP
 
+//Quelques fonctions PHP
 //Affiche un message de 5 secondes si le declecheur est présent en GET et égale à 1
-function message5Secondes($message, $declencheur){
-    if(isset($_GET[$declencheur])){
-            if($_GET[$declencheur]==1){         
-                echo("
+function message5Secondes($message, $declencheur) {
+    if (isset($_GET[$declencheur])) {
+        if ($_GET[$declencheur] == 1) {
+            echo("
                     <div id='validation' class='alert alert-success' role='alert' style='display:none;'>
                         <p>$message</p>
                     </div>       
                 ");
-                echo('<script language="Javascript" type="text/Javascript">
+            echo('<script language="Javascript" type="text/Javascript">
                         jsValidation();
                     </script>');
-            }
+        }
     }
 }
 
@@ -34,30 +34,33 @@ function message5Secondes($message, $declencheur){
 //)
 
 
-function affiche($tab){
-    echo("<table class='table'>\n");
-    echo("<thead class='thead-light'> <tr>\n");
-    foreach($tab[0] as $key=>$value){
-        echo("<th> $key </th>\n");
-    }
-    echo("</tr> </thead>\n");
-    echo("<tbody>\n");
-    foreach($tab as $value){
-        echo("<tr>\n");
-        foreach($value as $v){
-            echo("<td>$v</td>\n");
+function affiche($tab) {
+    if (!empty($tab)) {
+        echo("<table class='table'>\n");
+        echo("<thead class='thead-light'> <tr>\n");
+        foreach ($tab[0] as $key => $value) {
+            echo("<th> $key </th>\n");
         }
-        echo("</tr>\n");
+        echo("</tr> </thead>\n");
+        echo("<tbody>\n");
+        foreach ($tab as $value) {
+            echo("<tr>\n");
+            foreach ($value as $v) {
+                echo("<td>$v</td>\n");
+            }
+            echo("</tr>\n");
+        }
+        echo("</tbody>\n");
+        echo("</table>\n");
+    } else {
+        echo("Vous n'avez encore rien précisé.<br>\n");
     }
-    echo("</tbody>\n");
-    echo("</table>\n");
-    
+
 //    foreach($tab as $key){
 }
 
-
-function head($titre,$head){
-  echo("
+function head($titre, $head) {
+    echo("
       <html>
         <head>
         <title>$titre</title>
@@ -71,7 +74,7 @@ function head($titre,$head){
   ");
 }
 
-function miseEnPageDébut(){
+function miseEnPageDébut() {
     echo("
             <body>
                 <div class='container'>
@@ -85,7 +88,7 @@ function miseEnPageDébut(){
     ");
 }
 
-function miseEnPageFin(){
+function miseEnPageFin() {
     echo("
                             </div>
                     </div>
