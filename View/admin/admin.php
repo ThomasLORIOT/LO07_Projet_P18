@@ -30,7 +30,7 @@ require_once '../../Functions/Functions_admin.php';
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
             </ul>
-              <button class="btn btn-outline-success my-2 my-sm-0" onclick="location.href='deconnexion.php'">Déconnexion</button>
+              <button class="btn btn-outline-success my-2 my-sm-0" onclick="location.href='../deconnexion.php'">Déconnexion</button>
             </div>
         </nav>
 
