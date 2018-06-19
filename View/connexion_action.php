@@ -26,7 +26,8 @@ if (isset($_POST)){
         $_SESSION['idUtilisateur']=$newUser->getIdUtilisateur();
         if($newUser->getIdUtilisateur()==0){
             //redirection admin
-            header('Location: admin/admin.php');
+            $_SESSION['admin'] = TRUE;
+            header('Location: home.php');
             exit();
         }      
         //si l'utilisateur n'est ni nounou ni parents

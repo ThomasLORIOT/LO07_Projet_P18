@@ -154,9 +154,8 @@ class Parents {
         $listeGarde = Array();
         foreach ($enfants as $key => $value) {
             //probleme de conversion de string à int, renvoie toujours 1 et fait tout foirer
-            $temp = intval($value);
-            debug($temp);
-            $requete2 = "SELECT enfants.Prénom, idNounous, Date, `Heure Début`, `Heure Fin` FROM enfants NATURAL JOIN nounous NATURAL JOIN enfants_gardé NATURAL JOIN horaires WHERE enfants.idEnfants = '$temp' AND Date > CURRENT_DATE() ORDER BY Date";
+            $val = $value['idEnfants'];
+            $requete2 = "SELECT e.Prénom, n.idNounous, Date, `Heure Début`, `Heure Fin` FROM enfants e NATURAL JOIN enfants_gardé as eg JOIN nounous n ON n.idNounous = eg.idNounous NATURAL JOIN horaires WHERE e.idEnfants = $val  AND Date > CURRENT_DATE() ORDER BY Date";
             $result = $myDB->query($requete2);
             $i = 0;
             while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
@@ -164,7 +163,6 @@ class Parents {
                 $i++;
             }
         }
-        debug($listeGarde);
         return $listeGarde;
     }
 
