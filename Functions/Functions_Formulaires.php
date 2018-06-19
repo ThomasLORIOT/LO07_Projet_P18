@@ -42,7 +42,7 @@ function formSelect($id,$label, $tab, $text='') {
 
 function formInput($label, $type, $id, $text=''){
     echo("<label for='$id' class='control-label'>$label</label>\n");
-    echo("<input id='$id' class='form-control' type='$type' name='$id' $text/>\n");
+    echo("<input id='$id' type='$type' class='form-control'  name='$id' $text/>\n");
 }
 
 //rajoute direcement les bouton submit et reset

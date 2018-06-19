@@ -11,7 +11,7 @@ $nounou = new Nounou($user->getIdNounous());
 
 <!DOCTYPE html>
 <!--
-    Page home
+    Page parents ajout garde
     
 
 -->
@@ -22,7 +22,12 @@ $nounou = new Nounou($user->getIdNounous());
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="../include/bootstrap/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> <!--load jquery avant js -->
-        <script src="../include/bootstrap/js/bootstrap.min.js"></script>        
+        <script src="../include/bootstrap/js/bootstrap.min.js"></script> 
+        <script src="//cdn.jsdelivr.net/webshim/1.14.5/polyfiller.js"></script>
+        <script>
+            webshims.setOptions('forms-ext', {types: 'date'});
+            webshims.polyfill('forms forms-ext');
+        </script>
         <script type="text/javascript" src="../Functions/Functions_JS.js"></script>
     </head>
     <body>
@@ -39,39 +44,37 @@ $nounou = new Nounou($user->getIdNounous());
             </div>
         </nav>
 
-        <div class="container">
-            <h1 class="text-center">Proposer une garde</h1>
-            <hr>
-            <div class="row">
+        <div class="container-fluid text-center">
+            <div class="row content">
                 <div class="col-sm-2">
+                    <hr>
                     <button class="btn btn-dark" onclick="location.href = 'choix.php'">Retour</button>
                 </div>
-                <div class="col-sm-8">
-
-
-                    <?php
-                    //formulaire
-                    debutForm("POST", "ajout_garde_action.php");
-                    formInput('Date (YYYY-mm-jj', 'text', 'date');
-                    $heureDispo = array();
-                    for ($i = 0 ; $i <= 24 ; $i++){
-                        $heureDispo[] = "$i:00:00";
-                    }     
-                    formSelect('heureDébut', 'Heure de début', $heureDispo);
-                    formSelect('heureFin', 'Heure de fin', $heureDispo);
-                    echo("<label>Avec langue étrangère : oui</label>");
-                    Radio('langue', '1');
-                    echo("non");
-                    Radio('langue', '0');
-                    echo("<br>");
-                    formInput("Nombre d'enfants au maximum", 'number', 'enfantsMax');
-                    formAddSubmitReset();
-                    finForm();
-                    ?>
+                <div class="col-sm-8 text-left">
+                        <h1 class="text-center">Proposer une garde</h1>
+                        <hr>    
+                        <?php
+                        //formulaire
+                        debutForm("POST", "ajout_garde_action.php");
+                        formInput('Date','date', 'date');
+                        $heureDispo = array();
+                        for ($i = 0; $i <= 24; $i++) {
+                            $heureDispo[] = "$i:00:00";
+                        }
+                        formSelect('heureDébut', 'Heure de début', $heureDispo);
+                        formSelect('heureFin', 'Heure de fin', $heureDispo);
+                        echo("<label>Langue étrangère possible: oui</label>");
+                        Radio('langue', '1');
+                        echo("non");
+                        Radio('langue', '0');
+                        echo("<br>");
+                        formInput("Nombre d'enfants au maximum", 'number', 'enfantsMax', "min='1' max='10'");
+                        formAddSubmitReset();
+                        finForm();
+                        ?>
                 </div>
             </div>
         </div>
-
         <footer class="page-footer font-small stylish-color-dark pt-4 mt-4">
 
             <!-- Copyright -->

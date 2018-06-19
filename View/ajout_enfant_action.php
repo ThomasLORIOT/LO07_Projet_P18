@@ -23,6 +23,7 @@ $parent = new Parents($user->getIdParents());
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> <!--load jquery avant js -->
         <script src="../include/bootstrap/js/bootstrap.min.js"></script>        
         <script type="text/javascript" src="../Functions/Functions_JS.js"></script>
+
     </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -68,13 +69,13 @@ $parent = new Parents($user->getIdParents());
                 </div>
                 <div class="col-sm-8 text-left"> 
                     <?php
-                        if(isset($_POST['prénom']) && isset($_POST['date']) && isset($_POST['restriction'])){
-                            $enfant = new Enfants($_POST['prénom'], $_POST['date'], $_POST['restriction'], $parent->getIdParents());
-                            $enfant->addDB();
-                            echo("Votre enfant s'est bien ajouté.<br>Vous pouvez maintenant l'ajouter à des garde proposé par des nounous.");
-                        } else {
-                            echo("Le formulaire à été mal rempli. Appliquez vous.");
-                        }
+                    if (isset($_POST['prénom']) && isset($_POST['date']) && isset($_POST['restriction'])) {
+                        $enfant = new Enfants($_POST['prénom'], $_POST['date'], $_POST['restriction'], $parent->getIdParents());
+                        $enfant->addDB();
+                        echo("Votre enfant s'est bien ajouté.<br>Vous pouvez maintenant l'ajouter à des garde proposé par des nounous.");
+                    } else {
+                        echo("Le formulaire à été mal rempli. Appliquez vous.");
+                    }
                     ?>
                 </div>
                 <div class="col-sm-2 sidenav">
