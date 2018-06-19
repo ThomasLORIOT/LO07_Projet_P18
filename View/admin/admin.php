@@ -1,6 +1,5 @@
 <?php
 session_start();
-
 require_once '../../Functions/Functions_admin.php';
 
 ?>
@@ -46,11 +45,11 @@ require_once '../../Functions/Functions_admin.php';
                   <li>Nombre de nounous inscrite : <?php echo(nombreNounousInscrite())?></li>
                   <li>Nombre de candidatures à gérer : <?php echo(nombreCandidatureNounous())?> </li>
               </ul>
-              <h3>Candidatures et nounous bloqués</h3>
+              <h3>Gérer les candidatures et nounous bloqués</h3>
               <button type="button" class="btn btn-dark" onclick="location.href='admin_candidatures.php'">Candidature</button>
               <h3>Valider les langues proposées</h3>
               <button type="button" class="btn btn-dark" onclick="location.href='admin_langue.php'">Langues</button>
-              <h3>Gérer des nounous</h3>
+              <h3>Bloquer des nounous</h3>
               <button type="button" class="btn btn-dark" onclick="location.href='admin_nounous.php'">Nounous</button>
             </div>
             <div class="col-sm-2 sidenav">

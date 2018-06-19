@@ -14,7 +14,6 @@
 include_once '../Functions/Functions_SQL.php';
 include_once 'debug.php';
 include_once 'Garde.php';
-include_once 'Horaires.php';
 include_once 'Langue.php';
 
 class Nounou {
