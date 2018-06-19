@@ -12,6 +12,7 @@
  * @author Thomas
  */
 require_once '../Functions/Functions_SQL.php';
+require_once 'Horaires.php';
 
 class Garde {
 
@@ -184,7 +185,7 @@ class Garde {
         $myDB = connectDB();
         $result = $myDB->query($requete);
         $row = mysqli_fetch_row($result);
-        $nbrHeure = ($row[0]/10000);
+        $nbrHeure = ($row[0] / 10000);
         if (!$this->Régulier) {
             $prix = (7 * $nbrHeure) + (4 * $nbrHeure * ($nbr_enfants - 1));
         } else if ($this->Langue) {
@@ -216,8 +217,8 @@ class Garde {
         $requete = "UPDATE garde SET idNounous=$this->idNounous, idHoraires=$this->idHoraires, Régulier=$this->Régulier, Langue=$this->Langue, Appreciation='$this->Appréciation', Prix = '$this->Prix' WHERE idHoraires = $this->idHoraires AND idNounous=$this->idNounous";
         requete($requete);
     }
-    
-    function updateNote(){
+
+    function updateNote() {
         $requete = "UPDATE garde SET Note = '$this->Note' WHERE idHoraires = $this->idHoraires AND idNounous=$this->idNounous";
         requete($requete);
     }
@@ -234,3 +235,24 @@ class Garde {
 
 }
 
+function afficherGardeCorrespondant($date, $heureD, $heureF) {
+    $listeIdHoraire = horaireCorrespondant($date, $heureD, $heureF);
+    $listeIdGarde = gardeConrrespondant($listeIdHoraire);
+    $myDB = connectPDO();
+    $garde = array();
+    foreach ($listeIdGarde as $k => $v) {
+        $requete = "SELECT idNounous, idHoraires, Langue, nbr_enfant_max, `Heure Début`, `Heure Fin` FROM garde NATURAL JOIN horaires WHERE idNounous = " . $v['idNounous'] . " AND idHoraires = " . $v['idHoraires'];
+        $result = $myDB->query($requete);
+        $bordel = array();
+        while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+            $bordel['idNounous'] = $row['idNounous'];
+            $bordel['idHoraires'] = $row['idHoraires'];
+            $bordel['Langue'] = $row['Langue'];
+            $bordel['nbr_enfant_max'] = $row['nbr_enfant_max'];
+            $bordel['Heure Début'] = $row['Heure Début'];
+            $bordel['Heure Fin'] = $row['Heure Fin'];
+        }
+        $garde[$k] = $bordel;
+    }
+    return $garde;
+}

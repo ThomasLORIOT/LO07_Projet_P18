@@ -12,6 +12,7 @@
  * @author Thomas
  */
 require_once '../Functions/Functions_SQL.php';
+require_once 'Garde.php';
 
 class Horaires {
 
@@ -103,4 +104,28 @@ class Horaires {
         }
     }
 
+}
+
+function horaireCorrespondant($date, $heureD, $heureF) {
+    $requete = "SELECT idHoraires FROM horaires WHERE Date = '$date' AND `Heure Début` <= '$heureD' AND `Heure Fin` >= '$heureF'";
+    $myDB = connectPDO();
+    $result = $myDB->query($requete);
+    $idhoraires = array();
+    while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+        $idhoraires[] = $row['idHoraires'];
+    }
+    return $idhoraires;
+}
+
+function gardeConrrespondant($idHoraires) {
+    $idGarde = array();
+    $myDB = connectPDO();
+    foreach ($idHoraires as $value) {
+            $requete = "SELECT idNounous, idHoraires FROM garde WHERE idHoraires = '" . intval($value) . "'";
+            $result = $myDB->query($requete);
+            while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+                $idGarde[] = $row;
+        }
+    }
+    return $idGarde;
 }

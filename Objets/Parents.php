@@ -15,6 +15,7 @@ require_once '../Functions/Functions_SQL.php';
 require_once 'Enfants.php';
 require_once 'Garde.php';
 require_once 'debug.php';
+require_once 'Horaires.php';
 
 class Parents {
 
@@ -128,22 +129,42 @@ class Parents {
     }
 
     function addEnfantGarde($idEnfant, $idNounous, $idHoraires) {
-        $requete = "INSERT INTO enfants_gardé VALUES ($idEnfant, $idNounous, $idHoraires)";
-        requete($requete);
+        $enfant = new Enfants($idEnfant);
+        $res = FALSE;
+        if ($enfant->getIdParents() == $this->idParents) {
+            $requete = "INSERT INTO enfants_gardé VALUES ($idEnfant, $idNounous, $idHoraires)";
+            requete($requete);
+            $res = TRUE;
+        } else {
+            echo("Ce n'est pas votre enfant. Bien tenté.");
+        }
+        return $res;
     }
 
-    function getGardeFaite() {
-        $enfants = $this->getEnfant();
+    function getGarde() {
+        $requete = "SELECT idEnfants FROM enfants WHERE idParents=$this->idParents";
+        $myDB = connectPDO();
+        $result = $myDB->query($requete);
+        $i = 0;
+        $enfants = array();
+        while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+            $enfants[$i] = $row;
+            $i++;
+        }
         $listeGarde = Array();
-        foreach ($enfants as $value) {
-            $requete = "SELECT idNounous, idHoraires FROM enfants_gardé NATURAL JOIN horaires WHERE enfants.idEnfants = $value->Enfants->getIdEnfants() AND Date < CURRENT_DATE() ORDER BY Date";
-            $row = fetchRowRequete($requete);
+        foreach ($enfants as $key => $value) {
+            //probleme de conversion de string à int, renvoie toujours 1 et fait tout foirer
+            $temp = intval($value);
+            debug($temp);
+            $requete2 = "SELECT enfants.Prénom, idNounous, Date, `Heure Début`, `Heure Fin` FROM enfants NATURAL JOIN nounous NATURAL JOIN enfants_gardé NATURAL JOIN horaires WHERE enfants.idEnfants = '$temp' AND Date > CURRENT_DATE() ORDER BY Date";
+            $result = $myDB->query($requete2);
             $i = 0;
-            while (isset($row[i])) {
-                $listeGarde[] = new Garde($row[$i], $row[($i + 1)]);
-                $i = $i + 2;
+            while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+                $listeGarde[$i] = $row;
+                $i++;
             }
         }
+        debug($listeGarde);
         return $listeGarde;
     }
 
