@@ -139,7 +139,7 @@ class Nounou {
         if ($res) {
             echo "<script>console.log('requête bien effectuée');</script><br>\n";
             $result = TRUE;
-            $requete2 = "SELECT idNounous FROM nounous WHERE Portable = '$this->Portable'";
+            $requete2 = "SELECT MAX(idNounous) as idNounous FROM nounous";
             $res2 = $myDB->query($requete2);
             $id = mysqli_fetch_assoc($res2);
             $this->idNounous = $id['idNounous'];
