@@ -78,7 +78,7 @@ $nounou = new Nounou($user->getIdNounous());
     <footer class="page-footer font-small stylish-color-dark pt-4 mt-4">
 
         <!-- Copyright -->
-        <div class="footer-copyright text-center py-3">© 2018 Copyright : Créer par Thomas Loriot et Vladimir Trois
+        <div class="footer-copyright text-center py-3">© 2018 Copyright : Créé par Thomas Loriot et Vladimir Trois
         </div>
         <!-- Copyright -->
     </footer>

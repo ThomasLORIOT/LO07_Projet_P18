@@ -3,6 +3,7 @@ session_start();
 include '../Objets/Utilisateur.php';
 include '../Objets/Parents.php';
 require_once '../Functions/Functions.php';
+include '../Functions/Functions_Formulaires.php';
 $user = $_SESSION['idUtilisateur'];
 $user = new Utilisateur($_SESSION['idUtilisateur']);
 $parent = new Parents($user->getIdParents());
@@ -87,7 +88,13 @@ $parent = new Parents($user->getIdParents());
                 </div>
                 <div class="col-sm-2 sidenav">
                     <div class="well">
-                        
+                        <?php
+                        //formulaire pour voir la nounou
+                        debutForm("POST", "information_nounou.php");
+                        formInput('Afficher informations de la nounou numéro', 'text', 'idNounou');
+                        formAddSubmitReset();
+                        finForm();
+                        ?>
                     </div>
                     <div class="well">
                         
@@ -99,7 +106,7 @@ $parent = new Parents($user->getIdParents());
         <footer class="page-footer font-small stylish-color-dark pt-4 mt-4">
 
             <!-- Copyright -->
-            <div class="footer-copyright text-center py-3">© 2018 Copyright : Créer par Thomas Loriot et Vladimir Trois
+            <div class="footer-copyright text-center py-3">© 2018 Copyright : Créé par Thomas Loriot et Vladimir Trois
             </div>
             <!-- Copyright -->
         </footer>

@@ -72,7 +72,7 @@ $parent = new Parents($user->getIdParents());
                     debutForm("POST", "ajout_enfant_action.php");
                     formInput('Prénom', 'text', 'prénom');
                     formInput('Date de naissance (YYYY-mm-jj)', 'text', 'date');
-                    textArea('restriction', "Veuillez déclire les restrictions alimentaires de l'enfant en quelques lignes", '5', '60', 'onblur="verifTextArea(this,5)"');
+                    textArea('restriction', "Veuillez déclire les restrictions alimentaires de l'enfant en quelques lignes", '5', '60', 'onblur="verifTextArea(this,0)"');
                     formAddSubmitReset();
                     finForm();
                     ?>
@@ -91,7 +91,7 @@ $parent = new Parents($user->getIdParents());
         <footer class="page-footer font-small stylish-color-dark pt-4 mt-4">
 
             <!-- Copyright -->
-            <div class="footer-copyright text-center py-3">© 2018 Copyright : Créer par Thomas Loriot et Vladimir Trois
+            <div class="footer-copyright text-center py-3">© 2018 Copyright : Créé par Thomas Loriot et Vladimir Trois
             </div>
             <!-- Copyright -->
         </footer>

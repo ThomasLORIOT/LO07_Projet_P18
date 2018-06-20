@@ -2,6 +2,7 @@
 session_start();
 include '../Objets/Utilisateur.php';
 include '../Objets/Parents.php';
+require_once '../Functions/Functions.php';
 include '../Functions/Functions_Formulaires.php';
 $user = $_SESSION['idUtilisateur'];
 $user = new Utilisateur($_SESSION['idUtilisateur']);
@@ -16,7 +17,7 @@ $parent = new Parents($user->getIdParents());
 -->
 <html>
     <head>
-        <title>Parent</title>
+        <title>Enlever garde enfant</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="../include/bootstrap/css/bootstrap.min.css">
@@ -65,25 +66,42 @@ $parent = new Parents($user->getIdParents());
             <div class="row content">
                 <div class="col-sm-2 sidenav">
                     <button class="btn btn-dark" onclick="location.href = 'choix.php'">Retour</button>
+                    <?php
+                    if (isset($_POST['idHoraires']) && isset($_POST['idEnfants']) && isset($_POST['idNounous'])) {
+                            echo("<hr>");
+                            $idHoraires = $_POST['idHoraires'];
+                            $id = $_POST['idNounous'];
+                            $idEnfants = $_POST['idEnfants'];
+                            $requete3 = "DELETE FROM enfants_gardé WHERE idNounous=$id AND idHoraires = $idHoraires AND idEnfants = $idEnfants";
+                            $myDB2 = connectDB();
+                            requete($requete3);
+                            echo("La garde à été supprimée");
+                            unset($_POST['idHoraires']);
+                            unset($_POST['idNounous']);
+                            unset($_POST['idEnfants']);
+                        }
+                        ?>
                 </div>
                 <div class="col-sm-8 text-left"> 
-                    <?php
-                    if (isset($_POST['id'])) {
-                        $enfant = new Enfants($_POST['id']);
-                        if ($parent->getIdParents() == $enfant->getIdParents()) {
-                            $enfant->dropDB($parent->getIdParents());
-                            echo("Votre enfant à bien été supprimé");
-                        } else {
-                            echo("Enfant non supprimé, bien tenté.");
-                        }
-                    } else {
-                        echo("Le formulaire à été mal rempli. Appliquez vous.");
-                    }
-                    ?>
+                    <h1>Les gardes de vos enfants</h1>
+                    <?php affiche($parent->getGardeId()) ?>
                 </div>
                 <div class="col-sm-2 sidenav">
                     <div class="well">
-
+                        <?php
+                        //formulaire pour voir la nounou
+                        debutForm("POST", "information_nounou.php");
+                        formInput('Afficher informations de la nounou numéro', 'text', 'idNounou');
+                        formAddSubmitReset();
+                        finForm();
+                        echo("<hr>");
+                        debutForm("POST", "enlever_garde_enfant.php");
+                        formInput("Entrer idEnfants de la garde à supprimer", "text", "idEnfants");
+                        formInput("Entrer idNounous de la garde à supprimer", "text", "idNounous");
+                        formInput("Entrer idHoraires de la garde à supprimer", "text", "idHoraires");
+                        formAddSubmitReset("Confirmer");
+                        finForm();
+                        ?>
                     </div>
                     <div class="well">
 

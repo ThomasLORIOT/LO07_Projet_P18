@@ -166,6 +166,31 @@ class Parents {
         return $listeGarde;
     }
 
+    function getGardeId() {
+        $requete = "SELECT idEnfants FROM enfants WHERE idParents=$this->idParents";
+        $myDB = connectPDO();
+        $result = $myDB->query($requete);
+        $i = 0;
+        $enfants = array();
+        while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+            $enfants[$i] = $row;
+            $i++;
+        }
+        $listeGarde = Array();
+        foreach ($enfants as $key => $value) {
+            //probleme de conversion de string à int, renvoie toujours 1 et fait tout foirer
+            $val = $value['idEnfants'];
+            $requete2 = "SELECT e.Prénom, e.idEnfants, n.idNounous, h.idHoraires, Date, `Heure Début`, `Heure Fin` FROM enfants e NATURAL JOIN enfants_gardé as eg JOIN nounous n ON n.idNounous = eg.idNounous NATURAL JOIN horaires h WHERE e.idEnfants = $val  AND Date > CURRENT_DATE() ORDER BY Date";
+            $result = $myDB->query($requete2);
+            $i = 0;
+            while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+                $listeGarde[$i] = $row;
+                $i++;
+            }
+        }
+        return $listeGarde;
+    }
+
 }
 
 //$test = new Parents(1);
