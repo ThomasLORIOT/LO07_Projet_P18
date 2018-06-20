@@ -57,7 +57,7 @@ $nounou = new Nounou($user->getIdNounous());
                     <?php
                     if (!$nounou->getVisible()) {
                         echo("Vous n'êtes pas validé par l'administrateur, surêment car vous venez de vous inscrire. <br>"
-                        . "Sinon, veuillez contacter notre administrateur, il vous a surêment bloquer pour une raison spécifique.");
+                        . "Sinon, veuillez contacter notre administrateur, vous avez surêment été bloqué(e) pour une raison spécifique.");
                     }
                     ?>
                     <hr>

@@ -42,7 +42,7 @@ and open the template in the editor.
                 </div>
                 <div class="col-sm-8">
                     <hr>
-                    <p>Comment mes données sont-elles stockés ?</p>
+                    <p>Comment mes données sont-elles stockées ?</p>
                     <p>J'ai été bloqué et je ne sais pas pourquoi ?</p>
                     <p>Je veux juste vous parler car vous semblez être sympa ?</p>
                     <p>et pour toute les autres questions que vous avez, une seul adresse :
