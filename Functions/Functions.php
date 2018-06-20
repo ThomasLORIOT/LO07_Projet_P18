@@ -1,5 +1,9 @@
 <?php
 
+function retour(){
+    $retour="location.href='javascript:history.go(-1)'";
+    echo("<button class='btn btn-dark' onclick=$retour>Retour</button>");
+}
 //Quelques fonctions PHP
 //Affiche un message de 5 secondes si le declecheur est présent en GET et égale à 1
 function message5Secondes($message, $declencheur) {

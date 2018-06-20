@@ -32,7 +32,7 @@ and open the template in the editor.
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                 </ul>
-                <button class="btn btn-outline-success my-2 my-sm-0" onclick="location.href = 'connexion_form.php'">Retour</button>
+                <?php retour(); ?>
             </div>
         </nav>
         <div class="container text-center">
