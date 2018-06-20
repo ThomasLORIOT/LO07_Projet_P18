@@ -134,7 +134,7 @@ class Utilisateur {
         $result = $myDB->query("SELECT * FROM utilisateur WHERE Email='$this->email'");
         if ($result->num_rows == 0) { 
             //le mail est nouveau : On INSERT le mail
-            $requete = "INSERT INTO utilisateur(Nom,Email,MDP) VALUES ('$this->nom','$this->email','$this->MDP')";
+            $requete = "INSERT INTO utilisateur(Nom,Email,MDP) VALUES ('$this->nom','$this->email','".mysqli_real_escape_string($myDB, $this->MDP)."')";
             if (requete($requete) == TRUE) {
                 //mail INSERT reussi
                 $verif['ajoutOk']=TRUE;

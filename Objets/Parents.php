@@ -84,15 +84,15 @@ class Parents {
     //ajout d'un parent dans la base + recupération de l'ID
     function addDB() {
         $result = FALSE;
-        $requete = "INSERT INTO parents(Ville, `Informations Générales`) VALUES ('$this->Ville','$this->InformationsGénérales') ";
         $myDB = connectDB();
+        $requete = "INSERT INTO parents(Ville, `Informations Générales`) VALUES ('".mysqli_real_escape_string($myDB, $this->Ville)."','".mysqli_real_escape_string($myDB, $this->InformationsGénérales)."')";
         $res = mysqli_query($myDB, $requete);
         echo "<script>console.log('requete : $requete');</script><br>\n";
         if ($res) {
             echo "<script>console.log('requête bien effectuée');</script><br>\n";
             $result = TRUE;
             //ajoute l'id crée par DB à l'objet
-            $requete2 = "SELECT MAX(idParents)AS idParents FROM parents WHERE Ville = '$this->Ville' AND `Informations Générales` = '$this->InformationsGénérales'";
+            $requete2 = "SELECT MAX(idParents)AS idParents FROM parents";
             $res2 = $myDB->query($requete2);
             $id = mysqli_fetch_assoc($res2);
             $this->setIdParents($id['idParents']);

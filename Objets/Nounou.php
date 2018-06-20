@@ -131,8 +131,8 @@ class Nounou {
 
     function addDB() {
         $result = FALSE;
-        $requete = "INSERT INTO nounous(Prénom, Portable, Age, Présentation, Expérience, Visible) Values ('$this->Prénom', '$this->Portable', $this->Age, '$this->Présentation', '$this->Expérience', 0)";
         $myDB = connectDB();
+        $requete = "INSERT INTO nounous(Prénom, Portable, Age, Présentation, Expérience, Visible) Values ('$this->Prénom', '$this->Portable', $this->Age, '".mysqli_real_escape_string($myDB,$this->Présentation)."' , '".mysqli_real_escape_string($myDB, $this->Expérience)."', 0)";
         $res = $myDB->query($requete);
         echo "<script>console.log('requete demandé : $requete');</script><br>\n";
 

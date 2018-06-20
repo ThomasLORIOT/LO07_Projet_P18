@@ -31,7 +31,7 @@ and open the template in the editor.
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
-                    <button class="btn btn-dark" onclick="location.href = 'inscription_form.php'">Inscription</button>
+                    <button class="btn btn-dark text-left" onclick="location.href = 'inscription_form.php'">Inscription</button>
                 </ul>
                 
                 <button class="btn btn-outline-success my-2 my-sm-0" onclick="location.href = 'connexion_form.php'">Connexion</button>

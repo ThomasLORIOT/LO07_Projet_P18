@@ -12,7 +12,7 @@ if (isset($_POST)){
     }
     if ($_POST['info']=="Avez-vous des éléments importants pour l'organisation") $_POST['info']=='';
     //création de parent
-    $newParents = new Parents($_POST['ville'], str_replace("'", " ", $_POST['info']));
+    $newParents = new Parents($_POST['ville'], $_POST['info']);
     $verif=$newParents->addDB();
     //si la nounou est bien ajouté
     if($verif){
@@ -24,5 +24,5 @@ if (isset($_POST)){
     }
 }
 //redirection vers la page welcome en cas de problème
-header('Location: welcome.php');
+header('Location: welcome.php?pb=1');
 ?>
