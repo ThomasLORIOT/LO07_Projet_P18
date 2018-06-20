@@ -52,8 +52,8 @@ and open the template in the editor.
                     <hr>
                     <div class='text-left'>
                     <h2>Qui sommes-nous ?</h2>
-                        <p>Notre entreprise est situé à Troyes, nous l'avons créé en Mai 2018 et depuis nous nous consacrons à l'agrandir et à l'améliorer.
-                        Nous voulons chaque jour apporter de nouvelle manière de mettre en relation les gens. Pour le moment ce site est le premier d'une grande flotte.</p>
+                        <p>Notre entreprise est située à Troyes, nous l'avons créée en Mai 2018 et depuis nous nous consacrons à l'agrandir et à l'améliorer.
+                        Nous voulons chaque jour apporter de nouvelles fonctionnalités pour mettre en relation les gens. Pour le moment ce site est le premier d'une grande flotte.</p>
                         <h2>Que peut on faire ici ?</h2>
                         <p>Cette plateforme permet à toute personne de garder des enfants ou faire garder ses enfants. Vous avez juste à vous inscrire et à choisir si vous 
                         êtes nounou ou parent. Vous aurez ensuite accès à toutes nos fonctionnalités. <P>
@@ -64,9 +64,9 @@ and open the template in the editor.
                     </div>
                     <hr>
                     <h3>Vous êtes nounou ?</h3>
-                    <p>Ici vous pouvez trouver les meilleurs parents de votre ville et gardez en toute simplicité leur enfants.</p>
+                    <p>Ici vous pouvez trouver les meilleurs parents de votre ville et garder en toute simplicité leurs enfants.</p>
                     <h3>Vous êtes parents ?</h3>
-                    <p>Ici vous pouvez trouver les meilleurs nounou de votre ville.</p>
+                    <p>Ici vous pouvez trouver les meilleurs nounous de votre ville.</p>
 
                     <button type="button" class="btn btn-dark" onclick="location.href = 'connexion_form.php'">Connectez vous</button>
                     <button type="button" class="btn btn-dark" onclick="location.href = 'inscription_form.php'">Inscrivez vous</button>
