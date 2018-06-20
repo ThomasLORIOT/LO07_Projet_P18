@@ -26,6 +26,7 @@ function getCandidatures() {
     $myDB = connectPDO();
     $result = $myDB->query($requete);
     $i = 0;
+    $Candidature = Array();
     while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
         $Candidature[$i] = $row;
         $i++;
@@ -63,6 +64,7 @@ function getPropositionsLangues() {
     $myDB = connectPDO();
     $result = $myDB->query($requete);
     $i = 0;
+    $propLangues = Array();
     while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
         $propLangues[$i] = $row;
         $i++;
