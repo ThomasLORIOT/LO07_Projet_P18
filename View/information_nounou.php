@@ -65,7 +65,7 @@ include '../Functions/Functions.php';
                     <button class="btn btn-dark" onclick="location.href = 'home.php'">Retour</button>
                 </div>
                 <div class="col-sm-8 text-left"> 
-                    <h1>Informations de la nounou :</h1>
+                    <h1>Informations sur la nounou :</h1>
                     <hr>
                     <?php
                     if (isset($_POST['idNounou'])) {
@@ -80,7 +80,7 @@ include '../Functions/Functions.php';
                     }
                     ?>
                     <hr>
-                    <h3>Appréciations des gardes faites :</h3>
+                    <h3>Appréciations :</h3>
                     <?php
                     if (isset($_POST['idNounou'])) {
                         $temp = $_POST['idNounou'];

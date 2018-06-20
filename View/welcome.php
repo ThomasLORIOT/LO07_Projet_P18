@@ -42,7 +42,7 @@ and open the template in the editor.
                 </div>
                 <div class="col-sm-8">
                     <?php
-                    $message = "Un problème est survenue ! <br> Si cela persiste merci de contacter notre admin";
+                    $message = "Un problème est survenu ! <br> Si cela persiste merci de contacter notre admin";
                     message5Secondes($message, 'pb');
                     ?>
 

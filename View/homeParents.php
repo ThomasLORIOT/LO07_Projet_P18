@@ -80,7 +80,7 @@ $parent = new Parents($user->getIdParents());
                     <button type="button" class="btn" onclick="location.href = 'ajout_enfant.php'">+</button>
                     <button type="button" class="btn" onclick="location.href = 'enlever_enfant.php'">-</button>
                     <hr>
-                    <h3>Les garde de vos enfants</h3>
+                    <h3>Les gardes de vos enfants</h3>
                     <?php affiche($parent->getGarde()) ?>
                     <button type="button" class="btn" onclick="location.href = 'choix_garde_enfant.php'">+</button>
                     <button type="button" class="btn" onclick="location.href = 'enlever_garde_enfant.php'">-</button>

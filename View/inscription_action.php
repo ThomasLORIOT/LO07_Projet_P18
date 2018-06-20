@@ -30,7 +30,7 @@ else{
         header('Location: inscription_form.php?mail=1');
         exit();
     }
-    else{// si autre, retour acceuil avec mot problème connexion
+    else{// si autre, retour Accueil avec mot problème connexion
         header('Location: welcome.php?pb=1');
         exit();       
     }
