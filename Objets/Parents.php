@@ -85,7 +85,7 @@ class Parents {
     function addDB() {
         $result = FALSE;
         $myDB = connectDB();
-        $requete = "INSERT INTO parents(Ville, `Informations Générales`) VALUES ('".mysqli_real_escape_string($myDB, $this->Ville)."','".mysqli_real_escape_string($myDB, $this->InformationsGénérales)."')";
+        $requete = "INSERT INTO parents(Ville, `Informations Générales`) VALUES ('" . mysqli_real_escape_string($myDB, $this->Ville) . "','" . mysqli_real_escape_string($myDB, $this->InformationsGénérales) . "')";
         $res = mysqli_query($myDB, $requete);
         echo "<script>console.log('requete : $requete');</script><br>\n";
         if ($res) {
@@ -157,10 +157,8 @@ class Parents {
             $val = $value['idEnfants'];
             $requete2 = "SELECT e.Prénom, n.idNounous, Date, `Heure Début`, `Heure Fin` FROM enfants e NATURAL JOIN enfants_gardé as eg JOIN nounous n ON n.idNounous = eg.idNounous NATURAL JOIN horaires WHERE e.idEnfants = $val  AND Date > CURRENT_DATE() ORDER BY Date";
             $result = $myDB->query($requete2);
-            $i = 0;
             while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-                $listeGarde[$i] = $row;
-                $i++;
+                $listeGarde[] = $row;
             }
         }
         return $listeGarde;
