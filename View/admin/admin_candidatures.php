@@ -45,7 +45,7 @@ if (isset($_POST['idSup'])) {
         </nav>
 
         <div class="container-fluid text-center">    
-            <div class="row content">
+            <div class="row">
                 <div class="col-sm-2 sidenav">
                     <hr>
                     <button class="btn btn-outline-success my-2 my-sm-0" onclick="location.href = 'admin.php'">Retour</button>

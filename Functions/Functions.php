@@ -36,10 +36,11 @@ function message5Secondes($message, $declencheur) {
 
 function affiche($tab) {
     if (!empty($tab)) {
+        echo("<div class='table-responsive'>");
         echo("<table class='table'>\n");
         echo("<thead class='thead-light'> <tr>\n");
         foreach ($tab[0] as $key => $value) {
-            echo("<th> $key </th>\n");
+            echo("<th scope='col'> $key </th>\n");
         }
         echo("</tr> </thead>\n");
         echo("<tbody>\n");
@@ -52,6 +53,7 @@ function affiche($tab) {
         }
         echo("</tbody>\n");
         echo("</table>\n");
+        echo("</div>");
     } else {
         echo("Vous n'avez encore rien précisé.<br>\n");
     }
