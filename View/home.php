@@ -16,7 +16,7 @@ if (isset($_SESSION['nounouOUparents'])) {
     }
 } else {
     session_abort();
-    header('Location: connexion_form.php?pb=1');
+    header('Location: connexion_form.php');
     exit();
 }
 ?>

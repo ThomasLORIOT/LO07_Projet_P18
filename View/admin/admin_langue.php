@@ -59,7 +59,7 @@ if (isset($_POST['idSup'])) {
                     debutForm("POST", "admin_langue.php");
                     formInput("<h5 class='text-success'>Entrer idLangue à valider</h5>", "text", "idVal");
                     echo("<hr>");
-                    formInput("<h5 class='text-danger'>Entrer idangue à supprimer</h5>", "text", "idSup");
+                    formInput("<h5 class='text-danger'>Entrer idLangue à supprimer</h5>", "text", "idSup");
                     formAddSubmitReset();
                     finForm();
                     ?>

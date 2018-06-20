@@ -37,26 +37,6 @@ $parent = new Parents($user->getIdParents());
                     <li class="nav-item active">
                         <a class="nav-link" href="contact.php">Contact <span class="sr-only">(current)</span></a>
                     </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="home.php">Home <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Dropdown
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Something else here</a>
-                        </div>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled" href="#">Disabled</a>
-                    </li>
                 </ul>
                 <button class="btn btn-outline-success my-2 my-sm-0" onclick="location.href = 'deconnexion.php'">Déconnexion</button>
             </div>
@@ -65,7 +45,7 @@ $parent = new Parents($user->getIdParents());
         <div class="container-fluid text-center">    
             <div class="row content">
                 <div class="col-sm-2 sidenav">
-
+                    <img src="../include/images/famille.png" class="img-fluid" alt="Logo Famille Maison">
                 </div>
                 <div class="col-sm-8 text-left"> 
                     <h1>
@@ -87,6 +67,7 @@ $parent = new Parents($user->getIdParents());
                     
                 </div>
                 <div class="col-sm-2 sidenav">
+                    <hr>
                     <div class="well">
                         <?php
                         //formulaire pour voir la nounou

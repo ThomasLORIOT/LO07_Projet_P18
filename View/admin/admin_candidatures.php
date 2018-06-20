@@ -51,7 +51,14 @@ if (isset($_POST['idSup'])) {
                     <button class="btn btn-outline-success my-2 my-sm-0" onclick="location.href = 'admin.php'">Retour</button>
                 </div>
                 <div class="col-sm-8 text-left">
-                    <?php affiche(getCandidatures()) ?>
+                    <?php 
+                    $candidature=getCandidatures();
+                    if(empty($candidature)){
+                        echo("<hr><h4>Vous n'avez pas de candidatures</h4>");
+                    }else{
+                        affiche($candidature);
+                    }
+                    ?>
                 </div>
                 <div class="col-sm-2 sidenav">
                     <hr>

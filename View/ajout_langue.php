@@ -51,6 +51,7 @@
         <div class="container-fluid text-center">    
           <div class="row content">
             <div class="col-sm-2 sidenav">
+                <hr>
                 <button class="btn btn-default my-2 my-sm-0" onclick="location.href='home.php'">Retour</button>
             </div>
             <div class="col-sm-8 text-left">

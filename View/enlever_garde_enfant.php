@@ -37,26 +37,6 @@ $parent = new Parents($user->getIdParents());
                     <li class="nav-item active">
                         <a class="nav-link" href="contact.php">Contact <span class="sr-only">(current)</span></a>
                     </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="home.php">Home <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Dropdown
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Something else here</a>
-                        </div>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled" href="#">Disabled</a>
-                    </li>
                 </ul>
                 <button class="btn btn-outline-success my-2 my-sm-0" onclick="location.href = 'deconnexion.php'">Déconnexion</button>
             </div>
@@ -65,26 +45,34 @@ $parent = new Parents($user->getIdParents());
         <div class="container-fluid text-center">    
             <div class="row content">
                 <div class="col-sm-2 sidenav">
+                    <hr>
                     <button class="btn btn-dark" onclick="location.href = 'choix.php'">Retour</button>
                     <?php
                     if (isset($_POST['idHoraires']) && isset($_POST['idEnfants']) && isset($_POST['idNounous'])) {
-                            echo("<hr>");
-                            $idHoraires = $_POST['idHoraires'];
-                            $id = $_POST['idNounous'];
-                            $idEnfants = $_POST['idEnfants'];
-                            $requete3 = "DELETE FROM enfants_gardé WHERE idNounous=$id AND idHoraires = $idHoraires AND idEnfants = $idEnfants";
-                            $myDB2 = connectDB();
-                            requete($requete3);
-                            echo("La garde à été supprimée");
-                            unset($_POST['idHoraires']);
-                            unset($_POST['idNounous']);
-                            unset($_POST['idEnfants']);
-                        }
-                        ?>
+                        echo("<hr>");
+                        $idHoraires = $_POST['idHoraires'];
+                        $id = $_POST['idNounous'];
+                        $idEnfants = $_POST['idEnfants'];
+                        $requete3 = "DELETE FROM enfants_gardé WHERE idNounous=$id AND idHoraires = $idHoraires AND idEnfants = $idEnfants";
+                        $myDB2 = connectDB();
+                        requete($requete3);
+                        echo("La garde à été supprimée");
+                        unset($_POST['idHoraires']);
+                        unset($_POST['idNounous']);
+                        unset($_POST['idEnfants']);
+                    }
+                    ?>
                 </div>
                 <div class="col-sm-8 text-left"> 
                     <h1>Les gardes de vos enfants</h1>
-                    <?php affiche($parent->getGardeId()) ?>
+                    <?php
+                    $garde = $parent->getGardeId();
+                    if(empty($garde)){
+                        echo("<p>Vous n'avez aucune garde pour le moment</p>");
+                    }else{
+                        affiche($garde);
+                    }
+                    ?>
                 </div>
                 <div class="col-sm-2 sidenav">
                     <div class="well">

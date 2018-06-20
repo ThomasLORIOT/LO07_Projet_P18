@@ -24,6 +24,11 @@ $nounou = new Nounou($user->getIdNounous());
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> <!--load jquery avant js -->
         <script src="../include/bootstrap/js/bootstrap.min.js"></script>        
         <script type="text/javascript" src="../Functions/Functions_JS.js"></script>
+        <script src="//cdn.jsdelivr.net/webshim/1.14.5/polyfiller.js"></script>
+        <script>
+            webshims.setOptions('forms-ext', {types: 'date'});
+            webshims.polyfill('forms forms-ext');
+        </script>
     </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -39,24 +44,28 @@ $nounou = new Nounou($user->getIdNounous());
             </div>
         </nav>
 
-        <div class="container">
-            <h1 class="text-center">Ajouter une gardes</h1>
-            <hr>
+        <div class="container-fluid text-center">
             <div class="row">
                 <div class="col-sm-2">
+                    <hr>
                     <button class="btn btn-dark" onclick="location.href = 'choix.php'">Retour</button>
                 </div>
-                <div class="col-sm-8">
-
-
+                <div class="col-sm-8 text-left">
+                    <h1>Ajouter une garde</h1>
                     <?php
+                    $message = "<h4>La garde à bien été ajoutée.</h4><br> Les parents intéressés pourront choisir votre garde et ajouter leurs enfants.";
+                    message5Secondes($message, 'ajout');
+                    $non = "La garde n'a pas pu être ajoutée, vérifiez si vous avez correctement remplie le formulaire";
+                    message5Secondes($non, 'non');
+                    $vide = "Formulaire non rempli entièrement";
+                    message5Secondes($vide, 'vide');
                     //formulaire
                     debutForm("POST", "ajout_garde_action.php");
-                    formInput('Date (YYYY-mm-jj', 'text', 'date');
+                    formInput('Date', 'date', 'date');
                     $heureDispo = array();
-                    for ($i = 0 ; $i <= 24 ; $i++){
+                    for ($i = 0; $i <= 24; $i++) {
                         $heureDispo[] = "$i:00:00";
-                    }     
+                    }
                     formSelect('heureDébut', 'Heure de début', $heureDispo);
                     formSelect('heureFin', 'Heure de fin', $heureDispo);
                     echo("<label>Avec langue étrangère : oui</label>");
@@ -64,7 +73,7 @@ $nounou = new Nounou($user->getIdNounous());
                     echo("non");
                     Radio('langue', '0');
                     echo("<br>");
-                    formInput("Nombre d'enfants au maximum", 'number', 'enfantsMax');
+                    formInput("Nombre d'enfants au maximum", 'number', 'enfantsMax', "min='1' value='1'");
                     formAddSubmitReset();
                     finForm();
                     ?>

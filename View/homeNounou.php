@@ -44,11 +44,13 @@ $nounou = new Nounou($user->getIdNounous());
         <div class="container-fluid text-center">    
             <div class="row content">
                 <div class="col-sm-2 sidenav">
+                    <hr>
+                    <img src="../include/images/nounou.png" class="img-fluid" alt="Logo Nounou">
                 </div>
                 <div class="col-sm-8 text-left">
                     <h1>
                         <?php
-                        echo(ucfirst($user->getNom()));
+                        echo("Nounou ".ucfirst($user->getNom()));
                         echo(" " . ucfirst($nounou->getPrénom()));
                         ?>
                     </h1>
