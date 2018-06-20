@@ -97,7 +97,7 @@ class Nounou {
         }
     }
 
-    //écrire les portable comme ça "'0611223344'" sinon il supprime le premier 0
+//écrire les portable comme ça "'0611223344'" sinon il supprime le premier 0
     function __construct1($Prénom, $Portable, $Age, $Présentation, $Expérience) {
         $this->setAge($Age);
         $this->Prénom = $Prénom;
@@ -151,7 +151,7 @@ class Nounou {
         return $result;
     }
 
-    //de base toujours invisible à l'insertion
+//de base toujours invisible à l'insertion
     function updateDB() {
         $requete = "UPDATE nounous SET Prénom='$this->Prénom', Portable='$this->Portable', Age=$this->Age, Présentation='$this->Présentation', Expérience='$this->Expérience', Visible=$this->Visible WHERE idNounous = '$this->idNounous'";
         requete($requete);
@@ -162,23 +162,31 @@ class Nounou {
         requete($requete);
     }
 
-    //return le liste de gardes que la nounou va faire
+//return le liste de gardes que la nounou va faire
     function getGardeAVenir() {
-        $requete = "SELECT garde.idHoraires FROM garde NATURAL JOIN horaires WHERE garde.idNounous = $this->idNounous AND Date > CURRENT_DATE() ORDER BY Date";
-        $myDB = connectDB();
+        $requete = "SELECT horaires.idHoraires, Date, `Heure Début`, `Heure Fin`, Langue FROM garde NATURAL JOIN horaires WHERE garde.idNounous = $this->idNounous AND Date > CURRENT_DATE() ORDER BY Date";
+        $myDB = connectPDO();
         $result = $myDB->query($requete);
-        $row = mysqli_fetch_row($result);
-
         $ListeGarde = Array();
-        foreach ($row as $value) {
-            $ListeGarde[] = new Garde($this->idNounous, $value);
+        $i = 0;
+        while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+            $ListeGarde[$i]['Date'] = $row['Date'];
+            $ListeGarde[$i]['Heure Début'] = $row['Heure Début'];
+            $ListeGarde[$i]['Heure Fin'] = $row['Heure Fin'];
+            $ListeGarde[$i]['Langue'] = $row['Langue'];
+            $v = $row['idHoraires'];
+            $requete2 = "SELECT * FROM enfants_gardé WHERE idNounous=$this->idNounous AND idHoraires=$v";
+            $myDB2 = connectDB();
+            $resulta = $myDB2->query($requete2);
+            $ListeGarde[$i]['Enfants inscrits'] = $resulta->num_rows;
+
+            $i++;
         }
-        mysqli_close($myDB);
         return $ListeGarde;
     }
-    
+
     //return la liste de gardes que la nounou à déjà faite
-    function getGardeFini(){
+    function getGardeFini() {
         $requete = "SELECT garde.idHoraires FROM garde NATURAL JOIN horaires WHERE garde.idNounous = $this->idNounous AND Date < CURRENT_DATE() ORDER BY Date";
         $myDB = connectDB();
         $result = $myDB->query($requete);
@@ -197,42 +205,44 @@ class Nounou {
         $requete = "INSERT INTO parle VALUES ($idLangue, $this->idNounous, '$niveau')";
         requete($requete);
     }
+
     function addParleLangue($langue, $niveau) {
-        $requete = "SELECT idLangue FROM `langues` WHERE Nom='$langue'";
-        $myDB= connectDB();
-        $result =$myDB->query($requete);
+        $requete = "SELECT idLangue FROM `langues` WHERE Nom = '$langue'";
+        $myDB = connectDB();
+        $result = $myDB->query($requete);
         $row = mysqli_fetch_row($result);
-        self::addParle($row[0],$niveau);
+        self::addParle($row[0], $niveau);
     }
-    
+
     //drop à la db le fait que la nounou sait parlé une langue
     function dropParle($langue) {
-        $requete = "SELECT idLangue FROM `langues` WHERE Nom='$langue'";
-        $myDB= connectDB();
-        $result =$myDB->query($requete);
+        $requete = "SELECT idLangue FROM `langues` WHERE Nom = '$langue'";
+        $myDB = connectDB();
+        $result = $myDB->query($requete);
         $row = mysqli_fetch_row($result);
-        $requete = "DELETE FROM `parle` WHERE idLangue=$row[0] AND idNounous=$this->idNounous";
+        $requete = "DELETE FROM `parle` WHERE idLangue = $row[0] AND idNounous = $this->idNounous";
         requete($requete);
     }
 
     //return la liste des langues parlées de la nounou
     function getLangue() {
         $ListeLangue = Array();
-        $requete = "SELECT Nom,Niveau FROM parle NATURAL JOIN langues WHERE idNounous=$this->idNounous";
+        $requete = "SELECT Nom, Niveau FROM parle NATURAL JOIN langues WHERE idNounous = $this->idNounous";
         $myDB = connectDB();
         $result = $myDB->query($requete);
-        $i=0;
-        while($row = $result->fetch_assoc()){
-            $ListeLangue[$i]=$row;
+        $i = 0;
+        while ($row = $result->fetch_assoc()) {
+            $ListeLangue[$i] = $row;
             $i++;
         }
         mysqli_close($myDB);
         return $ListeLangue;
     }
-    
-    function addLangue($langue){
-        
+
+    function addLangue($langue) {
+
         $new = new Langue($langue, 0);
         $new->addDB();
     }
+
 }

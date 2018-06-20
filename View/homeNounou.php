@@ -61,6 +61,7 @@ $nounou = new Nounou($user->getIdNounous());
                     <hr>
 
                     <h3>Mes gardes</h3>
+                    <?php affiche($nounou->getGardeAVenir()); ?>
                     <button type="button" class="btn" onclick="location.href = 'ajout_garde.php'">+</button>
                     <button type="button" class="btn" onclick="location.href = 'enlever_garde.php'">-</button>
 
@@ -68,9 +69,6 @@ $nounou = new Nounou($user->getIdNounous());
                     <?php affiche($nounou->getLangue()); ?>
                     <button type="button" class="btn" onclick="location.href = 'ajout_langue.php'">+</button>
                     <button type="button" class="btn" onclick="location.href = 'enlever_langue.php'">-</button>
-
-                    <h3>Mon planning</h3>
-                    <p>Lorem ipsum...</p>
                 </div>
                 <div class="col-sm-2 sidenav">
                 </div>

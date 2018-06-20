@@ -17,7 +17,7 @@ $nounou = new Nounou($user->getIdNounous());
 -->
 <html>
     <head>
-        <title>Ajout garde</title>
+        <title>Enlever garde</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="../include/bootstrap/css/bootstrap.min.css">
@@ -40,33 +40,45 @@ $nounou = new Nounou($user->getIdNounous());
         </nav>
 
         <div class="container">
-            <h1 class="text-center">Ajouter une gardes</h1>
+            <h1 class="text-center">Vos gardes</h1>
             <hr>
             <div class="row">
                 <div class="col-sm-2">
                     <button class="btn btn-dark" onclick="location.href = 'choix.php'">Retour</button>
                 </div>
                 <div class="col-sm-8">
-
-
                     <?php
-                    //formulaire
-                    debutForm("POST", "ajout_garde_action.php");
-                    formInput('Date (YYYY-mm-jj', 'text', 'date');
-                    $heureDispo = array();
-                    for ($i = 0 ; $i <= 24 ; $i++){
-                        $heureDispo[] = "$i:00:00";
-                    }     
-                    formSelect('heureDébut', 'Heure de début', $heureDispo);
-                    formSelect('heureFin', 'Heure de fin', $heureDispo);
-                    echo("<label>Avec langue étrangère : oui</label>");
-                    Radio('langue', '1');
-                    echo("non");
-                    Radio('langue', '0');
-                    echo("<br>");
-                    formInput("Nombre d'enfants au maximum", 'number', 'enfantsMax');
-                    formAddSubmitReset();
+                    $id = $nounou->getIdNounous();
+                    $requete = "SELECT horaires.idHoraires, Date, `Heure Début`, `Heure Fin`, Langue FROM garde NATURAL JOIN horaires WHERE garde.idNounous = $id AND Date > CURRENT_DATE() ORDER BY Date";
+                    $myDB = connectPDO();
+                    $result = $myDB->query($requete);
+                    $ListeGarde = Array();
+                    $i = 0;
+                    while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+                    $ListeGarde[$i] = $row;
+                    $i++;
+                    }
+                    affiche($ListeGarde);
+                    ?>
+                </div>
+                <div class="col-sm-2 sidenav">
+                    <hr>
+                    <?php
+                    debutForm("POST", "enlever_garde.php");
+                    formInput("Entrer idHoraires de la garde à supprimer", "text", "idHoraires");
+                    formAddSubmitReset("Confirmer");
                     finForm();
+                    
+                    if(isset($_POST['idHoraires'])){
+                        $idHoraires = $_POST['idHoraires'];
+                        $requete3 = "DELETE FROM enfants_gardé WHERE idNounous=$id AND idHoraires = $idHoraires";
+                        $requete2 = "DELETE FROM garde WHERE idNounous=$id AND idHoraires = $idHoraires";
+                        $myDB2 = connectDB();
+                        requete($requete3);
+                        requete($requete2);
+                        echo("La garde à été supprimée");
+                        unset($_POST['idHoraires']);
+                    }
                     ?>
                 </div>
             </div>

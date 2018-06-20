@@ -17,7 +17,7 @@ $nounou = new Nounou($user->getIdNounous());
 -->
 <html>
     <head>
-        <title>Ajout langue</title>
+        <title>Ajout garde</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="../include/bootstrap/css/bootstrap.min.css">
@@ -52,14 +52,12 @@ $nounou = new Nounou($user->getIdNounous());
                         //crée l'horaire et la'ajouter à la DB, ne s'ajoute que si elle n'existe pas
                         $horaire = new Horaires($_POST['date'], $_POST['heureDébut'], $_POST['heureFin']);
                         $horaire->addDB();
-                        echo("horaire crée");
                         //recupérer l'id de l'horaire 
                         $myDB = connectDB();
                         $requete = "SELECT idHoraires FROM horaires WHERE Date = '".$_POST['date']."' AND `Heure Début` = '".$_POST['heureDébut']."' AND `Heure Fin` = '".$_POST['heureFin']."'";
                         $res2 = $myDB->query($requete);
                         $id = mysqli_fetch_assoc($res2);
                         $horaire->setIdHoraires($id['idHoraires']);
-                        debug($horaire);
                         //crée la garde et l'ajoute à la DB
                         $garde = new Garde($nounou->getIdNounous(), $horaire->getIdHoraires(), $_POST['langue'], $_POST['enfantsMax']);
                         if($garde->addDB()){
