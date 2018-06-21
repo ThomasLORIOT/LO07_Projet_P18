@@ -13,13 +13,13 @@ require_once '../../Functions/Functions_admin.php';
 ?>
 <!DOCTYPE html>
 <!--
-    Page home
+    Page d'acceuil admin
     
 
 -->
 <html>
     <head>
-        <title>Nounou</title>
+        <title>Admin</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="../../include/bootstrap/css/bootstrap.min.css">

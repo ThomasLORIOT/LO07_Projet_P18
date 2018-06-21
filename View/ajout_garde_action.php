@@ -31,4 +31,3 @@ if (isset($_POST['date']) && isset($_POST['heureDébut']) && isset($_POST['heure
     exit();
 }
 ?>
-

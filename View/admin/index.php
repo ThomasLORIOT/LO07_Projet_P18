@@ -1,5 +1,5 @@
 <?php
-//Renvoi sur welcome
+//Redirection
     header('Location: ../welcome.php');
   exit();
 ?>

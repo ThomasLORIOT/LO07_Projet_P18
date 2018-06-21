@@ -1,3 +1,5 @@
+//fonction pour afficher #validation quelque seconde 
+//utiliser avec la fonction message5Secondes de Functions.php
 function jsValidation(){
     $('#validation').show();
     $('#valider').hide();
@@ -5,6 +7,7 @@ function jsValidation(){
     $('#valider').delay(5000).fadeIn(1000);
 }
 
+//surligne un champ en cas d'erreur
 function surligne(champ, erreur){
    if(erreur)
       champ.style.backgroundColor = "#fba";
@@ -12,6 +15,7 @@ function surligne(champ, erreur){
       champ.style.backgroundColor = "";
 }
 
+//verifie un champ input
 function verif(champ){
    if(champ.value.length < 2 || champ.value.length > 25){
       surligne(champ, true);
@@ -22,6 +26,7 @@ function verif(champ){
       return true;
    }
 }
+//verifie le champ mail
 function verifMail(champ){
    var regex = /^[a-zA-Z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$/;
    if(!regex.test(champ.value))   {
@@ -33,6 +38,7 @@ function verifMail(champ){
       return true;
    }
 }
+//verifie le champ age
 function verifAge(champ){
    var valeur=true;
    var age = parseInt(champ.value);
@@ -45,6 +51,7 @@ function verifAge(champ){
    }
    return valeur;
 }
+
 function verifTel(champ){
    var tel = parseInt(champ.value);
    if(isNaN(tel) || champ.value.length !=10){
@@ -56,6 +63,7 @@ function verifTel(champ){
       return true;
    }
 }
+
 function verifTextArea(champ,taille){
    if(champ.value.length < taille){
       surligne(champ, true);
@@ -66,10 +74,6 @@ function verifTextArea(champ,taille){
       return true;
    }
 }
-
-
-
-
 
 function verifFormInscription(f){
    var nomOk = verif(f.nom);

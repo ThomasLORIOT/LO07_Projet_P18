@@ -16,13 +16,13 @@ if (isset($_POST['idSup'])) {
 ?>
 <!DOCTYPE html>
 <!--
-    Page home
+    Page admin poour la gestion des candidatures
     
 
 -->
 <html>
     <head>
-        <title>Nounou</title>
+        <title>Admin</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="../../include/bootstrap/css/bootstrap.min.css">

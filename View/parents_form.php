@@ -1,3 +1,7 @@
+<!--
+    Formulaire pour devenir parents
+
+-->
 <html>
     <head>
         <title>Parents - Formulaire</title>

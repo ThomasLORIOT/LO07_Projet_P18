@@ -11,7 +11,7 @@ $parent = new Parents($user->getIdParents());
 
 <!DOCTYPE html>
 <!--
-    Page home
+    Page parents pour enlever un enfant d'une garde
     
 
 -->

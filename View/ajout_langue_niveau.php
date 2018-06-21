@@ -21,7 +21,7 @@
 
 <!DOCTYPE html>
 <!--
-    Page home
+    Page nounou pour l'ajout du niveau de la langue
     
 
 -->

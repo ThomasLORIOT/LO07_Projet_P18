@@ -10,7 +10,7 @@ $nounou = new Nounou($user->getIdNounous());
 
 <!DOCTYPE html>
 <!--
-    Page home
+    Page acccueil Nounou
     
 
 -->

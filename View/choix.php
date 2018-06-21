@@ -8,6 +8,11 @@ if (isset($_SESSION['connexion'])) {
 }
 ?>
 <html>
+    <!DOCTYPE html>
+<!--
+    Page de choix entre nounou et parents
+
+-->
     <head>
         <title>Choix</title>
         <meta charset="UTF-8">

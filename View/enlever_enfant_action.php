@@ -10,7 +10,7 @@ $parent = new Parents($user->getIdParents());
 
 <!DOCTYPE html>
 <!--
-    Page home
+    Page parents action enlevage enfant
     
 
 -->

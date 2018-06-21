@@ -10,7 +10,7 @@ $parent = new Parents($user->getIdParents());
 
 <!DOCTYPE html>
 <!--
-    Page home
+    Page parents pour l'action de l'ajout des enfants
     
 
 -->

@@ -28,7 +28,7 @@ function finForm(){
 }
 
 
-//$nom est le label et le nom de la variable, $tab est la liste des options.
+//champ select pour formulaire
 function formSelect($id,$label, $tab, $text='') {
         echo("<label for=$id class='control-label'>$label</label>\n");
         echo("<select class='form-control' name=$id id=$id $text>\n");
@@ -38,8 +38,7 @@ function formSelect($id,$label, $tab, $text='') {
         echo("</select>");
     }
     
-//$nom est le label et le nom de la variable, $type est le type d'input souhaité.
-
+//champ input pour formulaire
 function formInput($label, $type, $id, $text=''){
     echo("<label for='$id' class='control-label'>$label</label>\n");
     echo("<input id='$id' class='form-control' type='$type' name='$id' $text/>\n");
@@ -51,6 +50,7 @@ function formAddSubmitReset(){
     echo("<button id='effacer' class='btn btn-default' type='reset'>Effacer</button>\n");
 }
 
+//champ textArea pour formulaire
 function textArea($id,$textDefault,$rows,$cols,$text){
     echo("<label for='$id' class='control-label'></label>\n");
     echo("<textarea class='form-control' name=$id id=$id  rows=$rows cols=$cols onfocus='this.select()' $text>$textDefault</textarea>\n");

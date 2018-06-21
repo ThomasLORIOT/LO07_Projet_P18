@@ -9,7 +9,7 @@ if (isset($_SESSION['connexion'])) {
 ?>
 <!--
     Formulaire de connexion, renvoi les infos vers connexion_acion.php
-    //$_SESSION contient : connexion (true or false) idIdentifiant , nounouOUparents
+    //$_SESSION contient : connexion (true or false) idIdentifiant , nounouOUparents (contient soit nounou soit parents), admin
 -->
 <html>
     <head>

@@ -1,4 +1,6 @@
 <?php
+//Fonction utiliser par l'admin
+
 
 require_once 'Functions_SQL.php';
 

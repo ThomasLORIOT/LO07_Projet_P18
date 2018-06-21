@@ -1,5 +1,5 @@
 <?php
-//Renvoi sur welcome
+//Renvoi sur view/welcome
     header('Location: view/welcome.php');
   exit();
 ?>

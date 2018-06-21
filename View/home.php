@@ -1,4 +1,5 @@
 <?php
+//page de redirection
 session_start();
 
 if (isset($_SESSION['nounouOUparents'])) {
